@@ -1,4 +1,4 @@
 packages:
-  - cli
-  - core
-  - cron
+  - packages/cli
+  - packages/core
+  - packages/cron
