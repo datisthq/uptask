@@ -3,7 +3,7 @@ import type { ILogger } from "./logger.ts"
 // TODO: implement retries/timeout/fail-silent/etc
 export abstract class Task<IConfig = Record<string, any>> {
   abstract name: string
-  abstract type: "task" | "flow"
+  type = "task"
   #config: Partial<IConfig> = {}
   #logger?: ILogger
 
