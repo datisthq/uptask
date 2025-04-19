@@ -2,12 +2,13 @@ import { describe, expect, it } from "vitest"
 import { TestTask } from "../../fixtures/TestTask.ts"
 import { findTask } from "../findTask.ts"
 
+// Define a task with an ID property for testing the findTask function
 class IdentifiableTask extends TestTask<{ value: string }> {
-  constructor(
-    public override name: string,
-    public id: string,
-  ) {
+  id: string
+
+  constructor(name: string, id: string) {
     super(name)
+    this.id = id
   }
 }
 
