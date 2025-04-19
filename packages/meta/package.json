@@ -1,5 +1,5 @@
 {
-  "name": "uptask",
+  "name": "@uptask/meta",
   "type": "module",
   "version": "0.1.0",
   "scripts": {},
