@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "scripts": {},
   "dependencies": {
-    "p-all": "5.0.0",
-    "p-retry": "6.2.1",
-    "p-timeout": "6.1.4"
+    "p-all": "^5.0.0",
+    "p-retry": "^6.2.1",
+    "p-timeout": "^6.1.4"
   }
 }
