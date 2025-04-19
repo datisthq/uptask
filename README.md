@@ -10,8 +10,17 @@ Primitives and helpers for running tasks in TypeScript with support for logging,
 
 ## Installation
 
+### All-in-one package
+
 ```bash
-# Install core package
+# Install everything in one package
+npm install @uptask/meta
+```
+
+### Individual packages
+
+```bash
+# Install core package only
 npm install @uptask/core
 
 # Optional CLI support
@@ -24,7 +33,23 @@ npm install @uptask/cron
 With pnpm:
 
 ```bash
+# All-in-one
+pnpm add @uptask/meta
+
+# Or individual packages
 pnpm add @uptask/core @uptask/cli @uptask/cron
+```
+
+## Meta
+
+The meta package re-exports all functionality from following packages:
+
+- `@uptask/core`
+- `@uptask/cli`
+- `@uptask/cron`
+
+```typescript
+import { Task, createTasks, findTask, batchFunctions, runTaskInCli, scheduleTasks } from '@uptask/meta'
 ```
 
 ## Core
@@ -67,8 +92,8 @@ await specificTask.run({ retries: 3, timeout: 5000 })
 The CLI package provides command-line interface support for your tasks.
 
 ```typescript
+import { createTasks, Task } from '@uptask/core'
 import { runTaskInCli } from '@uptask/cli'
-import { createTasks } from '@uptask/core'
 import { MyTask, OtherTask } from './tasks.ts'
 
 // Create the task registry
@@ -90,8 +115,8 @@ node script.js myTask --config '{"input":"value"}'
 The cron package provides scheduling capabilities for your tasks.
 
 ```typescript
-import { scheduleTasks } from '@uptask/cron'
-import { createTasks } from '@uptask/core'
+import { createTasks } from 'uptask/core'
+import { scheduleTasks } from 'uptask/cron'
 import { DailyTask, HourlyTask } from './tasks.ts'
 
 // Create the task registry
@@ -112,7 +137,7 @@ scheduleTasks({
 ### Task with Retries and Timeout
 
 ```typescript
-import { Task } from '@uptask/core'
+import { Task } from 'uptask' // or from '@uptask/core'
 
 class ApiTask extends Task {
   name = "apiRequest"
@@ -135,7 +160,7 @@ await task.run({ retries: 3, timeout: 10000 })
 ### Batch Processing
 
 ```typescript
-import { batchFunctions } from '@uptask/core'
+import { batchFunctions } from 'uptask' // or from '@uptask/core'
 
 // Process items in batches with limited concurrency
 async function processItems(items) {
@@ -149,8 +174,8 @@ async function processItems(items) {
 It is a common approach to group tasks into flows for better organization and management.
 
 ```typescript
-import { createTasks, batchFunctions } from '@uptask/core'
-import { scheduleTasks } from '@uptask/cron'
+import { createTasks, batchFunctions, Task } from 'uptask' // or from '@uptask/core'
+import { scheduleTasks } from 'uptask' // or from '@uptask/cron'
 import { MyTask, OtherTask } from './tasks.ts'
 
 class MyFlow extends Task {
@@ -173,7 +198,7 @@ const flows = createTasks([MyFlow])
 
 scheduleTasks({
   "0 0 * * *": flows.myFlow,    // Run daily at midnight
-},
+})
 ```
 
 ## Contributing

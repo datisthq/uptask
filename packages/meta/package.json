@@ -1,0 +1,11 @@
+{
+  "name": "@uptask/meta",
+  "type": "module",
+  "version": "0.1.0",
+  "scripts": {},
+  "dependencies": {
+    "@uptask/core": "workspace:*",
+    "@uptask/cli": "workspace:*",
+    "@uptask/cron": "workspace:*"
+  }
+}

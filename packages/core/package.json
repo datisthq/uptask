@@ -2,10 +2,6 @@
   "name": "@uptask/core",
   "type": "module",
   "version": "0.1.0",
-  "engines": {
-    "node": "^22.0.0",
-    "pnpm": "^10.0.0"
-  },
   "scripts": {},
   "dependencies": {
     "p-all": "5.0.0",

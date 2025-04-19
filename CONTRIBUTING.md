@@ -1,4 +1,4 @@
-# Contributing
+# Contributing to UpTask
 
 Thank you for your interest in contributing to UpTask! This document provides guidelines and instructions for contributing to this project.
 
@@ -9,6 +9,7 @@ UpTask is a modular task management library organized as a monorepo with the fol
 - `@uptask/core`: Core functionality with task management and utilities
 - `@uptask/cli`: Command-line interface for running tasks
 - `@uptask/cron`: Cron scheduling functionality for tasks
+- `@uptask/meta`: Meta-package that re-exports all functionality from core, CLI, and cron
 
 ## Development Environment
 
@@ -39,9 +40,10 @@ UpTask is a modular task management library organized as a monorepo with the fol
 
 - Work on a specific package:
   ```bash
-  pnpm core <command>  # Core package commands
-  pnpm cli <command>   # CLI package commands
-  pnpm cron <command>  # Cron package commands
+  pnpm core <command>    # Core package commands
+  pnpm cli <command>     # CLI package commands
+  pnpm cron <command>    # Cron package commands
+  pnpm uptask <command>  # Meta package commands
   ```
 
 ## Development Workflow
@@ -105,6 +107,7 @@ pnpm run bump
     - `models/`: Core data structures
   - `cli/`: Command-line interface
   - `cron/`: Scheduling functionality
+  - `uptask/`: Meta-package that re-exports from other packages
 - `__spec__/`: Test files (found within each package)
 
 ## Code Style Guidelines
@@ -114,6 +117,14 @@ pnpm run bump
 - Tests should be placed in `__spec__` directories
 - Use semicolons as needed (not required everywhere)
 - Use arrow function parentheses as needed (omitted for single parameters)
+
+## Making Changes to the Meta-Package
+
+When adding new functionality:
+
+1. Add it to the appropriate package first (`core`, `cli`, or `cron`)
+2. Ensure it's properly exported from that package
+3. No additional work is needed for the meta-package as it automatically re-exports everything
 
 ## Submitting Changes
 

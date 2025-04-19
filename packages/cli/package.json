@@ -2,10 +2,6 @@
   "name": "@uptask/cli",
   "type": "module",
   "version": "0.1.0",
-  "engines": {
-    "node": "^22.0.0",
-    "pnpm": "^10.0.0"
-  },
   "scripts": {},
   "dependencies": {
     "commander": "^13.1.0"

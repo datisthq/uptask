@@ -18,6 +18,7 @@
     "cli": "pnpm -F cli",
     "core": "pnpm -F core",
     "cron": "pnpm -F cron",
+    "uptask": "pnpm -F uptask",
     "prepare": "husky"
   },
   "dependencies": {
