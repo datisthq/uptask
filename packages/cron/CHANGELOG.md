@@ -1,5 +1,13 @@
 # @uptask/cron
 
+## 0.2.3
+
+### Patch Changes
+
+- d88bd78: Fixed main import file
+- Updated dependencies [d88bd78]
+  - @uptask/core@0.2.2
+
 ## 0.2.2
 
 ### Patch Changes
