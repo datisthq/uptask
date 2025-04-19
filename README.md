@@ -51,7 +51,7 @@ The meta package `@uptask/meta` re-exports all functionality from following pack
 - `@uptask/cron`
 
 ```typescript
-import { Task } from '@uptask/meta'
+import { Task, runTaskInCli, scheduleTasks } from '@uptask/meta' // and others
 ```
 
 ## Core
