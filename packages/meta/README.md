@@ -1,4 +1,4 @@
-# @uptask/meta
+# uptask
 
 Core task management library for UpTask with support for retries, timeouts, and batch processing.
 

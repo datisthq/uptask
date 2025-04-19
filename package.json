@@ -1,6 +1,7 @@
 {
   "name": "uptask",
   "type": "module",
+  "private": true,
   "version": "0.1.0",
   "engines": {
     "node": "^22.0.0",
@@ -12,14 +13,14 @@
     "format": "biome check --write",
     "init": "husky init",
     "lint": "biome check",
+    "prepare": "husky",
     "spec": "vitest run",
     "test": "pnpm check && pnpm run spec",
     "type": "tsc",
     "cli": "pnpm -F cli",
     "core": "pnpm -F core",
     "cron": "pnpm -F cron",
-    "uptask": "pnpm -F uptask",
-    "prepare": "husky"
+    "meta": "pnpm -F uptask"
   },
   "dependencies": {
     "ts-extras": "^0.13.0"

@@ -14,7 +14,7 @@ Primitives and helpers for running tasks in TypeScript with support for logging,
 
 ```bash
 # Install everything in one package
-npm install @uptask/meta
+npm install uptask
 ```
 
 ### Individual packages
@@ -34,7 +34,7 @@ With pnpm:
 
 ```bash
 # All-in-one
-pnpm add @uptask/meta
+pnpm add uptask
 
 # Or individual packages
 pnpm add @uptask/core @uptask/cli @uptask/cron
@@ -42,7 +42,7 @@ pnpm add @uptask/core @uptask/cli @uptask/cron
 
 ## Meta
 
-The meta package re-exports all functionality from following packages:
+The meta package `uptask` re-exports all functionality from following packages:
 
 - `@uptask/core`
 - `@uptask/cli`
@@ -137,7 +137,7 @@ scheduleTasks({
 ### Task with Retries and Timeout
 
 ```typescript
-import { Task } from 'uptask' // or from '@uptask/core'
+import { Task } from '@uptask/core'
 
 class ApiTask extends Task {
   name = "apiRequest"
@@ -160,7 +160,7 @@ await task.run({ retries: 3, timeout: 10000 })
 ### Batch Processing
 
 ```typescript
-import { batchFunctions } from 'uptask' // or from '@uptask/core'
+import { batchFunctions } from '@uptask/core'
 
 // Process items in batches with limited concurrency
 async function processItems(items) {
@@ -174,8 +174,8 @@ async function processItems(items) {
 It is a common approach to group tasks into flows for better organization and management.
 
 ```typescript
-import { createTasks, batchFunctions, Task } from 'uptask' // or from '@uptask/core'
-import { scheduleTasks } from 'uptask' // or from '@uptask/cron'
+import { createTasks, batchFunctions, Task } from '@uptask/core'
+import { scheduleTasks } from '@uptask/cron'
 import { MyTask, OtherTask } from './tasks.ts'
 
 class MyFlow extends Task {

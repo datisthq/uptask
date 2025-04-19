@@ -67,6 +67,18 @@ importers:
         specifier: ^3.1.7
         version: 3.1.7
 
+  packages/meta:
+    dependencies:
+      '@uptask/cli':
+        specifier: workspace:*
+        version: link:../cli
+      '@uptask/core':
+        specifier: workspace:*
+        version: link:../core
+      '@uptask/cron':
+        specifier: workspace:*
+        version: link:../cron
+
 packages:
 
   '@ampproject/remapping@2.3.0':
