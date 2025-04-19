@@ -1,66 +1,17 @@
-import { describe, expect, it, vi } from "vitest"
-import type { ILogger } from "../../models/logger.ts"
-import { Task } from "../../models/task.ts"
+import { describe, expect, it } from "vitest"
+import { TestTask } from "../../fixtures/TestTask.ts"
 import { createTasks } from "../createTasks.ts"
 
-class FirstTask extends Task {
-  name = "first-task"
-
-  createLogger(): ILogger {
-    return {
-      trace: vi.fn(),
-      debug: vi.fn(),
-      info: vi.fn(),
-      warn: vi.fn(),
-      error: vi.fn(),
-      fatal: vi.fn(),
-      child: vi.fn(),
-    }
-  }
-
-  async makeComplete(): Promise<void> {
-    return Promise.resolve()
-  }
+class FirstTask extends TestTask {
+  override name = "first-task"
 }
 
-class SecondTask extends Task<{ value: string }> {
-  name = "second-task"
-
-  createLogger(): ILogger {
-    return {
-      trace: vi.fn(),
-      debug: vi.fn(),
-      info: vi.fn(),
-      warn: vi.fn(),
-      error: vi.fn(),
-      fatal: vi.fn(),
-      child: vi.fn(),
-    }
-  }
-
-  async makeComplete(): Promise<void> {
-    return Promise.resolve()
-  }
+class SecondTask extends TestTask<{ value: string }> {
+  override name = "second-task"
 }
 
-class ThirdTask extends Task {
-  name = "third-task"
-
-  createLogger(): ILogger {
-    return {
-      trace: vi.fn(),
-      debug: vi.fn(),
-      info: vi.fn(),
-      warn: vi.fn(),
-      error: vi.fn(),
-      fatal: vi.fn(),
-      child: vi.fn(),
-    }
-  }
-
-  async makeComplete(): Promise<void> {
-    return Promise.resolve()
-  }
+class ThirdTask extends TestTask {
+  override name = "third-task"
 }
 
 describe("createTasks", () => {

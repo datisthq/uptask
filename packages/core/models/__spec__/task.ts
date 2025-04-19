@@ -1,32 +1,11 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import type { ILogger } from "../logger.ts"
-import { Task } from "../task.ts"
-
-class TestTask extends Task<{ test: string }> {
-  name = "test-task"
-
-  createLogger(): ILogger {
-    return {
-      trace: vi.fn(),
-      debug: vi.fn(),
-      info: vi.fn(),
-      warn: vi.fn(),
-      error: vi.fn(),
-      fatal: vi.fn(),
-      child: vi.fn(),
-    }
-  }
-
-  async makeComplete(): Promise<void> {
-    return Promise.resolve()
-  }
-}
+import { TestTask } from "../../fixtures/TestTask.ts"
 
 describe("Task", () => {
-  let task: TestTask
+  let task: TestTask<{ test: string }>
 
   beforeEach(() => {
-    task = new TestTask()
+    task = new TestTask<{ test: string }>()
     vi.clearAllMocks()
   })
 

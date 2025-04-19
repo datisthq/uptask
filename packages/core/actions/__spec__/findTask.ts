@@ -1,38 +1,21 @@
-import { describe, expect, it, vi } from "vitest"
-import type { ILogger } from "../../models/logger.ts"
-import { Task } from "../../models/task.ts"
+import { describe, expect, it } from "vitest"
+import { TestTask } from "../../fixtures/TestTask.ts"
 import { findTask } from "../findTask.ts"
 
-class TestTask extends Task<{ value: string }> {
+class IdentifiableTask extends TestTask<{ value: string }> {
   constructor(
     public override name: string,
     public id: string,
   ) {
-    super()
-  }
-
-  createLogger(): ILogger {
-    return {
-      trace: vi.fn(),
-      debug: vi.fn(),
-      info: vi.fn(),
-      warn: vi.fn(),
-      error: vi.fn(),
-      fatal: vi.fn(),
-      child: vi.fn(),
-    }
-  }
-
-  async makeComplete(): Promise<void> {
-    return Promise.resolve()
+    super(name)
   }
 }
 
 describe("findTask", () => {
   const tasks = {
-    task1: new TestTask("task-one", "1"),
-    task2: new TestTask("task-two", "2"),
-    task3: new TestTask("task-three", "3"),
+    task1: new IdentifiableTask("task-one", "1"),
+    task2: new IdentifiableTask("task-two", "2"),
+    task3: new IdentifiableTask("task-three", "3"),
   }
 
   it("should find a task by name", () => {
