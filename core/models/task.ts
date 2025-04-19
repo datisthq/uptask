@@ -1,6 +1,6 @@
-import type { ILogger } from "./logger.ts"
 import pRetry from "p-retry"
 import pTimeout from "p-timeout"
+import type { ILogger } from "./logger.ts"
 
 // TODO: implement retries/timeout/fail-silent/etc
 export abstract class Task<IConfig = Record<string, any>> {
