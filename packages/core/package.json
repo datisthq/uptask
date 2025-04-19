@@ -1,8 +1,7 @@
 {
   "name": "@uptask/core",
   "type": "module",
-  "version": "0.1.0",
-  "scripts": {},
+  "version": "0.2.0",
   "dependencies": {
     "p-all": "^5.0.0",
     "p-retry": "^6.2.1",
