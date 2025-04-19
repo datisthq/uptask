@@ -10,14 +10,15 @@
     "bump": "ncu -ws -u",
     "check": "pnpm run lint && pnpm run type",
     "format": "biome check --write",
-    "init": "husky install",
+    "init": "husky init",
     "lint": "biome check",
     "spec": "vitest run",
     "test": "pnpm check && pnpm run spec",
     "type": "tsc",
     "cli": "pnpm -F cli",
     "core": "pnpm -F core",
-    "cron": "pnpm -F cron"
+    "cron": "pnpm -F cron",
+    "prepare": "husky"
   },
   "dependencies": {
     "ts-extras": "^0.13.0"
