@@ -1,0 +1,125 @@
+import { createTasks } from "@uptask/core"
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
+import { TestCLITask } from "../../fixtures/TestCLITask.ts"
+import { runTaskInCli } from "../runTaskInCli.ts"
+
+// Define task classes for testing
+class Task1 extends TestCLITask {
+  override name = "task1"
+}
+
+class Task2 extends TestCLITask<{ option: string }> {
+  override name = "task2"
+}
+
+class Task3 extends TestCLITask {
+  override name = "task3"
+}
+
+// Define specific task map type for better type safety
+type TestTaskMap = {
+  task1: Task1
+  task2: Task2
+  task3: Task3
+  [key: string]: TestCLITask
+}
+
+describe("runTaskInCli", () => {
+  let tasks: TestTaskMap
+  let mockExit: any
+
+  beforeEach(() => {
+    // Create tasks and cast to our specific type to help TypeScript
+    tasks = createTasks([Task1, Task2, Task3]) as unknown as TestTaskMap
+
+    // Mock process.exit to prevent tests from exiting
+    mockExit = vi.spyOn(process, "exit").mockImplementation(code => {
+      throw new Error(`Process exit called with code: ${code}`)
+    })
+  })
+
+  afterEach(() => {
+    vi.clearAllMocks()
+    mockExit.mockRestore()
+  })
+
+  it("should run the specified task by name", async () => {
+    const argv = ["node", "script.js", "task1"]
+
+    await runTaskInCli(tasks, { argv })
+
+    expect(tasks.task1.runMock).toHaveBeenCalledTimes(1)
+    expect(tasks.task2.runMock).not.toHaveBeenCalled()
+    expect(tasks.task3.runMock).not.toHaveBeenCalled()
+  })
+
+  it("should throw error when task is not found", async () => {
+    const argv = ["node", "script.js", "non-existent-task"]
+
+    await expect(runTaskInCli(tasks, { argv })).rejects.toThrow(
+      "Task not found",
+    )
+  })
+
+  it("should pass config to the task", async () => {
+    const argv = [
+      "node",
+      "script.js",
+      "task2",
+      "--config",
+      '{"option":"test-value"}',
+    ]
+    const updateConfigSpy = vi.spyOn(tasks.task2, "updateConfig")
+
+    await runTaskInCli(tasks, { argv })
+
+    expect(updateConfigSpy).toHaveBeenCalledWith({ option: "test-value" })
+    expect(tasks.task2.runMock).toHaveBeenCalledTimes(1)
+  })
+
+  it("should handle invalid JSON in config", async () => {
+    const argv = ["node", "script.js", "task2", "--config", "invalid-json"]
+
+    await expect(runTaskInCli(tasks, { argv })).rejects.toThrow()
+  })
+
+  it("should handle task execution failure", async () => {
+    const argv = ["node", "script.js", "task3"]
+    const error = new Error("Task execution failed")
+    tasks.task3.runMock.mockRejectedValueOnce(error)
+
+    await expect(runTaskInCli(tasks, { argv })).rejects.toThrow(
+      "Task execution failed",
+    )
+  })
+
+  it("should use process.argv when config.argv is not provided", async () => {
+    const originalArgv = process.argv
+
+    try {
+      process.argv = ["node", "script.js", "task1"]
+
+      await runTaskInCli(tasks)
+
+      expect(tasks.task1.runMock).toHaveBeenCalledTimes(1)
+    } finally {
+      process.argv = originalArgv
+    }
+  })
+
+  it("should handle short form config option -c", async () => {
+    const argv = [
+      "node",
+      "script.js",
+      "task2",
+      "-c",
+      '{"option":"short-option"}',
+    ]
+    const updateConfigSpy = vi.spyOn(tasks.task2, "updateConfig")
+
+    await runTaskInCli(tasks, { argv })
+
+    expect(updateConfigSpy).toHaveBeenCalledWith({ option: "short-option" })
+    expect(tasks.task2.runMock).toHaveBeenCalledTimes(1)
+  })
+})
