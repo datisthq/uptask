@@ -1,5 +1,12 @@
 # @uptask/meta
 
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [486f6b7]
+  - @uptask/cron@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes
