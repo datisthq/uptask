@@ -2,6 +2,7 @@
   "name": "@uptask/cli",
   "type": "module",
   "version": "0.2.1",
+  "main": "index.ts",
   "dependencies": {
     "commander": "^13.1.0"
   },
