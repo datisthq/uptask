@@ -1,5 +1,11 @@
 # @uptask/cron
 
+## 0.2.2
+
+### Patch Changes
+
+- 486f6b7: Make scheduling config optional
+
 ## 0.2.1
 
 ### Patch Changes
