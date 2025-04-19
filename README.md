@@ -1,12 +1,12 @@
 # UpTask
 
-Primitives and helpers for running tasks in TypeScript with support for retries, timeouts, CLI integration, and scheduling.
+Primitives and helpers for running tasks in TypeScript with support for logging, retries, timeouts, CLI integration, and scheduling.
 
 ## Prerequisites
 
 - **Node.js**: v24+ or Deno/Bun (not tested)
 
-> **Note:** UpTask is shipped as a pure TypeScript library without a build artifacts. You can import the code into your project build workflow or run it directly with Node v24+ that support direct TypeScript execution.
+> **Note:** UpTask is shipped as a pure TypeScript library without a build artifacts. You can import the code into your project build workflow or run it with Node v24+ that support direct TypeScript execution.
 
 ## Installation
 
@@ -115,7 +115,7 @@ scheduleTasks({
 import { Task } from '@uptask/core'
 
 class ApiTask extends Task {
-  name = "api-request"
+  name = "apiRequest"
 
   createLogger() {
     return console
@@ -166,6 +166,8 @@ class MyFlow extends Task {
       () => tasks.myTask.run({retries: 3, timeout: 10000}),
       tasks.otherTask.run,
     ], { concurrency: 5 })
+  }
+}
 
 const flows = createTasks([MyFlow])
 
