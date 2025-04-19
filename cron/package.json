@@ -8,7 +8,7 @@
   },
   "scripts": {},
   "dependencies": {
-    "cron": "3.1.7"
+    "cron": "^3.1.7"
   },
   "peerDependencies": {
     "@uptask/core": "workspace:*"

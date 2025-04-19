@@ -1,4 +1,6 @@
 import type { ILogger } from "./logger.ts"
+import pRetry from "p-retry"
+import pTimeout from "p-timeout"
 
 // TODO: implement retries/timeout/fail-silent/etc
 export abstract class Task<IConfig = Record<string, any>> {
@@ -22,16 +24,22 @@ export abstract class Task<IConfig = Record<string, any>> {
     this.#config = { ...this.#config, ...config }
   }
 
-  async run() {
+  abstract makeComplete(): Promise<void>
+
+  // TODO: implement retries logging
+  async run(props?: { retries?: number; timeout?: number }) {
+    const retries = props?.retries ?? 0
+    const timeout = props?.timeout ?? Number.POSITIVE_INFINITY
+
     this.logger.info(`Started ${this.type}: ${this.name}`)
     try {
-      await this.makeComplete()
+      await pTimeout(pRetry(this.makeComplete.bind(this), { retries }), {
+        milliseconds: timeout,
+      })
       this.logger.info(`Finised ${this.type}: ${this.name}`)
     } catch (error) {
       this.logger.error(`Errored ${this.type}: ${this.name}`, { error })
       throw error
     }
   }
-
-  abstract makeComplete(): Promise<void>
 }

@@ -1,5 +1,5 @@
-import { CronJob } from "cron"
 import type { Task } from "@uptask/core"
+import { CronJob } from "cron"
 import { objectEntries } from "ts-extras"
 
 export async function scheduleTasks(

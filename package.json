@@ -14,10 +14,13 @@
     "lint": "biome check",
     "spec": "vitest run",
     "test": "pnpm check && pnpm run spec",
-    "type": "tsc"
+    "type": "tsc",
+    "cli": "pnpm -F cli",
+    "core": "pnpm -F core",
+    "cron": "pnpm -F cron"
   },
   "dependencies": {
-    "ts-extras": "0.13.0"
+    "ts-extras": "^0.13.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
