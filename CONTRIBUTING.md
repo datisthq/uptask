@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for your interest in contributing to `uptask`! This document provides guidelines and instructions for contributing to this project.
+Thank you for your interest in contributing to UpTask! This document provides guidelines and instructions for contributing to this project.
 
 ## Project Overview
 
