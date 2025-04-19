@@ -1,6 +1,6 @@
 # @uptask/cron
 
-Core task management library for UpTask with support for retries, timeouts, and batch processing.
+Primitives and helpers for running tasks in TypeScript with support for logging, retries, timeouts, CLI integration, and scheduling.
 
 ## Documentation
 
