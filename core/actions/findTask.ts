@@ -1,5 +1,5 @@
 import { objectEntries } from "ts-extras"
-import type { Task } from "../task.ts"
+import type { Task } from "../models/task.ts"
 
 export function findTask<T extends Task>(
   tasks: Record<string, T>,

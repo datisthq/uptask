@@ -3,8 +3,9 @@ import { Command } from "commander"
 
 export async function runTaskInCli(
   tasks: Record<string, Task>,
-  props: { argv: string[] },
+  config?: { argv?: string[] },
 ) {
+  const argv = config?.argv ?? process.argv
   const program = new Command()
 
   program
@@ -18,5 +19,5 @@ export async function runTaskInCli(
       await task.run()
     })
 
-  await program.parseAsync(props.argv)
+  await program.parseAsync(argv)
 }

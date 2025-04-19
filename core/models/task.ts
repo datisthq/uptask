@@ -27,9 +27,9 @@ export abstract class Task<IConfig = Record<string, any>> {
   abstract makeComplete(): Promise<void>
 
   // TODO: implement retries logging
-  async run(props?: { retries?: number; timeout?: number }) {
-    const retries = props?.retries ?? 0
-    const timeout = props?.timeout ?? Number.POSITIVE_INFINITY
+  async run(config?: { retries?: number; timeout?: number }) {
+    const retries = config?.retries ?? 0
+    const timeout = config?.timeout ?? Number.POSITIVE_INFINITY
 
     this.logger.info(`Started ${this.type}: ${this.name}`)
     try {

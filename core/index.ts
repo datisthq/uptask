@@ -1,3 +1,5 @@
-export { Task } from "./task.ts"
+export { Task } from "./models/task.ts"
+export type { ILogger } from "./models/logger.ts"
 export { createTasks } from "./actions/createTasks.ts"
 export { findTask } from "./actions/findTask.ts"
+export { batchFunctions } from "./actions/batchFunctions.ts"

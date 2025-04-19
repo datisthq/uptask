@@ -1,4 +1,4 @@
-import type { Task } from "../task.ts"
+import type { Task } from "../models/task.ts"
 
 type TaskClass = new () => Task
 type TaskMap<T extends Task[]> = {
