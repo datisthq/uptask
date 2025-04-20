@@ -84,7 +84,7 @@ await tasks.myTask.run()
 
 // Find a task by criteria
 const specificTask = findTask(tasks, task => task.name.includes("my"))
-await specificTask.run({ retries: 3, timeout: 5000 })
+if (specificTask) await specificTask.run({ retries: 3, timeout: 5000 })
 ```
 
 ## CLI
