@@ -59,7 +59,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm -r publish --access public && pnpm changeset tag
+          publish: pnpm -r publish --access public && changeset tag
           commit: "chore: update versions"
           title: "chore: update versions"
           createGithubReleases: true
