@@ -63,10 +63,6 @@ import { Task, createTasks, findTask } from '@uptask/core'
 class MyTask extends Task<{ input: string }> {
   name = "myTask"
 
-  createLogger() {
-    return console
-  }
-
   async makeComplete() {
     const { input } = this.config
     this.logger.info(`Processing: ${input}`)
@@ -142,10 +138,6 @@ import { Task } from '@uptask/core'
 class ApiTask extends Task {
   name = "apiRequest"
 
-  createLogger() {
-    return console
-  }
-
   async makeComplete() {
     // Implementation...
     return Promise.resolve()
@@ -182,10 +174,6 @@ class MyFlow extends Task {
   type = "flow"
   name = "myFlow"
 
-  createLogger() {
-    return console
-  }
-
   async makeComplete() {
     await batchFunctions([
       () => tasks.myTask.run({retries: 3, timeout: 10000}),
@@ -200,6 +188,21 @@ scheduleTasks({
   "0 0 * * *": flows.myFlow,    // Run daily at midnight
 })
 ```
+
+### Custom Logger
+
+```typescript
+import { Task } from '@uptask/core'
+import { pino } from "pino"
+
+class MyTask extends Task {
+  name = "myTask"
+
+  createLogger() {
+    const logger = pino(...)
+    return logger.child({ task: this.name })
+  }
+}
 
 ## Contributing
 

@@ -48,7 +48,9 @@ export abstract class Task<IConfig = Record<string, any>> {
    * This must be implemented by derived classes.
    * @returns A logger that implements the ILogger interface
    */
-  abstract createLogger(): ILogger
+  createLogger(): ILogger {
+    return { ...console, child: () => this.logger }
+  }
 
   /**
    * Gets the current configuration of the task.
