@@ -19,7 +19,7 @@
     "cli": "pnpm -F cli",
     "core": "pnpm -F core",
     "cron": "pnpm -F cron",
-    "meta": "pnpm -F meta"
+    "meta": "pnpm -F uptask"
   },
   "dependencies": {
     "ts-extras": "^0.13.0"

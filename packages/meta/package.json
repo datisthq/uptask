@@ -1,5 +1,5 @@
 {
-  "name": "@uptask/meta",
+  "name": "uptask",
   "type": "module",
   "version": "0.2.3",
   "main": "index.ts",

@@ -1,4 +1,4 @@
-# @uptask/meta
+# uptask
 
 ## 0.2.3
 

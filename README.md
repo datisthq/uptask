@@ -42,16 +42,14 @@ pnpm add @uptask/core @uptask/cli @uptask/cron
 
 ## Meta
 
-> **TODO:** `@uptask/meta` is going to be renamed to `uptask`
-
-The meta package `@uptask/meta` re-exports all functionality from following packages:
+A meta package `uptask` re-exports all functionality from following packages:
 
 - `@uptask/core`
 - `@uptask/cli`
 - `@uptask/cron`
 
 ```typescript
-import { Task, runTaskInCli, scheduleTasks } from '@uptask/meta' // and others
+import { Task, runTaskInCli, scheduleTasks } from 'uptask' // and others
 ```
 
 ## Core
