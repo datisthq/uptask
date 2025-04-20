@@ -1,5 +1,11 @@
 # uptask
 
+## 0.3.5
+
+### Patch Changes
+
+- 1aec0c1: Fixed release script
+
 ## 0.3.4
 
 ### Patch Changes
