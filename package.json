@@ -13,6 +13,7 @@
     "init": "husky init",
     "lint": "biome check",
     "prepare": "husky",
+    "release": "pnpm -r publish --access public && changeset tag",
     "spec": "vitest run",
     "test": "pnpm check && pnpm run spec",
     "type": "tsc",
