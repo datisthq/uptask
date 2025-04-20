@@ -7,14 +7,14 @@
  */
 
 // Re-export everything from the core package
-export { Task } from "../core/models/task.ts"
-export type { ILogger } from "../core/models/logger.ts"
-export { createTasks } from "../core/actions/createTasks.ts"
-export { findTask } from "../core/actions/findTask.ts"
-export { batchFunctions } from "../core/actions/batchFunctions.ts"
+export { Task } from "@uptask/core"
+export type { ILogger } from "@uptask/core"
+export { createTasks } from "@uptask/core"
+export { findTask } from "@uptask/core"
+export { batchFunctions } from "@uptask/core"
 
 // Re-export everything from the CLI package
-export { runTaskInCli } from "../cli/actions/runTaskInCli.ts"
+export { runTasksCli } from "@uptask/cli"
 
 // Re-export everything from the cron package
-export { scheduleTasks } from "../cron/actions/scheduleTasks.ts"
+export { scheduleTasks } from "@uptask/cron"
