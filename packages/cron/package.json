@@ -1,7 +1,7 @@
 {
   "name": "@uptask/cron",
   "type": "module",
-  "version": "0.2.4",
+  "version": "1.0.0",
   "dependencies": {
     "cron": "^3.1.7"
   },

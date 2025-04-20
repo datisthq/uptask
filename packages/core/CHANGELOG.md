@@ -1,5 +1,11 @@
 # @uptask/core
 
+## 0.3.0
+
+### Minor Changes
+
+- a2a052d: Provided default logger for the Task class
+
 ## 0.2.3
 
 ### Patch Changes

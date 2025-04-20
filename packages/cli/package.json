@@ -1,7 +1,7 @@
 {
   "name": "@uptask/cli",
   "type": "module",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "dependencies": {
     "commander": "^13.1.0"
   },
