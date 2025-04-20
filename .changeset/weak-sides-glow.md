@@ -1,8 +1,5 @@
 ---
-"@uptask/cli": patch
-"@uptask/core": patch
-"@uptask/cron": patch
-"uptask": patch
+"@uptask/core": minor
 ---
 
 Provided default logger for the Task class
