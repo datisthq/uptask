@@ -1,5 +1,16 @@
 # @uptask/cli
 
+## 0.3.0
+
+### Minor Changes
+
+- 2c7a895: Renamed main CLI action
+
+### Patch Changes
+
+- Updated dependencies [2c7a895]
+  - @uptask/core@0.2.3
+
 ## 0.2.2
 
 ### Patch Changes
