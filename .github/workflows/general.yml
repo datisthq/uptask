@@ -62,6 +62,7 @@ jobs:
           publish: pnpm -r publish --access public
           commit: "chore: update versions"
           title: "chore: update versions"
+          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
