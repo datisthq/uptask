@@ -34,12 +34,6 @@ export type ILogger = {
   error: (...args: any[]) => void
 
   /**
-   * Log a fatal message (highest level)
-   * @param args - Arguments to log
-   */
-  fatal: (...args: any[]) => void
-
-  /**
    * Create a child logger with additional context data
    * @param data - Contextual data to attach to all log messages
    * @returns A new logger with the attached context

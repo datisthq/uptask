@@ -23,7 +23,6 @@ export class TestCLITask<T = Record<string, any>> extends Task<T> {
       info: vi.fn(),
       warn: vi.fn(),
       error: vi.fn(),
-      fatal: vi.fn(),
       child: vi.fn(),
     }
   }
