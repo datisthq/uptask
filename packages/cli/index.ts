@@ -1,1 +1,1 @@
-export { runTaskInCli } from "./actions/runTaskInCli.ts"
+export { runTasksCli } from "./actions/runTasksCli.ts"

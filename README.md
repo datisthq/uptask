@@ -49,7 +49,7 @@ A meta package `uptask` re-exports all functionality from following packages:
 - `@uptask/cron`
 
 ```typescript
-import { Task, runTaskInCli, scheduleTasks } from 'uptask' // and others
+import { Task, runTasksCli, scheduleTasks } from 'uptask' // and others
 ```
 
 ## Core
@@ -93,14 +93,14 @@ The CLI package provides command-line interface support for your tasks.
 
 ```typescript
 import { createTasks, Task } from '@uptask/core'
-import { runTaskInCli } from '@uptask/cli'
+import { runTasksCli } from '@uptask/cli'
 import { MyTask, OtherTask } from './tasks.ts'
 
 // Create the task registry
 const tasks = createTasks([MyTask, OtherTask])
 
 // Run the CLI
-runTaskInCli(tasks)
+runTasksCli(tasks)
 ```
 
 Then run your tasks from the command line:

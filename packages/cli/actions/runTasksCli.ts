@@ -17,13 +17,13 @@ import { Command } from "commander"
  * ```typescript
  * // In your CLI entry point:
  * const tasks = createTasks([MyTask, OtherTask])
- * await runTaskInCli(tasks)
+ * await runTasksCli(tasks)
  *
  * // Command line usage:
  * // $ node script.js my-task --config '{"key":"value"}'
  * ```
  */
-export async function runTaskInCli(
+export async function runTasksCli(
   tasks: Record<string, Task>,
   config?: { argv?: string[] },
 ) {
@@ -37,6 +37,12 @@ export async function runTaskInCli(
     .option("-c, --config <string>", "Task config")
     .action(async (name, options) => {
       const task = findTask(tasks, task => task.name === name)
+
+      if (!task) {
+        for (const name of Object.keys(tasks)) console.log(name)
+        return
+      }
+
       if (options.config) task.updateConfig(JSON.parse(options.config))
       await task.run()
     })
