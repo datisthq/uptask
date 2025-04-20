@@ -1,5 +1,11 @@
 # uptask
 
+## 0.3.3
+
+### Patch Changes
+
+- 3fff3d4: Fixed github releases
+
 ## 0.3.2
 
 ### Patch Changes
