@@ -1,5 +1,12 @@
 # @uptask/cli
 
+## 0.3.1
+
+### Patch Changes
+
+- Updated dependencies [1297685]
+  - @uptask/core@0.3.0
+
 ## 0.3.0
 
 ### Minor Changes
