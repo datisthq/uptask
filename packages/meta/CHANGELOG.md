@@ -1,5 +1,11 @@
 # uptask
 
+## 0.3.0
+
+### Minor Changes
+
+- ea2306f: Renamed meta package to uptask
+
 ## 0.2.3
 
 ### Patch Changes
