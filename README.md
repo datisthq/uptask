@@ -203,6 +203,7 @@ class MyTask extends Task {
     return logger.child({ task: this.name })
   }
 }
+```
 
 ## Contributing
 
