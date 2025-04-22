@@ -10,7 +10,11 @@ export async function scheduleTasks(
   config?: Record<string, any>,
 ) {
   for (const [time, task] of objectEntries(schedule)) {
-    const job = CronJob.from({ ...config, cronTime: time, onTick: task.run })
+    const job = CronJob.from({
+      ...config,
+      cronTime: time,
+      onTick: task.run.bind(task),
+    })
     job.start()
   }
 }
