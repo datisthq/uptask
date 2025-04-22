@@ -1,13 +1,21 @@
 {
   "name": "@uptask/cli",
   "type": "module",
+  "main": "build/index.js",
   "version": "0.3.2",
   "license": "MIT",
   "author": "Datist",
   "repository": "https://github.com/datisthq/uptask",
   "description": "Primitives and helpers for running tasks in TypeScript",
-  "keywords": ["typescript", "task"],
-  "main": "build/index.js",
+  "keywords": [
+    "typescript",
+    "task",
+    "cli",
+    "cron",
+    "schedule",
+    "task runner",
+    "task scheduler"
+  ],
   "dependencies": {
     "@uptask/core": "workspace:*",
     "commander": "^13.1.0"
