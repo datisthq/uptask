@@ -1,5 +1,11 @@
 # @uptask/core
 
+## 0.4.0
+
+### Minor Changes
+
+- 06e3749: Added printTasks action
+
 ## 0.3.4
 
 ### Patch Changes

@@ -2,7 +2,7 @@
   "name": "uptask",
   "type": "module",
   "main": "build/index.js",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "license": "MIT",
   "author": "Datist",
   "repository": "https://github.com/datisthq/uptask",
