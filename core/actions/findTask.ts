@@ -12,9 +12,5 @@ export function findTask<T extends Task>(
     .map(([_, task]) => task)
     .find(task => predicate(task))
 
-  if (!task) {
-    throw new Error("Task not found")
-  }
-
   return task
 }

@@ -38,12 +38,12 @@ describe("findTask", () => {
   })
 
   it("should throw error when no task matches predicate", () => {
-    expect(() => findTask(tasks, task => task.name === "non-existent")).toThrow(
-      "Task not found",
-    )
+    const foundTask = findTask(tasks, task => task.name === "non-existent")
+    expect(foundTask).toBeUndefined()
   })
 
   it("should handle empty tasks object", () => {
-    expect(() => findTask({}, () => true)).toThrow("Task not found")
+    const foundTask = findTask({}, () => true)
+    expect(foundTask).toBeUndefined()
   })
 })
