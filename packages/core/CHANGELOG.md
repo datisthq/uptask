@@ -1,5 +1,11 @@
 # @uptask/core
 
+## 0.3.2
+
+### Patch Changes
+
+- 798c6cd: Updated npm metadata
+
 ## 0.3.1
 
 ### Patch Changes
