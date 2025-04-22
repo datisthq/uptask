@@ -1,5 +1,11 @@
 # @uptask/cron
 
+## 0.2.7
+
+### Patch Changes
+
+- c39e33b: Fixed task scheduling
+
 ## 0.2.6
 
 ### Patch Changes
