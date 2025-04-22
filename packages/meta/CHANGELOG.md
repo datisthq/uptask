@@ -1,5 +1,15 @@
 # uptask
 
+## 0.3.6
+
+### Patch Changes
+
+- de0b9f7: Fixed distribution
+- Updated dependencies [de0b9f7]
+  - @uptask/cli@0.3.2
+  - @uptask/core@0.3.1
+  - @uptask/cron@0.2.6
+
 ## 0.3.5
 
 ### Patch Changes
