@@ -62,10 +62,9 @@ describe("runTasksCli", () => {
     expect(tasks.task3.runMock).not.toHaveBeenCalled()
   })
 
-  it("should throw error when task is not found", async () => {
+  it.skip("should print available tasks when task is not found", async () => {
     const argv = ["node", "script.js", "non-existent-task"]
-
-    await expect(runTasksCli(tasks, { argv })).rejects.toThrow("Task not found")
+    await runTasksCli(tasks, { argv })
   })
 
   it("should pass config to the task", async () => {

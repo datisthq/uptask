@@ -14,14 +14,18 @@ export async function runTasksCli(
   program
     .name("task")
     .description("Run a task")
-    .argument("<name>", "Task name")
+    .argument("[name]", "Task name")
     .option("-c, --config <string>", "Task config")
     .action(async (name, options) => {
-      const task = findTask(tasks, task => task.name === name)
+      if (!name) {
+        Object.keys(tasks).forEach(console.log)
+        process.exit(0)
+      }
 
+      const task = findTask(tasks, task => task.name === name)
       if (!task) {
-        for (const name of Object.keys(tasks)) console.log(name)
-        return
+        Object.keys(tasks).forEach(console.log)
+        process.exit(1)
       }
 
       if (options.config) task.updateConfig(JSON.parse(options.config))
