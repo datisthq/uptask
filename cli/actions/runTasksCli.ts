@@ -1,4 +1,4 @@
-import { type Task, findTask } from "@uptask/core"
+import { type Task, findTask, printTasks } from "@uptask/core"
 import { Command } from "commander"
 
 /**
@@ -21,13 +21,13 @@ export async function runTasksCli(
   const options = program.opts()
 
   if (!name) {
-    Object.values(tasks).forEach(task => console.log(task.name))
+    printTasks(tasks)
     process.exit(0)
   }
 
   const task = findTask(tasks, task => task.name === name)
   if (!task) {
-    Object.values(tasks).forEach(task => console.log(task.name))
+    printTasks(tasks)
     process.exit(1)
   }
 
