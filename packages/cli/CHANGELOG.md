@@ -1,5 +1,13 @@
 # @uptask/cli
 
+## 0.3.2
+
+### Patch Changes
+
+- de0b9f7: Fixed distribution
+- Updated dependencies [de0b9f7]
+  - @uptask/core@0.3.1
+
 ## 0.3.1
 
 ### Patch Changes

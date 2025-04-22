@@ -1,5 +1,11 @@
 # @uptask/core
 
+## 0.3.1
+
+### Patch Changes
+
+- de0b9f7: Fixed distribution
+
 ## 0.3.0
 
 ### Minor Changes
