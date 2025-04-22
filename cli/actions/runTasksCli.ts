@@ -21,13 +21,13 @@ export async function runTasksCli(
   const options = program.opts()
 
   if (!name) {
-    Object.keys(tasks).forEach(name => console.log(name))
+    Object.values(tasks).forEach(task => console.log(task.name))
     process.exit(0)
   }
 
   const task = findTask(tasks, task => task.name === name)
   if (!task) {
-    Object.keys(tasks).forEach(name => console.log(name))
+    Object.values(tasks).forEach(task => console.log(task.name))
     process.exit(1)
   }
 
