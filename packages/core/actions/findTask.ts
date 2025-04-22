@@ -3,21 +3,6 @@ import type { Task } from "../models/task.js"
 
 /**
  * Finds a task in a task registry that matches the given predicate.
- *
- * @template T - Type of task extending the Task base class
- * @param tasks - Map of task names to task instances
- * @param predicate - Function that returns true for the task to find
- * @returns The first task that matches the predicate
- * @throws Error if no task matches the predicate
- *
- * @example
- * ```typescript
- * // Find a task by name
- * const myTask = findTask(tasks, task => task.name === "myTask")
- *
- * // Find a task by a custom property
- * const configuredTask = findTask(tasks, task => task.config.someProp === "value")
- * ```
  */
 export function findTask<T extends Task>(
   tasks: Record<string, T>,

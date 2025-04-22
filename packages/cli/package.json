@@ -6,5 +6,8 @@
   "dependencies": {
     "@uptask/core": "workspace:*",
     "commander": "^13.1.0"
+  },
+  "scripts": {
+    "build": "tsc --build"
   }
 }

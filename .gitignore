@@ -52,11 +52,9 @@ pids
 .idea/
 .next/
 .yarn/
-.user/
 .cache/
 .clinic/
 .vscode/
 .wrangler/
 build/
 dist/
-.aider*

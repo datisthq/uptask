@@ -32,12 +32,14 @@ import { Task, runTasksCli, scheduleTasks } from 'uptask' // and others function
 
 The core package provides the main `Task` abstract class and utilities for task management.
 
+> **Note:** It is vital to use `as const` when defining task names to ensure type safety.
+
 ```typescript
 import { Task, createTasks, findTask } from '@uptask/core'
 
 // Create a custom task
 class MyTask extends Task<{ input: string }> {
-  name = "myTask"
+  name = "myTask" as const
 
   async makeComplete() {
     const { input } = this.config
@@ -116,7 +118,7 @@ scheduleTasks({
 import { Task } from '@uptask/core'
 
 class ApiTask extends Task {
-  name = "apiRequest"
+  name = "apiRequest" as const
 
   async makeComplete() {
     // Implementation...
@@ -137,8 +139,8 @@ import { createTasks, batchFunctions, Task } from '@uptask/core'
 import { MyTask, OtherTask } from './tasks.ts'
 
 class MyFlow extends Task {
+  name = "myFlow" as const
   type = "flow"
-  name = "myFlow"
 
   async makeComplete() {
     await batchFunctions([
@@ -159,8 +161,8 @@ import { scheduleTasks } from '@uptask/cron'
 import { MyTask, OtherTask } from './tasks.ts'
 
 class MyFlow extends Task {
+  name = "myFlow" as const
   type = "flow"
-  name = "myFlow"
 
   async makeComplete() {
     await tasks.myTask.run()
@@ -182,7 +184,7 @@ import { Task } from '@uptask/core'
 import { pino } from "pino"
 
 class MyTask extends Task {
-  name = "myTask"
+  name = "myTask" as const
 
   createLogger() {
     const logger = pino(...)

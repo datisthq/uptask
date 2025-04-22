@@ -1,6 +1,6 @@
 import { type Task, createTasks } from "@uptask/core"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
-import { TestTask } from "../../../core/fixtures/TestTask.js"
+import { TestTask } from "../../fixtures/TestTask.js"
 import { scheduleTasks } from "../scheduleTasks.js"
 
 // Mock the cron library

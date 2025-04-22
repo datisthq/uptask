@@ -4,11 +4,6 @@ import type { ILogger } from "./logger.js"
 
 /**
  * Abstract base class for creating tasks.
- *
- * A task represents a unit of work that can be executed, with built-in support
- * for logging, configuration, retries, and timeouts.
- *
- * @template IConfig - The configuration type for this task
  */
 export abstract class Task<IConfig = Record<string, any>> {
   /**
@@ -36,7 +31,6 @@ export abstract class Task<IConfig = Record<string, any>> {
 
   /**
    * Gets the logger for this task, creating it if necessary.
-   * @returns The logger instance
    */
   get logger() {
     this.#logger = this.#logger || this.createLogger()
@@ -45,8 +39,6 @@ export abstract class Task<IConfig = Record<string, any>> {
 
   /**
    * Create a logger for this task.
-   * This must be implemented by derived classes.
-   * @returns A logger that implements the ILogger interface
    */
   createLogger(): ILogger {
     return { ...console, child: () => this.logger }
@@ -54,7 +46,6 @@ export abstract class Task<IConfig = Record<string, any>> {
 
   /**
    * Gets the current configuration of the task.
-   * @returns The current configuration object
    */
   get config() {
     return this.#config
@@ -63,7 +54,6 @@ export abstract class Task<IConfig = Record<string, any>> {
   /**
    * Updates the task configuration by merging the provided config
    * with the existing config.
-   * @param config - Partial configuration to apply
    */
   updateConfig(config: Partial<IConfig>) {
     this.#config = { ...this.#config, ...config }
@@ -72,19 +62,12 @@ export abstract class Task<IConfig = Record<string, any>> {
   /**
    * The main implementation of the task.
    * This must be implemented by derived classes.
-   * @returns A promise that resolves when the task is complete
    */
   abstract makeComplete(): Promise<void>
 
   /**
    * Runs the task with optional retry and timeout configuration.
    * Handles logging of start, completion, and errors.
-   *
-   * @param config - Optional configuration for execution
-   * @param config.retries - Number of retry attempts if the task fails (default: 0)
-   * @param config.timeout - Timeout in milliseconds (default: no timeout)
-   * @returns A promise that resolves when the task completes successfully
-   * @throws If the task fails after all retries or times out
    */
   async run(config?: { retries?: number; timeout?: number }) {
     const retries = config?.retries ?? 0
