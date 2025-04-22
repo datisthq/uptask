@@ -18,8 +18,6 @@ export async function runTasksCli(
     .parse(argv)
 
   const [name] = program.args
-  const options = program.opts()
-
   if (!name) {
     Object.keys(tasks).forEach(name => console.log(name))
     process.exit(0)
@@ -31,6 +29,7 @@ export async function runTasksCli(
     process.exit(1)
   }
 
+  const options = program.opts()
   if (options.config) task.updateConfig(JSON.parse(options.config))
   await task.run()
 }
