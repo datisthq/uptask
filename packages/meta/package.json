@@ -2,6 +2,11 @@
   "name": "uptask",
   "type": "module",
   "version": "0.3.7",
+  "license": "MIT",
+  "author": "Datist",
+  "repository": "https://github.com/datisthq/uptask",
+  "description": "Primitives and helpers for running tasks in TypeScript",
+  "keywords": ["typescript", "task"],
   "main": "build/index.js",
   "dependencies": {
     "@uptask/core": "workspace:*",
