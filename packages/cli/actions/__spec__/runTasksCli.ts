@@ -1,7 +1,7 @@
 import { createTasks } from "@uptask/core"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
-import { TestCLITask } from "../../fixtures/TestCLITask.ts"
-import { runTasksCli } from "../runTasksCli.ts"
+import { TestCLITask } from "../../fixtures/TestCLITask.js"
+import { runTasksCli } from "../runTasksCli.js"
 
 // Define task classes for testing
 class Task1 extends TestCLITask {

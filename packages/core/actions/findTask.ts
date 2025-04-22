@@ -1,5 +1,5 @@
 import { objectEntries } from "ts-extras"
-import type { Task } from "../models/task.ts"
+import type { Task } from "../models/task.js"
 
 /**
  * Finds a task in a task registry that matches the given predicate.

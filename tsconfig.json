@@ -20,7 +20,6 @@
     "noImplicitReturns": true,
     "noUncheckedIndexedAccess": true,
     "noFallthroughCasesInSwitch": false,
-    "allowImportingTsExtensions": true,
     "experimentalDecorators": true,
     "inlineSourceMap": true,
     "inlineSources": true,

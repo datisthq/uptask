@@ -1,4 +1,4 @@
-import type { Task } from "../models/task.ts"
+import type { Task } from "../models/task.js"
 
 /**
  * Type representing a class that constructs a Task

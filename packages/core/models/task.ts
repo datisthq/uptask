@@ -1,6 +1,6 @@
 import pRetry from "p-retry"
 import pTimeout from "p-timeout"
-import type { ILogger } from "./logger.ts"
+import type { ILogger } from "./logger.js"
 
 /**
  * Abstract base class for creating tasks.

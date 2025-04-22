@@ -1,7 +1,7 @@
 import { type Task, createTasks } from "@uptask/core"
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest"
-import { TestTask } from "../../../core/fixtures/TestTask.ts"
-import { scheduleTasks } from "../scheduleTasks.ts"
+import { TestTask } from "../../../core/fixtures/TestTask.js"
+import { scheduleTasks } from "../scheduleTasks.js"
 
 // Mock the cron library
 vi.mock("cron", () => {

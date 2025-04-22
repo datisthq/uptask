@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
-import { TestTask } from "../../fixtures/TestTask.ts"
-import { createTasks } from "../createTasks.ts"
+import { TestTask } from "../../fixtures/TestTask.js"
+import { createTasks } from "../createTasks.js"
 
 class FirstTask extends TestTask {
   override name = "first-task"

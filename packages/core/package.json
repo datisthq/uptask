@@ -2,9 +2,13 @@
   "name": "@uptask/core",
   "type": "module",
   "version": "0.3.0",
+  "main": "build/index.js",
   "dependencies": {
     "p-all": "^5.0.0",
     "p-retry": "^6.2.1",
     "p-timeout": "^6.1.4"
+  },
+  "scripts": {
+    "build": "tsc --build"
   }
 }

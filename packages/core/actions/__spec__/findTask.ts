@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest"
-import { TestTask } from "../../fixtures/TestTask.ts"
-import { findTask } from "../findTask.ts"
+import { TestTask } from "../../fixtures/TestTask.js"
+import { findTask } from "../findTask.js"
 
 // Define a task with an ID property for testing the findTask function
 class IdentifiableTask extends TestTask<{ value: string }> {

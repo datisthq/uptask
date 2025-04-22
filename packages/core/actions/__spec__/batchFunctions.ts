@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from "vitest"
-import { batchFunctions } from "../batchFunctions.ts"
+import { batchFunctions } from "../batchFunctions.js"
 
 describe("batchFunctions", () => {
   it("should execute all functions", async () => {

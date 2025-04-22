@@ -2,6 +2,7 @@
   "name": "@uptask/cli",
   "type": "module",
   "version": "0.3.1",
+  "main": "build/index.js",
   "dependencies": {
     "@uptask/core": "workspace:*",
     "commander": "^13.1.0"

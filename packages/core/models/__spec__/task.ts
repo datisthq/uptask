@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { TestTask } from "../../fixtures/TestTask.ts"
+import { TestTask } from "../../fixtures/TestTask.js"
 
 describe("Task", () => {
   let task: TestTask<{ test: string }>

@@ -1,6 +1,6 @@
 import { vi } from "vitest"
-import type { ILogger } from "../models/logger.ts"
-import { Task } from "../models/task.ts"
+import type { ILogger } from "../models/logger.js"
+import { Task } from "../models/task.js"
 
 /**
  * Base test task class that provides a standard mock logger implementation
