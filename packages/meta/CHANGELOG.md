@@ -1,5 +1,15 @@
 # uptask
 
+## 0.3.8
+
+### Patch Changes
+
+- 798c6cd: Updated npm metadata
+- Updated dependencies [798c6cd]
+  - @uptask/core@0.3.2
+  - @uptask/cron@0.2.8
+  - @uptask/cli@0.3.3
+
 ## 0.3.7
 
 ### Patch Changes
