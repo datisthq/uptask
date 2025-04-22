@@ -1,5 +1,13 @@
 # @uptask/cron
 
+## 0.2.9
+
+### Patch Changes
+
+- f2c26da: Rebased on flat packages
+- Updated dependencies [f2c26da]
+  - @uptask/core@0.3.3
+
 ## 0.2.8
 
 ### Patch Changes

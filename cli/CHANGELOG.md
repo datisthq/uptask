@@ -1,5 +1,13 @@
 # @uptask/cli
 
+## 0.3.4
+
+### Patch Changes
+
+- f2c26da: Rebased on flat packages
+- Updated dependencies [f2c26da]
+  - @uptask/core@0.3.3
+
 ## 0.3.3
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @uptask/core
 
+## 0.3.3
+
+### Patch Changes
+
+- f2c26da: Rebased on flat packages
+
 ## 0.3.2
 
 ### Patch Changes
