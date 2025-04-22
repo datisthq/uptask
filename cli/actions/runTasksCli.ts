@@ -14,7 +14,7 @@ export async function runTasksCli(
   program
     .name("task")
     .description("Run a task")
-    .argument("<n>", "Task name")
+    .argument("<name>", "Task name")
     .option("-c, --config <string>", "Task config")
     .action(async (name, options) => {
       const task = findTask(tasks, task => task.name === name)
