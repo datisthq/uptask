@@ -1,5 +1,13 @@
 # @uptask/cli
 
+## 0.3.5
+
+### Patch Changes
+
+- 4635643: Fixed CLI task not found behaviour.
+- Updated dependencies [7da84f4]
+  - @uptask/core@0.3.4
+
 ## 0.3.4
 
 ### Patch Changes

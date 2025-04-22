@@ -1,5 +1,11 @@
 # @uptask/core
 
+## 0.3.4
+
+### Patch Changes
+
+- 7da84f4: Fixed findTask if task is not found
+
 ## 0.3.3
 
 ### Patch Changes
