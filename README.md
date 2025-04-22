@@ -20,7 +20,7 @@ npm install uptask
 | [@uptask/cli](https://github.com/datisthq/uptask/tree/main/packages/cli) | Command line interface integration | [![npm version](https://img.shields.io/npm/v/@uptask/cli.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/packages/cli/CHANGELOG.md) |
 | [@uptask/cron](https://github.com/datisthq/uptask/tree/main/packages/cron) | Task scheduling with cron expressions | [![npm version](https://img.shields.io/npm/v/@uptask/cron.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/packages/cron/CHANGELOG.md) |
 
-## Meta
+### Meta
 
 A meta package `uptask` re-exports all functionality from the implementation packages:
 
@@ -28,7 +28,7 @@ A meta package `uptask` re-exports all functionality from the implementation pac
 import { Task, runTasksCli, scheduleTasks } from 'uptask' // and others functions
 ```
 
-## Core
+### Core
 
 The core package provides the main `Task` abstract class and utilities for task management.
 
@@ -65,7 +65,7 @@ tasks.badTask
 // TypeScript error: Property 'badTask' does not exist
 ```
 
-## CLI
+### CLI
 
 The CLI package provides command-line interface support for your tasks.
 
@@ -88,7 +88,7 @@ node script.js --help
 node script.js myTask --config '{"input":"value"}'
 ```
 
-## Cron
+### Cron
 
 The cron package provides scheduling capabilities for your tasks.
 
