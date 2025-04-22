@@ -1,5 +1,15 @@
 # uptask
 
+## 0.3.11
+
+### Patch Changes
+
+- Updated dependencies [042f8ee]
+- Updated dependencies [06e3749]
+  - @uptask/cli@0.3.6
+  - @uptask/core@0.4.0
+  - @uptask/cron@0.2.11
+
 ## 0.3.10
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @uptask/cli
 
+## 0.3.6
+
+### Patch Changes
+
+- 042f8ee: Fixed tasks listing in CLI
+- Updated dependencies [06e3749]
+  - @uptask/core@0.4.0
+
 ## 0.3.5
 
 ### Patch Changes
