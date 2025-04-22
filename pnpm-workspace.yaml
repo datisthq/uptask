@@ -1,2 +1,5 @@
 packages:
-  - "packages/*"
+  - "cli"
+  - "core"
+  - "cron"
+  - "meta"

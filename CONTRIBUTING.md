@@ -9,7 +9,7 @@ UpTask is a modular task management library organized as a monorepo with the fol
 - `@uptask/core`: Core functionality with task management and utilities
 - `@uptask/cli`: Command-line interface for running tasks
 - `@uptask/cron`: Cron scheduling functionality for tasks
-- `@uptask/meta`: Meta-package that re-exports all functionality from core, CLI, and cron
+- `uptask`: Meta-package that re-exports all functionality from core, CLI, and cron
 
 ## Development Environment
 
@@ -88,7 +88,7 @@ Tests are located in `__spec__` directories and use Vitest:
 
 - **Run a Specific Test**:
   ```bash
-  pnpm exec vitest run packages/core/actions/__spec__/findTask.ts
+  pnpm exec vitest run core/actions/__spec__/findTask.ts
   ```
 
 ### Dependencies
@@ -101,13 +101,12 @@ pnpm run bump
 
 ## Project Structure
 
-- `packages/`: Contains all project packages
-  - `core/`: Base functionality
-    - `actions/`: Core utility functions
-    - `models/`: Core data structures
-  - `cli/`: Command-line interface
-  - `cron/`: Scheduling functionality
-  - `uptask/`: Meta-package that re-exports from other packages
+- `core/`: Base functionality
+  - `actions/`: Core utility functions
+  - `models/`: Core data structures
+- `cli/`: Command-line interface
+- `cron/`: Scheduling functionality
+- `uptask/`: Meta-package that re-exports from other packages
 - `__spec__/`: Test files (found within each package)
 
 ## Code Style Guidelines

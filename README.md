@@ -15,10 +15,10 @@ npm install uptask
 
 | Package | Description | Changelog |
 |---------|-------------|---------|
-| [uptask](https://github.com/datisthq/uptask) | Meta-package that re-exports all functionality | [![npm version](https://img.shields.io/npm/v/uptask.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/packages/meta/CHANGELOG.md) |
-| [@uptask/core](https://github.com/datisthq/uptask/tree/main/packages/core) | Core task management functionality | [![npm version](https://img.shields.io/npm/v/@uptask/core.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/packages/core/CHANGELOG.md) |
-| [@uptask/cli](https://github.com/datisthq/uptask/tree/main/packages/cli) | Command line interface integration | [![npm version](https://img.shields.io/npm/v/@uptask/cli.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/packages/cli/CHANGELOG.md) |
-| [@uptask/cron](https://github.com/datisthq/uptask/tree/main/packages/cron) | Task scheduling with cron expressions | [![npm version](https://img.shields.io/npm/v/@uptask/cron.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/packages/cron/CHANGELOG.md) |
+| [uptask](https://github.com/datisthq/uptask) | Meta-package that re-exports all functionality | [![npm version](https://img.shields.io/npm/v/uptask.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/meta/CHANGELOG.md) |
+| [@uptask/core](https://github.com/datisthq/uptask/tree/main/core) | Core task management functionality | [![npm version](https://img.shields.io/npm/v/@uptask/core.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/core/CHANGELOG.md) |
+| [@uptask/cli](https://github.com/datisthq/uptask/tree/main/cli) | Command line interface integration | [![npm version](https://img.shields.io/npm/v/@uptask/cli.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/cli/CHANGELOG.md) |
+| [@uptask/cron](https://github.com/datisthq/uptask/tree/main/cron) | Task scheduling with cron expressions | [![npm version](https://img.shields.io/npm/v/@uptask/cron.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/cron/CHANGELOG.md) |
 
 ### Meta
 

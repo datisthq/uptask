@@ -40,7 +40,7 @@ importers:
         specifier: 3.1.1
         version: 3.1.1(@types/node@22.14.1)(@vitest/ui@3.1.1)
 
-  packages/cli:
+  cli:
     dependencies:
       '@uptask/core':
         specifier: workspace:*
@@ -49,7 +49,7 @@ importers:
         specifier: ^13.1.0
         version: 13.1.0
 
-  packages/core:
+  core:
     dependencies:
       p-all:
         specifier: ^5.0.0
@@ -61,7 +61,7 @@ importers:
         specifier: ^6.1.4
         version: 6.1.4
 
-  packages/cron:
+  cron:
     dependencies:
       '@uptask/core':
         specifier: workspace:*
@@ -70,7 +70,7 @@ importers:
         specifier: ^3.1.7
         version: 3.1.7
 
-  packages/meta:
+  meta:
     dependencies:
       '@uptask/cli':
         specifier: workspace:*
