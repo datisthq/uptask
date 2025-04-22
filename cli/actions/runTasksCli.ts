@@ -9,28 +9,28 @@ export async function runTasksCli(
   config?: { argv?: string[] },
 ) {
   const argv = config?.argv ?? process.argv
-  const program = new Command()
 
-  program
+  const program = new Command()
     .name("task")
     .description("Run a task")
     .argument("[name]", "Task name")
     .option("-c, --config <string>", "Task config")
-    .action(async (name, options) => {
-      if (!name) {
-        Object.keys(tasks).forEach(console.log)
-        process.exit(0)
-      }
+    .parse(argv)
 
-      const task = findTask(tasks, task => task.name === name)
-      if (!task) {
-        Object.keys(tasks).forEach(console.log)
-        process.exit(1)
-      }
+  const [name] = program.args
+  const options = program.opts()
 
-      if (options.config) task.updateConfig(JSON.parse(options.config))
-      await task.run()
-    })
+  if (!name) {
+    Object.keys(tasks).forEach(name => console.log(name))
+    process.exit(0)
+  }
 
-  await program.parseAsync(argv)
+  const task = findTask(tasks, task => task.name === name)
+  if (!task) {
+    Object.keys(tasks).forEach(name => console.log(name))
+    process.exit(1)
+  }
+
+  if (options.config) task.updateConfig(JSON.parse(options.config))
+  await task.run()
 }
