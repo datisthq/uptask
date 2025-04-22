@@ -2,54 +2,30 @@
 
 Primitives and helpers for running tasks in TypeScript with support for logging, retries, timeouts, CLI integration, and scheduling.
 
-## Prerequisites
-
-- **Node.js**: v24+ or Deno/Bun (not tested)
-
-> **Note:** UpTask is shipped as a pure TypeScript library without a build artifacts. You can import the code into your project build workflow or run it with Node v24+ that support direct TypeScript execution.
-
 ## Installation
 
-### All-in-one package
+> Replace `npm install` with `pnpm add` if you're using pnpm.
 
 ```bash
-# Install everything in one package
 npm install uptask
+# OR npm install @uptask/core @uptask/cli @uptask/cron
 ```
 
-### Individual packages
+## Packages
 
-```bash
-# Install core package only
-npm install @uptask/core
-
-# Optional CLI support
-npm install @uptask/cli
-
-# Optional scheduling support
-npm install @uptask/cron
-```
-
-With pnpm:
-
-```bash
-# All-in-one
-pnpm add uptask
-
-# Or individual packages
-pnpm add @uptask/core @uptask/cli @uptask/cron
-```
+| Package | Description | Changelog |
+|---------|-------------|---------|
+| [uptask](https://github.com/datisthq/uptask) | Meta-package that re-exports all functionality | [![npm version](https://img.shields.io/npm/v/uptask.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/packages/meta/CHANGELOG.md) |
+| [@uptask/core](https://github.com/datisthq/uptask/tree/main/packages/core) | Core task management functionality | [![npm version](https://img.shields.io/npm/v/@uptask/core.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/packages/core/CHANGELOG.md) |
+| [@uptask/cli](https://github.com/datisthq/uptask/tree/main/packages/cli) | Command line interface integration | [![npm version](https://img.shields.io/npm/v/@uptask/cli.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/packages/cli/CHANGELOG.md) |
+| [@uptask/cron](https://github.com/datisthq/uptask/tree/main/packages/cron) | Task scheduling with cron expressions | [![npm version](https://img.shields.io/npm/v/@uptask/cron.svg?label=%20)](https://github.com/datisthq/uptask/tree/main/packages/cron/CHANGELOG.md) |
 
 ## Meta
 
-A meta package `uptask` re-exports all functionality from following packages:
-
-- `@uptask/core`
-- `@uptask/cli`
-- `@uptask/cron`
+A meta package `uptask` re-exports all functionality from the implementation packages:
 
 ```typescript
-import { Task, runTasksCli, scheduleTasks } from 'uptask' // and others
+import { Task, runTasksCli, scheduleTasks } from 'uptask' // and others functions
 ```
 
 ## Core
@@ -74,13 +50,17 @@ class MyTask extends Task<{ input: string }> {
 // Create a fully-typed task registry
 const tasks = createTasks([MyTask])
 
-// Configure and run a task
+// Configure and run a task (config is fully typed)
 tasks.myTask.updateConfig({ input: "test-value" })
 await tasks.myTask.run()
 
 // Find a task by criteria
 const specificTask = findTask(tasks, task => task.name.includes("my"))
 if (specificTask) await specificTask.run({ retries: 3, timeout: 5000 })
+
+// Type-safety
+tasks.badTask
+// TypeScript error: Property 'badTask' does not exist
 ```
 
 ## CLI
@@ -153,11 +133,19 @@ await task.run({ retries: 3, timeout: 10000 })
 
 ```typescript
 import { batchFunctions } from '@uptask/core'
+import { createTasks, batchFunctions, Task } from '@uptask/core'
+import { MyTask, OtherTask } from './tasks.ts'
 
-// Process items in batches with limited concurrency
-async function processItems(items) {
-  const functions = items.map(item => () => processItem(item))
-  await batchFunctions(functions, { concurrency: 5 })
+class MyFlow extends Task {
+  type = "flow"
+  name = "myFlow"
+
+  async makeComplete() {
+    await batchFunctions([
+      () => tasks.myTask.run({retries: 3, timeout: 10000}),
+      tasks.otherTask.run,
+    ], { concurrency: 5 })
+  }
 }
 ```
 
@@ -175,10 +163,8 @@ class MyFlow extends Task {
   name = "myFlow"
 
   async makeComplete() {
-    await batchFunctions([
-      () => tasks.myTask.run({retries: 3, timeout: 10000}),
-      tasks.otherTask.run,
-    ], { concurrency: 5 })
+    await tasks.myTask.run()
+    await tasks.otherTask.run()
   }
 }
 
