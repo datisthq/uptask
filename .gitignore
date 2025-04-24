@@ -52,6 +52,7 @@ pids
 .idea/
 .next/
 .yarn/
+.user/
 .cache/
 .clinic/
 .vscode/
