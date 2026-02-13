@@ -19,7 +19,7 @@
     "format": "biome check --write",
     "lint": "biome check",
     "publish": "pnpm publish --access public --no-git-checks",
-    "release": "pnpm version --no-git-tag-version",
+    "setver": "pnpm version --no-git-tag-version",
     "spec": "vitest run",
     "type": "tsc --noEmit"
   },

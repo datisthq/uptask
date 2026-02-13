@@ -42,7 +42,7 @@ format = "ruff format"
 install = "uv sync"
 lint = "ruff check"
 publish = "uv publish 'build/*'"
-release = "uv version"
+setver = "uv version"
 spec = "pytest --cov --cov-report json"
 type = "ty check"
 
