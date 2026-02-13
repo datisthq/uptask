@@ -9,6 +9,8 @@
   "homepage": "https://uptask.dev",
   "scripts": {
     "build": "astro build",
+    "format": "biome check --write",
+    "lint": "biome check",
     "preview": "astro preview --port 5000",
     "start": "astro dev --port 5000",
     "type": "echo 'enable tsc --noEmit'"

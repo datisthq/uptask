@@ -63,8 +63,7 @@ compile/
 dist/
 .astro/
 /docs/content/docs/reference/
-.cursor/
-.claude/
+.claude/settings.local.json
 .serena/
 .mcp.json
 .env

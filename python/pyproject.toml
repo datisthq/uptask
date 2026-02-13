@@ -1,7 +1,19 @@
 [project]
 name = "uptask-python"
 version = "0.0.0.dev"
+description = "Uptask description"
+readme = "README.md"
 requires-python = ">=3.12"
+license = "MIT"
+keywords = [
+  "uptask",
+]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dependencies = []
 
 [tool.ruff]
 lint.ignore = ["E501"]
@@ -24,6 +36,16 @@ source = [
   "uptask",
 ]
 
+[tool.taskipy.tasks]
+build = "uv build --out-dir build"
+format = "ruff format"
+install = "uv sync"
+lint = "ruff check"
+publish = "uv publish 'build/*'"
+release = "uv version"
+spec = "pytest --cov --cov-report json"
+type = "ty check"
+
 [tool.uv]
 dev-dependencies = [
   "pytest==9.0.2",
@@ -31,5 +53,19 @@ dev-dependencies = [
   "taskipy==1.14.1",
   "ty==0.0.15",
   "pytest-recording==0.13.4",
-  "pytest-cov>=7.0.0",
+  "pytest-cov==7.0.0",
 ]
+
+[[project.authors]]
+name = "Evgeny Karev"
+
+[project.urls]
+homepage = "https://github.com/datisthq/uptask"
+repository = "https://github.com/datisthq/uptask"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["uptask"]
