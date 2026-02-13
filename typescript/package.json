@@ -1,0 +1,25 @@
+{
+  "name": "uptask",
+  "type": "module",
+  "version": "0.0.0-dev",
+  "exports": "./build/index.js",
+  "sideEffects": false,
+  "files": [
+    "build"
+  ],
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/uptask",
+  "description": "Uptask description",
+  "keywords": [
+    "uptask"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "type": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "vitest": "4.0.16",
+    "vitest-polly": "1.4.0"
+  }
+}

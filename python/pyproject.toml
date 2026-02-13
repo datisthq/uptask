@@ -1,0 +1,35 @@
+[project]
+name = "uptask-python"
+version = "0.0.0.dev"
+requires-python = ">=3.12"
+
+[tool.ruff]
+lint.ignore = ["E501"]
+extend-exclude = [
+  "__pycache__",
+  ".eggs",
+  ".git",
+  ".venv",
+  "build",
+  "dist",
+  ".cache",
+]
+
+[tool.pytest.ini_options]
+addopts = "--import-mode=importlib"
+python_files = "*_spec.py"
+
+[tool.coverage.run]
+source = [
+  "uptask",
+]
+
+[tool.uv]
+dev-dependencies = [
+  "pytest==9.0.2",
+  "ruff==0.15.0",
+  "taskipy==1.14.1",
+  "ty==0.0.15",
+  "pytest-recording==0.13.4",
+  "pytest-cov>=7.0.0",
+]
