@@ -20,7 +20,6 @@
     "start": "pnpm -F website start",
     "test": "pnpm lint && pnpm type && pnpm spec",
     "type": "pnpm /:type/",
-
     "py:build": "uv --directory python run task build",
     "py:format": "uv --directory python run task format",
     "py:install": "uv --directory python run task install",
@@ -29,7 +28,6 @@
     "py:release": "uv --directory python run task release",
     "py:spec": "uv --directory python run task spec",
     "py:type": "uv --directory python run task type",
-
     "ts:build": "pnpm -r build",
     "ts:format": "pnpm -r format",
     "ts:lint": "pnpm -r lint",

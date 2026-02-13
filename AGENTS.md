@@ -9,7 +9,7 @@ This file provides guidance to coding agents when working with code in this repo
 - Run type checking as part of your tasks
 - Run specs as part of your tasks
 - Run linting as part of your tasks
-- Start plan from a summary a API summary (models/signatures) and most challenging points, continue plan using your default settings
+- Start plan from a summary a new/updated API summary (models/signatures) and most challenging points, continue plan using your default settings
 
 ## Commands
 
