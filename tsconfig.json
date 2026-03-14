@@ -6,7 +6,8 @@
     "${configDir}/**/build/",
     "${configDir}/**/compile/",
     "${configDir}/**/website/",
-    "${configDir}/**/fixtures/"
+    "${configDir}/**/fixtures/",
+    "${configDir}/**/examples/"
   ],
 
   "compilerOptions": {

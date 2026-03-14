@@ -17,7 +17,7 @@ This file provides guidance to coding agents when working with code in this repo
 - Run `pnpm lint` to lint the code using Biome
 - Run `pnpm format` to auto-fix formatting issues with Biome
 - Run `pnpm type` to check TypeScript types
-- Run `pnpm spec` to run only the Vitest tests
+- Run `pnpm unit` to run only the Vitest tests
 - Run `pnpm exec vitest run path/to/test.ts` to run a single test
 
 ## Formats
@@ -34,7 +34,7 @@ This file provides guidance to coding agents when working with code in this repo
 
 ## Specs
 
-- Place unit tests in `<module>.spec.ts` files and don't add useless comments like "Arrange", "Act", "Assert"
+- Place unit tests in `<module>.unit.ts` files and don't add useless comments like "Arrange", "Act", "Assert"
 
 ## Docs
 
