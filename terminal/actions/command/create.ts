@@ -17,6 +17,10 @@ export function createCommand(func: Function): Command {
       argumentParams.push(param)
       const bracket = param.required ? `<${param.name}>` : `[${param.name}]`
       cmd.argument(bracket, param.description || "")
+    } else if (param.type === "object" && param.properties?.length) {
+      for (const prop of param.properties) {
+        registerOption(cmd, prop)
+      }
     } else {
       registerOption(cmd, param)
     }
@@ -31,6 +35,9 @@ export function createCommand(func: Function): Command {
         const val = positionalValues[argIndex]
         return param.type === "number" ? Number(val) : val
       }
+      if (param.type === "object" && param.properties?.length) {
+        return buildObject(param.properties, options)
+      }
       return options[param.name] ?? param.default
     })
     const mod = (await import(func.path)) as Record<
@@ -43,6 +50,21 @@ export function createCommand(func: Function): Command {
   })
 
   return cmd
+}
+
+function buildObject(
+  properties: Parameter[],
+  options: Record<string, unknown>,
+): Record<string, unknown> {
+  const obj: Record<string, unknown> = {}
+  for (const prop of properties) {
+    if (prop.type === "object" && prop.properties?.length) {
+      obj[prop.name] = buildObject(prop.properties, options)
+    } else {
+      obj[prop.name] = options[prop.name] ?? prop.default
+    }
+  }
+  return obj
 }
 
 function registerOption(cmd: Command, param: Parameter) {

@@ -70,4 +70,36 @@ describe("createCommand", () => {
 
     await cmd.parseAsync(["production", "--dry-run"], { from: "user" })
   })
+
+  it("should decompose inline object params into individual options", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "inline-object.ts"),
+    })
+    const func = findByName(funcs, "compile")
+    const cmd = createCommand(func)
+    const optionFlags = cmd.options.map(o => o.long)
+    expect(optionFlags).toContain("--dry-run")
+    expect(optionFlags).not.toContain("--options")
+  })
+
+  it("should default boolean in decomposed object to false", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "inline-object.ts"),
+    })
+    const func = findByName(funcs, "compile")
+    const cmd = createCommand(func)
+    const dryRunOption = cmd.options.find(o => o.long === "--dry-run")
+    expect(dryRunOption?.defaultValue).toBe(false)
+  })
+
+  it("should execute with decomposed object params", async () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "inline-object.ts"),
+    })
+    const func = findByName(funcs, "compile")
+    const cmd = createCommand(func)
+    cmd.exitOverride()
+
+    await cmd.parseAsync(["myTarget", "--dry-run"], { from: "user" })
+  })
 })

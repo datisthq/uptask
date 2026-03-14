@@ -104,5 +104,21 @@ describe("parseFunctions", () => {
       type: "object",
       required: true,
     })
+    expect(configure.parameters[0]).not.toHaveProperty("properties")
+  })
+
+  it("should extract inline object properties", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "inline-object.ts"),
+    })
+    const compile = findByName(funcs, "compile")
+    expect(compile.parameters[1]).toMatchObject({
+      name: "options",
+      type: "object",
+      required: true,
+      properties: [
+        { name: "dryRun", type: "boolean", required: true, default: false },
+      ],
+    })
   })
 })

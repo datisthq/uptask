@@ -1,4 +1,4 @@
-import { Project, SyntaxKind } from "ts-morph"
+import { Project, SyntaxKind, type Type } from "ts-morph"
 import type { Function } from "../../models/function.ts"
 import type { Module } from "../../models/module.ts"
 import type { Parameter, ParameterType } from "../../models/parameter.ts"
@@ -39,12 +39,16 @@ export function parseFunctions(module: Module): Function[] {
 
     const parameters: Parameter[] = funcDecl.getParameters().map(param => {
       const paramName = param.getName()
-      const paramType = resolveParameterType(param.getType().getText())
+      const type = param.getType()
+      const paramType = resolveParameterType(type.getText())
       const hasDefault = param.hasInitializer()
       const isOptional = param.isOptional()
       const defaultValue = hasDefault
         ? evalDefault(param.getInitializer()?.getText() ?? "")
         : undefined
+
+      const properties =
+        paramType === "object" ? extractObjectProperties(type) : undefined
 
       return {
         name: paramName,
@@ -52,6 +56,7 @@ export function parseFunctions(module: Module): Function[] {
         required: !isOptional && !hasDefault,
         ...(defaultValue !== undefined ? { default: defaultValue } : {}),
         description: paramTags.get(paramName) ?? "",
+        ...(properties && properties.length > 0 ? { properties } : {}),
       }
     })
 
@@ -59,6 +64,33 @@ export function parseFunctions(module: Module): Function[] {
   }
 
   return functions
+}
+
+function extractObjectProperties(type: Type): Parameter[] {
+  if (type.getStringIndexType() || type.getNumberIndexType()) return []
+
+  const properties = type.getProperties()
+  if (properties.length === 0) return []
+
+  return properties.map(prop => {
+    const propType = prop.getValueDeclarationOrThrow().getType()
+    const resolvedType = resolveParameterType(propType.getText())
+    const isOptional = prop.isOptional()
+
+    const nestedProperties =
+      resolvedType === "object" ? extractObjectProperties(propType) : undefined
+
+    return {
+      name: prop.getName(),
+      type: resolvedType,
+      required: !isOptional,
+      ...(resolvedType === "boolean" && !isOptional ? { default: false } : {}),
+      description: "",
+      ...(nestedProperties && nestedProperties.length > 0
+        ? { properties: nestedProperties }
+        : {}),
+    }
+  })
 }
 
 function resolveParameterType(typeText: string): ParameterType {
