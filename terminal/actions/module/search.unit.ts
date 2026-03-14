@@ -1,5 +1,5 @@
 import fs from "node:fs"
-import { join } from "node:path"
+import path, { join } from "node:path"
 import { temporaryDirectory } from "tempy"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
 import { searchModules } from "./search.ts"
@@ -168,7 +168,7 @@ describe("searchModules", () => {
       process.chdir(tmpDir)
       const files = searchModules("*.ts")
 
-      expect(files[0]?.path).toMatch(/^\//)
+      expect(path.isAbsolute(files[0]?.path ?? "")).toBe(true)
     })
   })
 })

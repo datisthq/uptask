@@ -25,7 +25,7 @@ export function searchModules(pattern = "@*.ts"): Module[] {
       return isPathIgnored(path.join(dirPath, dirName), rules)
     })
     .filter(filePath => {
-      if (!matcher(filePath.split("/").pop() ?? "")) return false
+      if (!matcher(path.basename(filePath))) return false
       return !isPathIgnored(filePath, rules)
     })
     .crawl(".")
@@ -57,7 +57,7 @@ function collectGitignoreRules(cwd: string): GitignoreRule[] {
       if (dirName === ".git") return true
       return isPathIgnored(path.join(dirPath, dirName), rules)
     })
-    .filter(filePath => filePath.endsWith("/.gitignore"))
+    .filter(filePath => path.basename(filePath) === ".gitignore")
     .crawl(cwd)
     .sync()
 
@@ -73,8 +73,8 @@ function collectGitignoreRules(cwd: string): GitignoreRule[] {
 
 function isPathIgnored(absPath: string, rules: GitignoreRule[]): boolean {
   for (const rule of rules) {
-    if (!absPath.startsWith(`${rule.base}/`)) continue
-    const relPath = path.relative(rule.base, absPath)
+    if (!absPath.startsWith(`${rule.base}${path.sep}`)) continue
+    const relPath = path.relative(rule.base, absPath).replaceAll("\\", "/")
     if (rule.ig.ignores(relPath)) return true
   }
   return false
