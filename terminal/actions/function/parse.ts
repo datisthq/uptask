@@ -25,13 +25,16 @@ export function parseFunctions(module: Module): Function[] {
     for (const doc of jsDocs) {
       for (const tag of doc.getTags()) {
         if (tag.getTagName() === "param") {
-          const comment = tag.getCommentText() ?? ""
-          const nameNode = tag.getChildrenOfKind(SyntaxKind.Identifier)[1]
-          if (nameNode) {
-            paramTags.set(nameNode.getText(), comment)
+          const tagText = tag.getText()
+          const match = tagText.match(/@param\s+([\w.]+)\s+(.*)/)
+          if (match?.[1] && match[2]) {
+            paramTags.set(match[1], match[2].trim())
           } else {
-            const match = tag.getText().match(/@param\s+(\w+)\s+(.*)/)
-            if (match?.[1] && match[2]) paramTags.set(match[1], match[2].trim())
+            const comment = tag.getCommentText() ?? ""
+            const nameNode = tag.getChildrenOfKind(SyntaxKind.Identifier)[1]
+            if (nameNode) {
+              paramTags.set(nameNode.getText(), comment)
+            }
           }
         }
       }
@@ -48,7 +51,9 @@ export function parseFunctions(module: Module): Function[] {
         : undefined
 
       const properties =
-        paramType === "object" ? extractObjectProperties(type) : undefined
+        paramType === "object"
+          ? extractObjectProperties(type, paramTags, paramName)
+          : undefined
 
       return {
         name: paramName,
@@ -66,23 +71,28 @@ export function parseFunctions(module: Module): Function[] {
   return functions
 }
 
-function extractObjectProperties(type: Type): Parameter[] {
+function extractObjectProperties(
+  type: Type,
+  paramTags: Map<string, string>,
+  prefix: string,
+): Parameter[] {
   if (type.getStringIndexType() || type.getNumberIndexType()) return []
 
   const properties = type.getProperties()
   if (properties.length === 0) return []
 
   return properties.map(prop => {
+    const propName = prop.getName()
     const propType = prop.getValueDeclarationOrThrow().getType()
     const resolvedType = resolveParameterType(propType.getText())
     const isOptional = prop.isOptional()
 
     return {
-      name: prop.getName(),
+      name: propName,
       type: resolvedType,
       required: !isOptional,
       ...(resolvedType === "boolean" && !isOptional ? { default: false } : {}),
-      description: "",
+      description: paramTags.get(`${prefix}.${propName}`) ?? "",
     }
   })
 }

@@ -117,7 +117,13 @@ describe("parseFunctions", () => {
       type: "object",
       required: true,
       properties: [
-        { name: "dryRun", type: "boolean", required: true, default: false },
+        {
+          name: "dryRun",
+          type: "boolean",
+          required: true,
+          default: false,
+          description: "Run without making changes",
+        },
       ],
     })
   })

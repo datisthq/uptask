@@ -15,6 +15,9 @@ export function test1(
 
 /**
  * Description
+ *
+ * @param target Build target name
+ * @param options.dryRun Run without making changes
  */
 export function test2(target: string, options: { dryRun: boolean }) {
   console.log(target, options)
