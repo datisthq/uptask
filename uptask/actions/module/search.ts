@@ -3,7 +3,7 @@ import path from "node:path"
 import { fdir } from "fdir"
 import ignore from "ignore"
 import picomatch from "picomatch"
-import type { File } from "../../models/file.ts"
+import type { Module } from "../../models/module.ts"
 
 interface GitignoreRule {
   ig: ReturnType<typeof ignore>
@@ -11,9 +11,9 @@ interface GitignoreRule {
 }
 
 /**
- * Scan the filesystem for files matching a glob pattern, respecting `.gitignore` rules.
+ * Scan the filesystem for modules matching a glob pattern, respecting `.gitignore` rules.
  */
-export function searchPaths(pattern = "@*.ts"): File[] {
+export function searchModules(pattern = "@*.ts"): Module[] {
   const cwd = path.resolve(".")
   const rules = collectGitignoreRules(cwd)
   const matcher = picomatch(pattern)

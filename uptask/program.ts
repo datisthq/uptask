@@ -1,7 +1,7 @@
 import { Command } from "commander"
 import { createCommand } from "./actions/command/create.ts"
 import { parseFile } from "./actions/file/parse.ts"
-import { searchPaths } from "./actions/path/search.ts"
+import { searchModules } from "./actions/module/search.ts"
 import { helpConfiguration } from "./helpers/program.ts"
 import packageJson from "./package.json" with { type: "json" }
 
@@ -15,9 +15,9 @@ export function createProgram(pattern?: string): Command {
     .version(packageJson.version)
     .configureHelp(helpConfiguration)
 
-  const files = searchPaths(pattern)
-  for (const file of files) {
-    for (const func of parseFile(file.path)) {
+  const modules = searchModules(pattern)
+  for (const mod of modules) {
+    for (const func of parseFile(mod.path)) {
       program.addCommand(createCommand(func))
     }
   }

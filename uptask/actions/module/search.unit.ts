@@ -2,16 +2,16 @@ import fs from "node:fs"
 import os from "node:os"
 import path from "node:path"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
-import { searchPaths } from "./search.ts"
+import { searchModules } from "./search.ts"
 
 const fixturesDir = path.resolve(import.meta.dirname, "../file/fixtures")
 
-describe("searchPaths", () => {
+describe("searchModules", () => {
   it("should discover files matching default pattern", () => {
     const original = process.cwd()
     process.chdir(fixturesDir)
     try {
-      const files = searchPaths("*.ts")
+      const files = searchModules("*.ts")
       expect(files.length).toBeGreaterThan(0)
       for (const file of files) {
         expect(file.path).toMatch(/\.ts$/)
@@ -40,7 +40,7 @@ describe("searchPaths", () => {
       fs.writeFileSync(path.join(tmpDir, ".gitignore"), "*.log\n")
 
       process.chdir(tmpDir)
-      const files = searchPaths("*")
+      const files = searchModules("*")
 
       expect(files).toEqual([{ path: path.join(tmpDir, "keep.ts") }])
     })
@@ -55,7 +55,7 @@ describe("searchPaths", () => {
       fs.writeFileSync(path.join(subDir, ".gitignore"), "*.dat\n")
 
       process.chdir(tmpDir)
-      const files = searchPaths("*")
+      const files = searchModules("*")
 
       expect(files).toEqual([
         { path: path.join(tmpDir, "root.ts") },
@@ -72,7 +72,7 @@ describe("searchPaths", () => {
       fs.writeFileSync(path.join(tmpDir, ".gitignore"), "build/\n")
 
       process.chdir(tmpDir)
-      const files = searchPaths("*.ts")
+      const files = searchModules("*.ts")
 
       expect(files).toEqual([{ path: path.join(tmpDir, "keep.ts") }])
     })
