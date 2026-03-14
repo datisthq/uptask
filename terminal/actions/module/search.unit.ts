@@ -1,10 +1,10 @@
 import fs from "node:fs"
 import os from "node:os"
-import path from "node:path"
+import { join } from "node:path"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
 import { searchModules } from "./search.ts"
 
-const fixturesDir = path.resolve(import.meta.dirname, "../function/fixtures")
+const fixturesDir = join(import.meta.dirname, "../../fixtures")
 
 describe("searchModules", () => {
   it("should discover files matching default pattern", () => {
@@ -26,7 +26,7 @@ describe("searchModules", () => {
     const originalCwd = process.cwd()
 
     beforeEach(() => {
-      tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), "searchpaths-"))
+      tmpDir = fs.mkdtempSync(join(os.tmpdir(), "searchpaths-"))
     })
 
     afterEach(() => {
@@ -35,46 +35,46 @@ describe("searchModules", () => {
     })
 
     it("should exclude files matching root .gitignore patterns", () => {
-      fs.writeFileSync(path.join(tmpDir, "keep.ts"), "")
-      fs.writeFileSync(path.join(tmpDir, "debug.log"), "")
-      fs.writeFileSync(path.join(tmpDir, ".gitignore"), "*.log\n")
+      fs.writeFileSync(join(tmpDir, "keep.ts"), "")
+      fs.writeFileSync(join(tmpDir, "debug.log"), "")
+      fs.writeFileSync(join(tmpDir, ".gitignore"), "*.log\n")
 
       process.chdir(tmpDir)
       const files = searchModules("*")
 
-      expect(files).toEqual([{ path: path.join(tmpDir, "keep.ts") }])
+      expect(files).toEqual([{ path: join(tmpDir, "keep.ts") }])
     })
 
     it("should exclude files matching nested .gitignore patterns", () => {
-      const subDir = path.join(tmpDir, "sub")
+      const subDir = join(tmpDir, "sub")
       fs.mkdirSync(subDir)
 
-      fs.writeFileSync(path.join(tmpDir, "root.ts"), "")
-      fs.writeFileSync(path.join(subDir, "keep.ts"), "")
-      fs.writeFileSync(path.join(subDir, "temp.dat"), "")
-      fs.writeFileSync(path.join(subDir, ".gitignore"), "*.dat\n")
+      fs.writeFileSync(join(tmpDir, "root.ts"), "")
+      fs.writeFileSync(join(subDir, "keep.ts"), "")
+      fs.writeFileSync(join(subDir, "temp.dat"), "")
+      fs.writeFileSync(join(subDir, ".gitignore"), "*.dat\n")
 
       process.chdir(tmpDir)
       const files = searchModules("*")
 
       expect(files).toEqual([
-        { path: path.join(tmpDir, "root.ts") },
-        { path: path.join(subDir, "keep.ts") },
+        { path: join(tmpDir, "root.ts") },
+        { path: join(subDir, "keep.ts") },
       ])
     })
 
     it("should exclude directories matching .gitignore patterns", () => {
-      const buildDir = path.join(tmpDir, "build")
+      const buildDir = join(tmpDir, "build")
       fs.mkdirSync(buildDir)
 
-      fs.writeFileSync(path.join(tmpDir, "keep.ts"), "")
-      fs.writeFileSync(path.join(buildDir, "output.ts"), "")
-      fs.writeFileSync(path.join(tmpDir, ".gitignore"), "build/\n")
+      fs.writeFileSync(join(tmpDir, "keep.ts"), "")
+      fs.writeFileSync(join(buildDir, "output.ts"), "")
+      fs.writeFileSync(join(tmpDir, ".gitignore"), "build/\n")
 
       process.chdir(tmpDir)
       const files = searchModules("*.ts")
 
-      expect(files).toEqual([{ path: path.join(tmpDir, "keep.ts") }])
+      expect(files).toEqual([{ path: join(tmpDir, "keep.ts") }])
     })
   })
 })

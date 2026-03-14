@@ -1,8 +1,8 @@
-import path from "node:path"
+import { join } from "node:path"
 import { describe, expect, it } from "vitest"
 import { parseFunctions } from "./parse.ts"
 
-const fixturesDir = path.resolve(import.meta.dirname, "fixtures")
+const fixturesDir = join(import.meta.dirname, "../../fixtures")
 
 function findByName<T extends { name: string }>(items: T[], name: string): T {
   const item = items.find(i => i.name === name)
@@ -13,7 +13,7 @@ function findByName<T extends { name: string }>(items: T[], name: string): T {
 describe("parseFunctions", () => {
   it("should extract exported functions from a module", () => {
     const funcs = parseFunctions({
-      path: path.join(fixturesDir, "sample.ts"),
+      path: join(fixturesDir, "sample.ts"),
     })
     expect(funcs[0]?.path).toContain("sample.ts")
     expect(funcs).toHaveLength(2)
@@ -21,7 +21,7 @@ describe("parseFunctions", () => {
 
   it("should extract function names", () => {
     const funcs = parseFunctions({
-      path: path.join(fixturesDir, "sample.ts"),
+      path: join(fixturesDir, "sample.ts"),
     })
     const names = funcs.map(f => f.name)
     expect(names).toEqual(["deploy", "build"])
@@ -29,7 +29,7 @@ describe("parseFunctions", () => {
 
   it("should not include non-exported functions", () => {
     const funcs = parseFunctions({
-      path: path.join(fixturesDir, "sample.ts"),
+      path: join(fixturesDir, "sample.ts"),
     })
     const names = funcs.map(f => f.name)
     expect(names).not.toContain("_helperFunction")
@@ -37,7 +37,7 @@ describe("parseFunctions", () => {
 
   it("should extract JSDoc descriptions", () => {
     const funcs = parseFunctions({
-      path: path.join(fixturesDir, "sample.ts"),
+      path: join(fixturesDir, "sample.ts"),
     })
     const deploy = findByName(funcs, "deploy")
     expect(deploy.description).toBe("Deploy to an environment")
@@ -45,7 +45,7 @@ describe("parseFunctions", () => {
 
   it("should extract parameter metadata", () => {
     const funcs = parseFunctions({
-      path: path.join(fixturesDir, "sample.ts"),
+      path: join(fixturesDir, "sample.ts"),
     })
     const deploy = findByName(funcs, "deploy")
 
@@ -67,7 +67,7 @@ describe("parseFunctions", () => {
 
   it("should extract number defaults", () => {
     const funcs = parseFunctions({
-      path: path.join(fixturesDir, "sample.ts"),
+      path: join(fixturesDir, "sample.ts"),
     })
     const build = findByName(funcs, "build")
     const concurrency = findByName(build.parameters, "concurrency")
@@ -78,7 +78,7 @@ describe("parseFunctions", () => {
 
   it("should extract array parameter types", () => {
     const funcs = parseFunctions({
-      path: path.join(fixturesDir, "arrays.ts"),
+      path: join(fixturesDir, "arrays.ts"),
     })
     const run = findByName(funcs, "run")
 
@@ -96,7 +96,7 @@ describe("parseFunctions", () => {
 
   it("should extract object parameter types", () => {
     const funcs = parseFunctions({
-      path: path.join(fixturesDir, "object-param.ts"),
+      path: join(fixturesDir, "object-param.ts"),
     })
     const configure = findByName(funcs, "configure")
     expect(configure.parameters[0]).toMatchObject({
@@ -109,7 +109,7 @@ describe("parseFunctions", () => {
 
   it("should extract inline object properties", () => {
     const funcs = parseFunctions({
-      path: path.join(fixturesDir, "inline-object.ts"),
+      path: join(fixturesDir, "inline-object.ts"),
     })
     const compile = findByName(funcs, "compile")
     expect(compile.parameters[1]).toMatchObject({
