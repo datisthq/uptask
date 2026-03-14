@@ -43,13 +43,14 @@ describe("createCommand", () => {
     expect(optionFlags).not.toContain("--env")
   })
 
-  it("should register number params as arguments", () => {
+  it("should register optional number params as options", () => {
     const funcs = parseFunctions({ path: path.join(fixturesDir, "sample.ts") })
     const func = findByName(funcs, "build")
     const cmd = createCommand(func)
     const argNames = cmd.registeredArguments.map(a => a.name())
-    expect(argNames).toContain("concurrency")
+    expect(argNames).not.toContain("concurrency")
     const optionFlags = cmd.options.map(o => o.long)
+    expect(optionFlags).toContain("--concurrency")
     expect(optionFlags).toContain("--watch")
   })
 

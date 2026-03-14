@@ -13,10 +13,12 @@ export function createCommand(func: Function): Command {
   const argumentParams: typeof func.parameters = []
 
   for (const param of func.parameters) {
-    if (param.type === "string" || param.type === "number") {
+    if (
+      (param.type === "string" || param.type === "number") &&
+      param.required
+    ) {
       argumentParams.push(param)
-      const bracket = param.required ? `<${param.name}>` : `[${param.name}]`
-      cmd.argument(bracket, param.description || "")
+      cmd.argument(`<${param.name}>`, param.description || "")
     } else if (param.type === "object" && param.properties?.length) {
       for (const prop of param.properties) {
         registerOption(cmd, prop)
@@ -71,7 +73,16 @@ function registerOption(cmd: Command, param: Parameter) {
   const flag = camelToKebab(param.name)
   const description = param.description || ""
 
-  if (param.type === "boolean") {
+  if (param.type === "string") {
+    cmd.option(`--${flag} <value>`, description, param.default as string)
+  } else if (param.type === "number") {
+    cmd.option(
+      `--${flag} <value>`,
+      description,
+      Number,
+      param.default as number,
+    )
+  } else if (param.type === "boolean") {
     cmd.option(`--${flag}`, description, param.default as boolean | undefined)
   } else if (param.type === "string[]" || param.type === "number[]") {
     const collect = (value: string, prev: unknown[]) => {
