@@ -126,9 +126,9 @@ function registerOption(cmd: Command, param: Parameter) {
   } else if (param.type === "object") {
     const parse = (v: string) => JSON.parse(v) as unknown
     if (param.required) {
-      cmd.requiredOption(`--${flag} <value>`, description, parse)
+      cmd.requiredOption(`--${flag} <json>`, description, parse)
     } else {
-      cmd.option(`--${flag} <value>`, description, parse, param.default)
+      cmd.option(`--${flag} <json>`, description, parse, param.default)
     }
   }
 }
