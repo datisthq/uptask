@@ -1,9 +1,9 @@
 import { Command } from "commander"
-import { createCommand } from "./actions/command/create.ts"
-import { loadConfig } from "./actions/config/load.ts"
-import { parseFunctions } from "./actions/function/parse.ts"
-import { searchModules } from "./actions/module/search.ts"
-import { helpConfiguration } from "./helpers/program.ts"
+import { helpConfiguration } from "../../helpers/program.ts"
+import { createCommand } from "../command/create.ts"
+import { loadConfig } from "../config/load.ts"
+import { parseFunctions } from "../function/parse.ts"
+import { searchModules } from "../module/search.ts"
 
 /**
  * Build a Commander program by discovering files and registering their functions.

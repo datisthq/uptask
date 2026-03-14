@@ -1,4 +1,4 @@
-import { createProgram } from "./program.ts"
+import { createProgram } from "./actions/program/create.ts"
 
 const program = await createProgram()
 program.parse()
