@@ -107,6 +107,19 @@ describe("createCommand", () => {
     expect(optionFlags).not.toContain("--tags")
   })
 
+  it("should register second array param as repeatable option", async () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "arrays.ts"),
+    })
+    const func = findByName(funcs, "run")
+    const cmd = createCommand(func)
+    cmd.exitOverride()
+
+    await cmd.parseAsync(["a", "b", "--ports", "80", "--ports", "443"], {
+      from: "user",
+    })
+  })
+
   it("should execute with decomposed object params", async () => {
     const funcs = parseFunctions({
       path: path.join(fixturesDir, "inline-object.ts"),

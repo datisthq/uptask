@@ -104,16 +104,24 @@ function registerOption(cmd: Command, param: Parameter) {
     }
   } else if (param.type === "boolean") {
     cmd.option(`--${flag}`, description, param.default as boolean | undefined)
-  } else if (param.type === "string[]" || param.type === "number[]") {
-    const collect = (value: string, prev: unknown[]) => {
-      prev.push(param.type === "number[]" ? Number(value) : value)
-      return prev
-    }
-    const defaultVal = (param.default ?? []) as unknown[]
+  } else if (param.type === "string[]") {
     if (param.required) {
-      cmd.requiredOption(`--${flag} <value>`, description, collect, [])
+      cmd.requiredOption(`--${flag} <value...>`, description)
     } else {
-      cmd.option(`--${flag} <value>`, description, collect, defaultVal)
+      const defaultVal = (param.default ?? []) as string[]
+      cmd.option(`--${flag} <value...>`, description, defaultVal)
+    }
+  } else if (param.type === "number[]") {
+    const coerce = (v: string, prev: number[] | undefined) => {
+      const list = prev ?? []
+      list.push(Number(v))
+      return list
+    }
+    if (param.required) {
+      cmd.requiredOption(`--${flag} <value...>`, description, coerce)
+    } else {
+      const defaultVal = (param.default ?? []) as number[]
+      cmd.option(`--${flag} <value...>`, description, coerce, defaultVal)
     }
   } else if (param.type === "object") {
     const parse = (v: string) => JSON.parse(v) as unknown

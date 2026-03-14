@@ -1,5 +1,5 @@
 /**
- * Desctiption
+ * Description
  */
 export function test1(
   target: string,
@@ -10,22 +10,22 @@ export function test1(
 }
 
 /**
- * Desctiption
+ * Description
  */
 export function test2(target: string, options: { dryRun: boolean }) {
   console.log(target, options)
 }
 
 /**
- * Desctiption
+ * Description
  */
 export function test3(paths: string[], amount: number) {
   console.log(paths, amount)
 }
 
 /**
- * Desctiption
+ * Description
  */
-export function test4(target: string[], amounts: number[]) {
+export function test4(target: string, amounts: number[]) {
   console.log(target, amounts)
 }
