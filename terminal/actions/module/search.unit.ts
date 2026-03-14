@@ -147,7 +147,7 @@ describe("searchModules", () => {
 
       process.chdir(tmpDir)
       const files = searchModules("*.ts")
-      const names = files.map(f => f.path.split("/").pop())
+      const names = files.map(f => path.basename(f.path))
 
       expect(names).toEqual(["alpha.ts", "middle.ts", "zebra.ts"])
     })
