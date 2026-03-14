@@ -8,7 +8,7 @@
     "pnpm": "^10.0.0"
   },
   "scripts": {
-    "build": "pnpm -F !website",
+    "build": "pnpm -F !website build",
     "bump": "ncu -ws -u",
     "clean": "rm -rf pnpm-local.yaml node_modules **/node_modules **/build",
     "format": "biome check --write",
