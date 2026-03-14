@@ -11,9 +11,18 @@ export function createCommand(func: Function): Command {
   if (func.description) cmd.description(func.description)
 
   const argumentParams: typeof func.parameters = []
+  let hasVariadic = false
 
-  for (const param of func.parameters) {
-    if (
+  for (const [i, param] of func.parameters.entries()) {
+    if (i === 0 && (param.type === "string[]" || param.type === "number[]")) {
+      hasVariadic = true
+      argumentParams.push(param)
+      const bracket = param.required
+        ? `<${param.name}...>`
+        : `[${param.name}...]`
+      cmd.argument(bracket, param.description || "")
+    } else if (
+      !hasVariadic &&
       (param.type === "string" || param.type === "number") &&
       param.required
     ) {
@@ -35,7 +44,10 @@ export function createCommand(func: Function): Command {
       const argIndex = argumentParams.indexOf(param)
       if (argIndex !== -1) {
         const val = positionalValues[argIndex]
-        return param.type === "number" ? Number(val) : val
+        if (param.type === "number") return Number(val)
+        if (param.type === "number[]")
+          return (val as unknown[]).map(v => Number(v))
+        return val
       }
       if (param.type === "object" && param.properties?.length) {
         return buildObject(param.properties, options)
@@ -74,14 +86,22 @@ function registerOption(cmd: Command, param: Parameter) {
   const description = param.description || ""
 
   if (param.type === "string") {
-    cmd.option(`--${flag} <value>`, description, param.default as string)
+    if (param.required) {
+      cmd.requiredOption(`--${flag} <value>`, description)
+    } else {
+      cmd.option(`--${flag} <value>`, description, param.default as string)
+    }
   } else if (param.type === "number") {
-    cmd.option(
-      `--${flag} <value>`,
-      description,
-      Number,
-      param.default as number,
-    )
+    if (param.required) {
+      cmd.requiredOption(`--${flag} <value>`, description, Number)
+    } else {
+      cmd.option(
+        `--${flag} <value>`,
+        description,
+        Number,
+        param.default as number,
+      )
+    }
   } else if (param.type === "boolean") {
     cmd.option(`--${flag}`, description, param.default as boolean | undefined)
   } else if (param.type === "string[]" || param.type === "number[]") {

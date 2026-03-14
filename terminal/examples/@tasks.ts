@@ -19,6 +19,13 @@ export function test2(target: string, options: { dryRun: boolean }) {
 /**
  * Desctiption
  */
-export function test3(paths: string[]) {
-  console.log(paths)
+export function test3(paths: string[], amount: number) {
+  console.log(paths, amount)
+}
+
+/**
+ * Desctiption
+ */
+export function test4(target: string[], amounts: number[]) {
+  console.log(target, amounts)
 }

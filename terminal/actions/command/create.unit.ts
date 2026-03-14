@@ -93,6 +93,20 @@ describe("createCommand", () => {
     expect(dryRunOption?.defaultValue).toBe(false)
   })
 
+  it("should register first array param as variadic argument", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "arrays.ts"),
+    })
+    const func = findByName(funcs, "run")
+    const cmd = createCommand(func)
+    const argNames = cmd.registeredArguments.map(a => a.name())
+    expect(argNames).toContain("tags")
+    expect(cmd.registeredArguments[0]?.variadic).toBe(true)
+    const optionFlags = cmd.options.map(o => o.long)
+    expect(optionFlags).toContain("--ports")
+    expect(optionFlags).not.toContain("--tags")
+  })
+
   it("should execute with decomposed object params", async () => {
     const funcs = parseFunctions({
       path: path.join(fixturesDir, "inline-object.ts"),
