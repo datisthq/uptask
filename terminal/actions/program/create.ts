@@ -22,7 +22,9 @@ export function createProgram(config: Config) {
     }
   }
 
-  config.setupProgram?.(program)
+  if (config.setupProgram) {
+    config.setupProgram(program)
+  }
 
   return program
 }
