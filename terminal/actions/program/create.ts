@@ -1,26 +1,18 @@
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/program.ts"
+import type { Config } from "../../models/config.ts"
 import { createCommand } from "../command/create.ts"
-import { loadConfig } from "../config/load.ts"
 import { parseFunctions } from "../function/parse.ts"
 import { searchModules } from "../module/search.ts"
 
 /**
- * Build a Commander program by discovering files and registering their functions.
+ * Build a Commander program from a validated config.
  */
-export async function createProgram() {
-  const configIndex = process.argv.findIndex(
-    a => a === "-c" || a === "--config",
-  )
-  const configPath =
-    configIndex !== -1 ? process.argv[configIndex + 1] : undefined
-  const config = await loadConfig(configPath)
-
+export function createProgram(config: Config) {
   const program = new Command()
     .name(config.name)
     .description(config.description)
     .version(config.version)
-    .option("-c, --config <path>", "Path to config file")
     .configureHelp(helpConfiguration)
 
   const modules = searchModules(config.pattern)
