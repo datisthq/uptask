@@ -1,5 +1,9 @@
 /**
  * Description
+ *
+ * @param target Build target name
+ * @param amount Number of iterations
+ * @param dryRun Run without making changes
  */
 export function test1(
   target: string,
@@ -28,4 +32,18 @@ export function test3(paths: string[], amount: number) {
  */
 export function test4(target: string, amounts: number[]) {
   console.log(target, amounts)
+}
+
+/**
+ * Description
+ */
+export function test5(target: string, options: { amounts: number[] }) {
+  console.log(target, options)
+}
+
+/**
+ * Description
+ */
+export function test6(options: { nested: { amounts: number[] } }) {
+  console.log(options)
 }

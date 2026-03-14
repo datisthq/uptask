@@ -77,18 +77,12 @@ function extractObjectProperties(type: Type): Parameter[] {
     const resolvedType = resolveParameterType(propType.getText())
     const isOptional = prop.isOptional()
 
-    const nestedProperties =
-      resolvedType === "object" ? extractObjectProperties(propType) : undefined
-
     return {
       name: prop.getName(),
       type: resolvedType,
       required: !isOptional,
       ...(resolvedType === "boolean" && !isOptional ? { default: false } : {}),
       description: "",
-      ...(nestedProperties && nestedProperties.length > 0
-        ? { properties: nestedProperties }
-        : {}),
     }
   })
 }
