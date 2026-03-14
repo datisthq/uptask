@@ -13,7 +13,7 @@
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/uptask",
-  "description": "Uptask description",
+  "description": "Uptask runs TypeScript functions from the command line with no setup.",
   "keywords": [
     "uptask"
   ],

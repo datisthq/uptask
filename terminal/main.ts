@@ -1,4 +1,4 @@
 import { createProgram } from "./program.ts"
 
-const program = createProgram()
+const program = await createProgram()
 program.parse()
