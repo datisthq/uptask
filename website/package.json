@@ -1,0 +1,24 @@
+{
+  "name": "website",
+  "type": "module",
+  "version": "0.0.0-dev",
+  "private": true,
+  "title": "Uptask",
+  "description": "Uptask description",
+  "repository": "https://github.com/datisthq/uptask",
+  "homepage": "https://uptask.dev",
+  "scripts": {
+    "build": "astro build",
+    "preview": "astro preview --port 5000",
+    "start": "astro dev --port 5000",
+    "type": "echo 'enable tsc --noEmit'"
+  },
+  "devDependencies": {
+    "@astrojs/starlight": "0.36.0",
+    "astro": "5.14.1",
+    "sharp": "0.34.2",
+    "starlight-changelogs": "0.1.1",
+    "starlight-github-alerts": "0.1.0",
+    "starlight-scroll-to-top": "0.3.1"
+  }
+}

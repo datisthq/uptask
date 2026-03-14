@@ -1,0 +1,36 @@
+{
+  "name": "uptask",
+  "type": "module",
+  "version": "0.0.0-dev",
+  "exports": "./build/index.js",
+  "bin": {
+    "uptask": "./entrypoints/run.ts"
+  },
+  "sideEffects": false,
+  "files": [
+    "build"
+  ],
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/uptask",
+  "description": "Uptask description",
+  "keywords": [
+    "uptask"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "type": "tsc --noEmit"
+  },
+  "dependencies": {
+    "commander": "^14.0.3",
+    "fdir": "^6.5.0",
+    "ignore": "^7.0.5",
+    "picocolors": "^1.1.1",
+    "picomatch": "^4.0.3",
+    "ts-morph": "^27.0.2",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/picomatch": "^4.0.2"
+  }
+}
