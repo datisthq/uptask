@@ -24,7 +24,7 @@ export default defineConfig({
         SocialIcons: "./components/builtin/SocialIcons.astro",
       },
       logo: {
-        src: "/assets/uptask-logo.svg",
+        src: "/assets/logo.svg",
         alt: "Logo",
       },
       social: [
@@ -34,7 +34,7 @@ export default defineConfig({
           href: packageJson.repository,
         },
       ],
-      favicon: "fairspec-logo.png",
+      favicon: "favicon.png",
       editLink: {
         baseUrl: `${packageJson.repository}/edit/main`,
       },

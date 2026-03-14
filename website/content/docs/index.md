@@ -7,7 +7,7 @@ hero:
   tagline: |
     Uptask description.
   image:
-    file: ../../assets/uptask-hero.png
+    file: ../../assets/hero.png
     alt: Hero
   actions:
     - text: Get Started
