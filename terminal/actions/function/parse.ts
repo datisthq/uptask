@@ -81,28 +81,43 @@ function extractObjectProperties(
   const properties = type.getProperties()
   if (properties.length === 0) return []
 
-  return properties.map(prop => {
+  return properties.flatMap(prop => {
     const propName = prop.getName()
-    const propType = prop.getValueDeclarationOrThrow().getType()
+    const decl = prop.getValueDeclaration()
+    if (!decl) return []
+    const propType = decl.getType()
     const resolvedType = resolveParameterType(propType.getText())
     const isOptional = prop.isOptional()
 
-    return {
-      name: propName,
-      type: resolvedType,
-      required: !isOptional,
-      ...(resolvedType === "boolean" && !isOptional ? { default: false } : {}),
-      description: paramTags.get(`${prefix}.${propName}`) ?? "",
-    }
+    const nestedProperties =
+      resolvedType === "object"
+        ? extractObjectProperties(propType, paramTags, `${prefix}.${propName}`)
+        : undefined
+
+    return [
+      {
+        name: propName,
+        type: resolvedType,
+        required: !isOptional,
+        ...(resolvedType === "boolean" && !isOptional
+          ? { default: false }
+          : {}),
+        description: paramTags.get(`${prefix}.${propName}`) ?? "",
+        ...(nestedProperties && nestedProperties.length > 0
+          ? { properties: nestedProperties }
+          : {}),
+      },
+    ]
   })
 }
 
 function resolveParameterType(typeText: string): ParameterType {
-  if (typeText === "string") return "string"
-  if (typeText === "number") return "number"
-  if (typeText === "boolean") return "boolean"
-  if (typeText === "string[]") return "string[]"
-  if (typeText === "number[]") return "number[]"
+  const text = typeText.replace(/ \| undefined$/, "")
+  if (text === "string") return "string"
+  if (text === "number") return "number"
+  if (text === "boolean") return "boolean"
+  if (text === "string[]") return "string[]"
+  if (text === "number[]") return "number[]"
   return "object"
 }
 

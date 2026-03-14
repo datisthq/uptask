@@ -76,5 +76,99 @@ describe("searchModules", () => {
 
       expect(files).toEqual([{ path: join(tmpDir, "keep.ts") }])
     })
+
+    it("should return empty array when no files match pattern", () => {
+      fs.writeFileSync(join(tmpDir, "readme.md"), "")
+
+      process.chdir(tmpDir)
+      const files = searchModules("*.ts")
+
+      expect(files).toEqual([])
+    })
+
+    it("should exclude .git directory", () => {
+      const gitDir = join(tmpDir, ".git")
+      fs.mkdirSync(gitDir)
+
+      fs.writeFileSync(join(tmpDir, "keep.ts"), "")
+      fs.writeFileSync(join(gitDir, "config.ts"), "")
+
+      process.chdir(tmpDir)
+      const files = searchModules("*.ts")
+
+      expect(files).toEqual([{ path: join(tmpDir, "keep.ts") }])
+    })
+
+    it("should handle empty .gitignore file", () => {
+      fs.writeFileSync(join(tmpDir, "file.ts"), "")
+      fs.writeFileSync(join(tmpDir, ".gitignore"), "")
+
+      process.chdir(tmpDir)
+      const files = searchModules("*.ts")
+
+      expect(files).toEqual([{ path: join(tmpDir, "file.ts") }])
+    })
+
+    it("should handle .gitignore with comments", () => {
+      fs.writeFileSync(join(tmpDir, "app.ts"), "")
+      fs.writeFileSync(join(tmpDir, "debug.log"), "")
+      fs.writeFileSync(join(tmpDir, ".gitignore"), "# comment\n*.log\n")
+
+      process.chdir(tmpDir)
+      const files = searchModules("*")
+
+      expect(files).toEqual([{ path: join(tmpDir, "app.ts") }])
+    })
+
+    it("should handle multiple gitignore files (root + nested)", () => {
+      const subDir = join(tmpDir, "sub")
+      fs.mkdirSync(subDir)
+
+      fs.writeFileSync(join(tmpDir, "keep.ts"), "")
+      fs.writeFileSync(join(tmpDir, "debug.log"), "")
+      fs.writeFileSync(join(tmpDir, ".gitignore"), "*.log\n")
+      fs.writeFileSync(join(subDir, "keep.ts"), "")
+      fs.writeFileSync(join(subDir, "temp.bak"), "")
+      fs.writeFileSync(join(subDir, ".gitignore"), "*.bak\n")
+
+      process.chdir(tmpDir)
+      const files = searchModules("*")
+
+      expect(files).toEqual([
+        { path: join(tmpDir, "keep.ts") },
+        { path: join(subDir, "keep.ts") },
+      ])
+    })
+
+    it("should sort results alphabetically", () => {
+      fs.writeFileSync(join(tmpDir, "zebra.ts"), "")
+      fs.writeFileSync(join(tmpDir, "alpha.ts"), "")
+      fs.writeFileSync(join(tmpDir, "middle.ts"), "")
+
+      process.chdir(tmpDir)
+      const files = searchModules("*.ts")
+      const names = files.map(f => f.path.split("/").pop())
+
+      expect(names).toEqual(["alpha.ts", "middle.ts", "zebra.ts"])
+    })
+
+    it("should match complex glob patterns", () => {
+      fs.writeFileSync(join(tmpDir, "@tasks.ts"), "")
+      fs.writeFileSync(join(tmpDir, "other.ts"), "")
+
+      process.chdir(tmpDir)
+      const files = searchModules("@*.ts")
+
+      expect(files).toEqual([{ path: join(tmpDir, "@tasks.ts") }])
+    })
+
+    it("should return full absolute paths", () => {
+      fs.writeFileSync(join(tmpDir, "file.ts"), "")
+
+      process.chdir(tmpDir)
+      const files = searchModules("*.ts")
+
+      expect(files[0]?.path).toMatch(/^\//)
+    })
   })
 })

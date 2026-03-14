@@ -29,9 +29,7 @@ export function createCommand(func: Function): Command {
       argumentParams.push(param)
       cmd.argument(`<${param.name}>`, param.description || "")
     } else if (param.type === "object" && param.properties?.length) {
-      for (const prop of param.properties) {
-        registerOption(cmd, prop)
-      }
+      registerObjectOptions(cmd, param.properties)
     } else {
       registerOption(cmd, param)
     }
@@ -79,6 +77,16 @@ function buildObject(
     }
   }
   return obj
+}
+
+function registerObjectOptions(cmd: Command, properties: Parameter[]) {
+  for (const prop of properties) {
+    if (prop.type === "object" && prop.properties?.length) {
+      registerObjectOptions(cmd, prop.properties)
+    } else {
+      registerOption(cmd, prop)
+    }
+  }
 }
 
 function registerOption(cmd: Command, param: Parameter) {
