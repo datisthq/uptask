@@ -1,171 +1,108 @@
+import path from "node:path"
 import { describe, expect, it } from "vitest"
-import { parseFunction } from "./parse.ts"
+import { parseFunctions } from "./parse.ts"
 
-describe("parseFunction", () => {
-  const funcs = [
-    {
-      path: "/tmp/tasks.ts",
-      name: "deploy",
-      description: "Deploy to an environment",
-      parameters: [
-        {
-          name: "env",
-          type: "string" as const,
-          required: true,
-          description: "",
-        },
-        {
-          name: "dryRun",
-          type: "boolean" as const,
-          required: false,
-          default: false,
-          description: "",
-        },
-      ],
-    },
-    {
-      path: "/tmp/tasks.ts",
-      name: "build",
-      description: "Build the project",
-      parameters: [
-        {
-          name: "watch",
-          type: "boolean" as const,
-          required: true,
-          description: "",
-        },
-        {
-          name: "concurrency",
-          type: "number" as const,
-          required: false,
-          default: 4,
-          description: "",
-        },
-      ],
-    },
-  ]
+const fixturesDir = path.resolve(import.meta.dirname, "fixtures")
 
-  it("should match command by name", () => {
-    const result = parseFunction(funcs, ["deploy", "--env", "production"])
-    expect(result.func.name).toBe("deploy")
+function findByName<T extends { name: string }>(items: T[], name: string): T {
+  const item = items.find(i => i.name === name)
+  if (!item) throw new Error(`Not found: ${name}`)
+  return item
+}
+
+describe("parseFunctions", () => {
+  it("should extract exported functions from a module", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "sample.ts"),
+    })
+    expect(funcs[0]?.path).toContain("sample.ts")
+    expect(funcs).toHaveLength(2)
   })
 
-  it("should parse string arguments", () => {
-    const result = parseFunction(funcs, ["deploy", "--env", "production"])
-    expect(result.args.env).toBe("production")
+  it("should extract function names", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "sample.ts"),
+    })
+    const names = funcs.map(f => f.name)
+    expect(names).toEqual(["deploy", "build"])
   })
 
-  it("should parse boolean flags", () => {
-    const result = parseFunction(funcs, [
-      "deploy",
-      "--env",
-      "prod",
-      "--dry-run",
-    ])
-    expect(result.args.dryRun).toBe(true)
+  it("should not include non-exported functions", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "sample.ts"),
+    })
+    const names = funcs.map(f => f.name)
+    expect(names).not.toContain("_helperFunction")
   })
 
-  it("should convert kebab-case to camelCase", () => {
-    const result = parseFunction(funcs, [
-      "deploy",
-      "--env",
-      "prod",
-      "--dry-run",
-    ])
-    expect(result.args).toHaveProperty("dryRun")
+  it("should extract JSDoc descriptions", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "sample.ts"),
+    })
+    const deploy = findByName(funcs, "deploy")
+    expect(deploy.description).toBe("Deploy to an environment")
   })
 
-  it("should parse number arguments", () => {
-    const result = parseFunction(funcs, [
-      "build",
-      "--watch",
-      "--concurrency",
-      "8",
-    ])
-    expect(result.args.concurrency).toBe(8)
+  it("should extract parameter metadata", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "sample.ts"),
+    })
+    const deploy = findByName(funcs, "deploy")
+
+    expect(deploy.parameters).toHaveLength(2)
+    expect(deploy.parameters[0]).toMatchObject({
+      name: "env",
+      type: "string",
+      required: true,
+      description: "The target environment",
+    })
+    expect(deploy.parameters[1]).toMatchObject({
+      name: "dryRun",
+      type: "boolean",
+      required: false,
+      default: false,
+      description: "Run without making changes",
+    })
   })
 
-  it("should apply defaults for missing arguments", () => {
-    const result = parseFunction(funcs, ["build", "--watch"])
-    expect(result.args.concurrency).toBe(4)
+  it("should extract number defaults", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "sample.ts"),
+    })
+    const build = findByName(funcs, "build")
+    const concurrency = findByName(build.parameters, "concurrency")
+    expect(concurrency.type).toBe("number")
+    expect(concurrency.default).toBe(4)
+    expect(concurrency.required).toBe(false)
   })
 
-  it("should throw for unknown command", () => {
-    expect(() => parseFunction(funcs, ["unknown"])).toThrow(
-      "Unknown command: unknown",
-    )
-  })
-})
+  it("should extract array parameter types", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "arrays.ts"),
+    })
+    const run = findByName(funcs, "run")
 
-describe("parseFunction with arrays", () => {
-  const funcs = [
-    {
-      path: "/tmp/tasks.ts",
-      name: "run",
-      description: "",
-      parameters: [
-        {
-          name: "tags",
-          type: "string[]" as const,
-          required: true,
-          description: "",
-        },
-        {
-          name: "ports",
-          type: "number[]" as const,
-          required: true,
-          description: "",
-        },
-      ],
-    },
-  ]
-
-  it("should collect repeated string flags into arrays", () => {
-    const result = parseFunction(funcs, [
-      "run",
-      "--tags",
-      "foo",
-      "--tags",
-      "bar",
-    ])
-    expect(result.args.tags).toEqual(["foo", "bar"])
+    expect(run.parameters[0]).toMatchObject({
+      name: "tags",
+      type: "string[]",
+      required: true,
+    })
+    expect(run.parameters[1]).toMatchObject({
+      name: "ports",
+      type: "number[]",
+      required: true,
+    })
   })
 
-  it("should collect repeated number flags into arrays", () => {
-    const result = parseFunction(funcs, [
-      "run",
-      "--ports",
-      "3000",
-      "--ports",
-      "4000",
-    ])
-    expect(result.args.ports).toEqual([3000, 4000])
-  })
-})
-
-describe("parseFunction with object", () => {
-  const funcs = [
-    {
-      path: "/tmp/tasks.ts",
-      name: "configure",
-      description: "",
-      parameters: [
-        {
-          name: "config",
-          type: "object" as const,
-          required: true,
-          description: "",
-        },
-      ],
-    },
-  ]
-
-  it("should parse JSON string for object type", () => {
-    const result = parseFunction(funcs, [
-      "configure",
-      "--config",
-      '{"key":"val"}',
-    ])
-    expect(result.args.config).toEqual({ key: "val" })
+  it("should extract object parameter types", () => {
+    const funcs = parseFunctions({
+      path: path.join(fixturesDir, "object-param.ts"),
+    })
+    const configure = findByName(funcs, "configure")
+    expect(configure.parameters[0]).toMatchObject({
+      name: "config",
+      type: "object",
+      required: true,
+    })
   })
 })

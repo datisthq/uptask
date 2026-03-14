@@ -4,7 +4,7 @@ import path from "node:path"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
 import { searchModules } from "./search.ts"
 
-const fixturesDir = path.resolve(import.meta.dirname, "../file/fixtures")
+const fixturesDir = path.resolve(import.meta.dirname, "../function/fixtures")
 
 describe("searchModules", () => {
   it("should discover files matching default pattern", () => {

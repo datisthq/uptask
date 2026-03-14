@@ -1,9 +1,9 @@
 import path from "node:path"
 import { describe, expect, it } from "vitest"
-import { parseFile } from "../file/parse.ts"
+import { parseFunctions } from "../function/parse.ts"
 import { createCommand } from "./create.ts"
 
-const fixturesDir = path.resolve(import.meta.dirname, "../file/fixtures")
+const fixturesDir = path.resolve(import.meta.dirname, "../function/fixtures")
 
 function findByName<T extends { name: string }>(items: T[], name: string): T {
   const item = items.find(i => i.name === name)
@@ -13,21 +13,21 @@ function findByName<T extends { name: string }>(items: T[], name: string): T {
 
 describe("createCommand", () => {
   it("should create a Commander command with correct name", () => {
-    const funcs = parseFile(path.join(fixturesDir, "sample.ts"))
+    const funcs = parseFunctions({ path: path.join(fixturesDir, "sample.ts") })
     const func = findByName(funcs, "deploy")
     const cmd = createCommand(func)
     expect(cmd.name()).toBe("deploy")
   })
 
   it("should set description", () => {
-    const funcs = parseFile(path.join(fixturesDir, "sample.ts"))
+    const funcs = parseFunctions({ path: path.join(fixturesDir, "sample.ts") })
     const func = findByName(funcs, "deploy")
     const cmd = createCommand(func)
     expect(cmd.description()).toBe("Deploy to an environment")
   })
 
   it("should register options for parameters", () => {
-    const funcs = parseFile(path.join(fixturesDir, "sample.ts"))
+    const funcs = parseFunctions({ path: path.join(fixturesDir, "sample.ts") })
     const func = findByName(funcs, "deploy")
     const cmd = createCommand(func)
     const options = cmd.options.map(o => o.long)
@@ -36,7 +36,7 @@ describe("createCommand", () => {
   })
 
   it("should execute function via action", async () => {
-    const funcs = parseFile(path.join(fixturesDir, "sample.ts"))
+    const funcs = parseFunctions({ path: path.join(fixturesDir, "sample.ts") })
     const func = findByName(funcs, "deploy")
     const cmd = createCommand(func)
     cmd.exitOverride()

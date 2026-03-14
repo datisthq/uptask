@@ -1,72 +1,86 @@
+import { Project, SyntaxKind } from "ts-morph"
 import type { Function } from "../../models/function.ts"
+import type { Module } from "../../models/module.ts"
+import type { Parameter, ParameterType } from "../../models/parameter.ts"
 
 /**
- * Match a command name from argv and parse its flags into typed values.
+ * Extract exported functions with signatures from a module.
  */
-export function parseFunction(
-  funcs: Function[],
-  argv: string[],
-): { func: Function; args: Record<string, unknown> } {
-  const commandName = argv[0]
-  const func = funcs.find(f => f.name === commandName)
-  if (!func) throw new Error(`Unknown command: ${commandName}`)
+export function parseFunctions(module: Module): Function[] {
+  const project = new Project({ compilerOptions: { strict: true } })
+  const sourceFile = project.addSourceFileAtPath(module.path)
+  const functions: Function[] = []
 
-  const args: Record<string, unknown> = {}
-  let i = 1
-  while (i < argv.length) {
-    const arg = argv[i]
-    if (!arg) break
-    if (!arg.startsWith("--")) {
-      i++
-      continue
+  for (const funcDecl of sourceFile.getFunctions()) {
+    if (!funcDecl.isExported()) continue
+
+    const name = funcDecl.getName()
+    if (!name) continue
+
+    const jsDocs = funcDecl.getJsDocs()
+    const description =
+      jsDocs.length > 0 ? (jsDocs[0]?.getDescription().trim() ?? "") : ""
+
+    const paramTags = new Map<string, string>()
+    for (const doc of jsDocs) {
+      for (const tag of doc.getTags()) {
+        if (tag.getTagName() === "param") {
+          const comment = tag.getCommentText() ?? ""
+          const nameNode = tag.getChildrenOfKind(SyntaxKind.Identifier)[1]
+          if (nameNode) {
+            paramTags.set(nameNode.getText(), comment)
+          } else {
+            const match = tag.getText().match(/@param\s+(\w+)\s+(.*)/)
+            if (match?.[1] && match[2]) paramTags.set(match[1], match[2].trim())
+          }
+        }
+      }
     }
 
-    const flagName = kebabToCamel(arg.slice(2))
-    const param = func.parameters.find(p => p.name === flagName)
-    if (!param) {
-      i++
-      continue
-    }
+    const parameters: Parameter[] = funcDecl.getParameters().map(param => {
+      const paramName = param.getName()
+      const paramType = resolveParameterType(param.getType().getText())
+      const hasDefault = param.hasInitializer()
+      const isOptional = param.isOptional()
+      const defaultValue = hasDefault
+        ? evalDefault(param.getInitializer()?.getText() ?? "")
+        : undefined
 
-    if (param.type === "boolean") {
-      args[flagName] = true
-      i++
-      continue
-    }
+      return {
+        name: paramName,
+        type: paramType,
+        required: !isOptional && !hasDefault,
+        ...(defaultValue !== undefined ? { default: defaultValue } : {}),
+        description: paramTags.get(paramName) ?? "",
+      }
+    })
 
-    const value = argv[i + 1]
-    if (value === undefined) {
-      i++
-      continue
-    }
-
-    if (param.type === "string[]" || param.type === "number[]") {
-      const existing = (args[flagName] as unknown[] | undefined) ?? []
-      existing.push(param.type === "number[]" ? Number(value) : value)
-      args[flagName] = existing
-      i += 2
-      continue
-    }
-
-    if (param.type === "number") {
-      args[flagName] = Number(value)
-    } else if (param.type === "object") {
-      args[flagName] = JSON.parse(value)
-    } else {
-      args[flagName] = value
-    }
-    i += 2
+    functions.push({ path: module.path, name, description, parameters })
   }
 
-  for (const param of func.parameters) {
-    if (args[param.name] === undefined && param.default !== undefined) {
-      args[param.name] = param.default
-    }
-  }
-
-  return { func, args }
+  return functions
 }
 
-function kebabToCamel(str: string): string {
-  return str.replace(/-([a-z])/g, (_, c: string) => c.toUpperCase())
+function resolveParameterType(typeText: string): ParameterType {
+  if (typeText === "string") return "string"
+  if (typeText === "number") return "number"
+  if (typeText === "boolean") return "boolean"
+  if (typeText === "string[]") return "string[]"
+  if (typeText === "number[]") return "number[]"
+  return "object"
+}
+
+function evalDefault(text: string): unknown {
+  if (text === "true") return true
+  if (text === "false") return false
+  if (text === "undefined") return undefined
+  const num = Number(text)
+  if (!Number.isNaN(num)) return num
+  if (
+    (text.startsWith('"') && text.endsWith('"')) ||
+    (text.startsWith("'") && text.endsWith("'"))
+  ) {
+    return text.slice(1, -1)
+  }
+  return text
 }
