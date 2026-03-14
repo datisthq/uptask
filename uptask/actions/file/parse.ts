@@ -1,12 +1,11 @@
 import { Project, SyntaxKind } from "ts-morph"
-import type { File } from "../../models/file.ts"
 import type { Function } from "../../models/function.ts"
 import type { Parameter, ParameterType } from "../../models/parameter.ts"
 
 /**
  * Parse a TypeScript file and extract its exported functions with signatures.
  */
-export function parseFile(path: string): File {
+export function parseFile(path: string): Function[] {
   const project = new Project({ compilerOptions: { strict: true } })
   const sourceFile = project.addSourceFileAtPath(path)
   const functions: Function[] = []
@@ -55,10 +54,10 @@ export function parseFile(path: string): File {
       }
     })
 
-    functions.push({ name, description, parameters })
+    functions.push({ path, name, description, parameters })
   }
 
-  return { path, functions }
+  return functions
 }
 
 function resolveParameterType(typeText: string): ParameterType {

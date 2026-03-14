@@ -1,12 +1,11 @@
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/program.ts"
-import type { File } from "../../models/file.ts"
 import type { Function } from "../../models/function.ts"
 
 /**
  * Create a Commander command from a Function, wiring options to dynamic import and execution.
  */
-export function createCommand(file: File, func: Function): Command {
+export function createCommand(func: Function): Command {
   const cmd = new Command(func.name).configureHelp(helpConfiguration)
   if (func.description) cmd.description(func.description)
 
@@ -55,12 +54,12 @@ export function createCommand(file: File, func: Function): Command {
   }
 
   cmd.action(async (options: Record<string, unknown>) => {
-    const mod = (await import(file.path)) as Record<
+    const mod = (await import(func.path)) as Record<
       string,
       (...args: unknown[]) => unknown
     >
     const fn = mod[func.name]
-    if (!fn) throw new Error(`Function ${func.name} not found in ${file.path}`)
+    if (!fn) throw new Error(`Function ${func.name} not found in ${func.path}`)
     await fn(options)
   })
 

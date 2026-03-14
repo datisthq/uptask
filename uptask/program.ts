@@ -15,11 +15,10 @@ export function createProgram(pattern?: string): Command {
     .version(packageJson.version)
     .configureHelp(helpConfiguration)
 
-  const paths = searchPaths(pattern)
-  for (const path of paths) {
-    const file = parseFile(path)
-    for (const func of file.functions) {
-      program.addCommand(createCommand(file, func))
+  const files = searchPaths(pattern)
+  for (const file of files) {
+    for (const func of parseFile(file.path)) {
+      program.addCommand(createCommand(func))
     }
   }
 

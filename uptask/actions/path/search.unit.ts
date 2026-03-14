@@ -14,7 +14,7 @@ describe("searchPaths", () => {
       const files = searchPaths("*.ts")
       expect(files.length).toBeGreaterThan(0)
       for (const file of files) {
-        expect(file).toMatch(/\.ts$/)
+        expect(file.path).toMatch(/\.ts$/)
       }
     } finally {
       process.chdir(original)
@@ -42,7 +42,7 @@ describe("searchPaths", () => {
       process.chdir(tmpDir)
       const files = searchPaths("*")
 
-      expect(files).toEqual([path.join(tmpDir, "keep.ts")])
+      expect(files).toEqual([{ path: path.join(tmpDir, "keep.ts") }])
     })
 
     it("should exclude files matching nested .gitignore patterns", () => {
@@ -58,8 +58,8 @@ describe("searchPaths", () => {
       const files = searchPaths("*")
 
       expect(files).toEqual([
-        path.join(tmpDir, "root.ts"),
-        path.join(subDir, "keep.ts"),
+        { path: path.join(tmpDir, "root.ts") },
+        { path: path.join(subDir, "keep.ts") },
       ])
     })
 
@@ -74,7 +74,7 @@ describe("searchPaths", () => {
       process.chdir(tmpDir)
       const files = searchPaths("*.ts")
 
-      expect(files).toEqual([path.join(tmpDir, "keep.ts")])
+      expect(files).toEqual([{ path: path.join(tmpDir, "keep.ts") }])
     })
   })
 })

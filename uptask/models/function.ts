@@ -6,6 +6,7 @@ import { Parameter } from "./parameter.ts"
  */
 export type Function = z.infer<typeof Function>
 export const Function = z.object({
+  path: z.string(),
   name: z.string(),
   description: z.string(),
   parameters: z.array(Parameter),

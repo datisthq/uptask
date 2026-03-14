@@ -4,6 +4,7 @@ import { parseFunction } from "./parse.ts"
 describe("parseFunction", () => {
   const funcs = [
     {
+      path: "/tmp/tasks.ts",
       name: "deploy",
       description: "Deploy to an environment",
       parameters: [
@@ -23,6 +24,7 @@ describe("parseFunction", () => {
       ],
     },
     {
+      path: "/tmp/tasks.ts",
       name: "build",
       description: "Build the project",
       parameters: [
@@ -98,6 +100,7 @@ describe("parseFunction", () => {
 describe("parseFunction with arrays", () => {
   const funcs = [
     {
+      path: "/tmp/tasks.ts",
       name: "run",
       description: "",
       parameters: [
@@ -143,6 +146,7 @@ describe("parseFunction with arrays", () => {
 describe("parseFunction with object", () => {
   const funcs = [
     {
+      path: "/tmp/tasks.ts",
       name: "configure",
       description: "",
       parameters: [
