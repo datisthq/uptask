@@ -6,9 +6,9 @@ lastUpdated: false
 hero:
   tagline: |
     Uptask description.
-  image:
-    file: ../../assets/hero.png
-    alt: Hero
+  # image:
+  #   file: ../../assets/hero.png
+  #   alt: Hero
   actions:
     - text: Get Started
       link: overview/introduction/
