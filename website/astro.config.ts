@@ -24,7 +24,7 @@ export default defineConfig({
         SocialIcons: "./components/builtin/SocialIcons.astro",
       },
       logo: {
-        src: "/assets/fairspec-logo.svg",
+        src: "/assets/uptask-logo.svg",
         alt: "Logo",
       },
       social: [
