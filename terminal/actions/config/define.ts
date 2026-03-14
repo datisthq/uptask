@@ -1,8 +1,11 @@
+import type { z } from "zod"
 import { Config } from "../../models/config.ts"
 
 /**
- * Validate unknown input against the Config schema.
+ * Validate and fill defaults for a partial config object.
  */
-export function defineConfig(input: unknown): Config {
+export function defineConfig(
+  input: z.input<typeof Config>,
+): z.output<typeof Config> {
   return Config.parse(input)
 }

@@ -30,5 +30,7 @@ export async function createProgram() {
     }
   }
 
+  config.setupProgram?.(program)
+
   return program
 }

@@ -1,3 +1,4 @@
+import type { Command } from "commander"
 import { z } from "zod"
 import packageJson from "../package.json" with { type: "json" }
 
@@ -10,4 +11,9 @@ export const Config = z.object({
   version: z.string().default(packageJson.version),
   description: z.string().default(packageJson.description),
   pattern: z.string().default("@*.ts"),
+  setupProgram: z
+    .custom<(program: Command) => void>(
+      val => typeof val === "function" || val === undefined,
+    )
+    .optional(),
 })
