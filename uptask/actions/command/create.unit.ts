@@ -26,13 +26,31 @@ describe("createCommand", () => {
     expect(cmd.description()).toBe("Deploy to an environment")
   })
 
-  it("should register options for parameters", () => {
+  it("should register string params as arguments", () => {
     const funcs = parseFunctions({ path: path.join(fixturesDir, "sample.ts") })
     const func = findByName(funcs, "deploy")
     const cmd = createCommand(func)
-    const options = cmd.options.map(o => o.long)
-    expect(options).toContain("--env")
-    expect(options).toContain("--dry-run")
+    const argNames = cmd.registeredArguments.map(a => a.name())
+    expect(argNames).toContain("env")
+  })
+
+  it("should register boolean params as options", () => {
+    const funcs = parseFunctions({ path: path.join(fixturesDir, "sample.ts") })
+    const func = findByName(funcs, "deploy")
+    const cmd = createCommand(func)
+    const optionFlags = cmd.options.map(o => o.long)
+    expect(optionFlags).toContain("--dry-run")
+    expect(optionFlags).not.toContain("--env")
+  })
+
+  it("should register number params as arguments", () => {
+    const funcs = parseFunctions({ path: path.join(fixturesDir, "sample.ts") })
+    const func = findByName(funcs, "build")
+    const cmd = createCommand(func)
+    const argNames = cmd.registeredArguments.map(a => a.name())
+    expect(argNames).toContain("concurrency")
+    const optionFlags = cmd.options.map(o => o.long)
+    expect(optionFlags).toContain("--watch")
   })
 
   it("should execute function via action", async () => {
@@ -41,6 +59,15 @@ describe("createCommand", () => {
     const cmd = createCommand(func)
     cmd.exitOverride()
 
-    await cmd.parseAsync(["--env", "staging"], { from: "user" })
+    await cmd.parseAsync(["staging"], { from: "user" })
+  })
+
+  it("should pass arguments and options to function in correct order", async () => {
+    const funcs = parseFunctions({ path: path.join(fixturesDir, "sample.ts") })
+    const func = findByName(funcs, "deploy")
+    const cmd = createCommand(func)
+    cmd.exitOverride()
+
+    await cmd.parseAsync(["production", "--dry-run"], { from: "user" })
   })
 })
