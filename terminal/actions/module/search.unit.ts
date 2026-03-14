@@ -1,6 +1,6 @@
 import fs from "node:fs"
-import os from "node:os"
 import { join } from "node:path"
+import { temporaryDirectory } from "tempy"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
 import { searchModules } from "./search.ts"
 
@@ -26,7 +26,7 @@ describe("searchModules", () => {
     const originalCwd = process.cwd()
 
     beforeEach(() => {
-      tmpDir = fs.mkdtempSync(join(os.tmpdir(), "searchpaths-"))
+      tmpDir = temporaryDirectory()
     })
 
     afterEach(() => {

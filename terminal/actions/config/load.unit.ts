@@ -1,6 +1,6 @@
 import fs from "node:fs"
-import os from "node:os"
 import { join } from "node:path"
+import { temporaryDirectory } from "tempy"
 import { afterEach, beforeEach, describe, expect, it } from "vitest"
 import { loadConfig } from "./load.ts"
 
@@ -9,7 +9,7 @@ describe("loadConfig", () => {
   const originalCwd = process.cwd()
 
   beforeEach(() => {
-    tmpDir = fs.mkdtempSync(join(os.tmpdir(), "loadconfig-"))
+    tmpDir = temporaryDirectory()
   })
 
   afterEach(() => {
