@@ -34,6 +34,7 @@
     "semantic-release": "24.2.9",
     "tempy": "3.2.0",
     "typescript": "5.9.2",
+    "vite-plus": "0.1.12",
     "vitest": "4.0.16",
     "vitest-polly": "1.4.0"
   },
