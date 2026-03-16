@@ -3,12 +3,12 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "compatibility_date": "2025-08-15",
   "assets": {
-    "directory": "./build"
+    "directory": "./build",
   },
   "routes": [
     {
       "pattern": "uptask.dev",
-      "custom_domain": true
-    }
-  ]
+      "custom_domain": true,
+    },
+  ],
 }

@@ -12,7 +12,12 @@ export async function loadConfig(path?: string) {
     const module: Record<string, unknown> = await import(resolved)
     return defineConfig(module.default as z.input<typeof Config>)
   } catch (error) {
-    if (!path && error instanceof Error && "code" in error && error.code === "ERR_MODULE_NOT_FOUND") {
+    if (
+      !path &&
+      error instanceof Error &&
+      "code" in error &&
+      error.code === "ERR_MODULE_NOT_FOUND"
+    ) {
       return defineConfig({})
     }
     throw error

@@ -4,58 +4,58 @@
     "enabled": true,
     "clientKind": "git",
     "defaultBranch": "main",
-    "useIgnoreFile": true
+    "useIgnoreFile": true,
   },
   "files": {
     "includes": ["**", "!**/*d.ts", "!**/*.astro", "!**/pnpm-lock.yaml"],
-    "ignoreUnknown": true
+    "ignoreUnknown": true,
   },
   "assist": { "actions": { "source": { "organizeImports": "on" } } },
   "formatter": {
     "enabled": true,
-    "useEditorconfig": true
+    "useEditorconfig": true,
   },
   "linter": {
     "enabled": true,
     "rules": {
       "a11y": {
-        "useKeyWithClickEvents": "off"
+        "useKeyWithClickEvents": "off",
       },
       "complexity": {
         "noForEach": "off",
         "useLiteralKeys": "off",
-        "noImportantStyles": "off"
+        "noImportantStyles": "off",
       },
       "correctness": {
-        "useExhaustiveDependencies": "off"
+        "useExhaustiveDependencies": "off",
       },
       "performance": {
-        "noDelete": "off"
+        "noDelete": "off",
       },
       "security": {
         "noDangerouslySetInnerHtml": "off",
-        "noBlankTarget": "off"
+        "noBlankTarget": "off",
       },
       "style": {
-        "noParameterAssign": "off"
+        "noParameterAssign": "off",
       },
       "suspicious": {
         "noExplicitAny": "off",
         "noArrayIndexKey": "off",
         "noThenProperty": "off",
-        "noShadowRestrictedNames": "off"
-      }
-    }
+        "noShadowRestrictedNames": "off",
+      },
+    },
   },
   "javascript": {
     "formatter": {
       "semicolons": "asNeeded",
-      "arrowParentheses": "asNeeded"
-    }
+      "arrowParentheses": "asNeeded",
+    },
   },
   "css": {
     "parser": {
-      "cssModules": true
-    }
-  }
+      "cssModules": true,
+    },
+  },
 }
