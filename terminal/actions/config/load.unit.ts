@@ -1,7 +1,7 @@
 import fs from "node:fs"
 import { join } from "node:path"
 import { temporaryDirectoryTask } from "tempy"
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vite-plus/test"
 import { loadConfig } from "./load.ts"
 
 describe("loadConfig", () => {

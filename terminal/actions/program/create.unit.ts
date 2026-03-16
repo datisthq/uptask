@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest"
+import { describe, expect, it, vi } from "vite-plus/test"
 import { defineConfig } from "../config/define.ts"
 import { createProgram } from "./create.ts"
 
