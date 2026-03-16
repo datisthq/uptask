@@ -18,8 +18,8 @@
     "uptask"
   ],
   "scripts": {
-    "build": "tsc",
-    "type": "tsc --noEmit"
+    "build": "tsgo",
+    "type": "tsgo --noEmit"
   },
   "dependencies": {
     "commander": "^14.0.3",
