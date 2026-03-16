@@ -38,7 +38,7 @@ export default defineConfig({
         "**/main.ts",
       ],
     },
-    resolveSnapshotPath: (testPath, snapExtension) => {
+    resolveSnapshotPath: (testPath: string, snapExtension: string) => {
       return (
         join(dirname(testPath), "fixtures", "generated", basename(testPath)) +
         snapExtension
