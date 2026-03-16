@@ -1,14 +1,10 @@
 import { basename, dirname, join } from "node:path"
-import {
-  configDefaults,
-  coverageConfigDefaults,
-  defineConfig,
-} from "vitest/config"
+import { coverageConfigDefaults, defineConfig } from "vite-plus"
 
 export default defineConfig({
   test: {
     include: ["**/*.unit.(ts|tsx)"],
-    exclude: [...configDefaults.exclude, "**/build/**"],
+    exclude: ["**/node_modules/**", "**/build/**"],
     env: { NODE_OPTIONS: "--no-warnings" },
     testTimeout: 60 * 1000,
     passWithNoTests: true,

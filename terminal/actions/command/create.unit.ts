@@ -1,5 +1,5 @@
 import { join } from "node:path"
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vite-plus/test"
 import type { Function } from "../../models/function.ts"
 import { parseFunctions } from "../function/parse.ts"
 import { createCommand } from "./create.ts"

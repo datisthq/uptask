@@ -1,5 +1,5 @@
 import { join } from "node:path"
-import { describe, expect, it } from "vitest"
+import { describe, expect, it } from "vite-plus/test"
 import { parseFunctions } from "./parse.ts"
 
 const fixturesDir = join(import.meta.dirname, "../../fixtures")

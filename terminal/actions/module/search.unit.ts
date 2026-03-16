@@ -1,7 +1,7 @@
 import fs from "node:fs"
 import path, { join } from "node:path"
 import { temporaryDirectory } from "tempy"
-import { afterEach, beforeEach, describe, expect, it } from "vitest"
+import { afterEach, beforeEach, describe, expect, it } from "vite-plus/test"
 import { searchModules } from "./search.ts"
 
 const fixturesDir = join(import.meta.dirname, "../../fixtures")
