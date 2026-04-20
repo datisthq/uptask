@@ -1,6 +1,7 @@
 import { join } from "node:path"
 import type { Project } from "ts-morph"
 import { beforeAll, describe, expect, it } from "vite-plus/test"
+import { ValidationError } from "../../helpers/error.ts"
 import type { Function } from "../../models/function.ts"
 import { parseFunctions } from "../function/parse.ts"
 import { createProject } from "../project/create.ts"
@@ -313,5 +314,19 @@ describe("createCommand", () => {
     const countsOption = cmd.options.find(o => o.long === "--counts")
     expect(countsOption).toBeDefined()
     expect(countsOption?.required).toBe(true)
+  })
+
+  it("should raise ValidationError with a one-line reason for bad input", async () => {
+    const funcs = parse({ path: join(fixturesDir, "sample.ts") })
+    const func = findByName(funcs, "build")
+    const cmd = createCommand(func)
+    cmd.exitOverride()
+    const result = cmd.parseAsync(["--watch", "--concurrency", "abc"], {
+      from: "user",
+    })
+    await expect(result).rejects.toBeInstanceOf(ValidationError)
+    await expect(result).rejects.toMatchObject({
+      message: expect.stringMatching(/^invalid argument 'concurrency': /),
+    })
   })
 })

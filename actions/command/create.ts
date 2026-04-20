@@ -1,5 +1,6 @@
 import { Command } from "commander"
 import { z } from "zod"
+import { ValidationError } from "../../helpers/error.ts"
 import { helpConfiguration } from "../../helpers/program.ts"
 import type { Function } from "../../models/function.ts"
 import type { Parameter } from "../../models/parameter.ts"
@@ -63,7 +64,7 @@ export function createCommand(func: Function): Command {
         return schema.parse(value)
       } catch (error) {
         if (error instanceof z.ZodError) {
-          throw new Error(formatIssues(func.parameters[i], error))
+          throw new ValidationError(formatIssues(func.parameters[i], error))
         }
         throw error
       }
@@ -83,10 +84,14 @@ export function createCommand(func: Function): Command {
 function formatIssues(parameter: Parameter | undefined, error: z.ZodError) {
   const label = parameter?.name ?? "argument"
   const parts = error.issues.map(issue => {
-    const path = [label, ...issue.path.map(String)].filter(Boolean).join(".")
-    return `${path}: ${issue.message.toLowerCase()}`
+    const nested = issue.path.map(String).filter(Boolean).join(".")
+    const target = nested ? `${label}.${nested}` : label
+    const reason = issue.message
+      .replace(/^Invalid input:\s*/i, "")
+      .toLowerCase()
+    return `invalid argument '${target}': ${reason}`
   })
-  return `Invalid ${label}: ${parts.join("; ")}`
+  return parts.join("; ")
 }
 
 function buildObject(
