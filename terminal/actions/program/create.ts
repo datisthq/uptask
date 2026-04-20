@@ -2,7 +2,7 @@ import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/program.ts"
 import type { Config } from "../../models/config.ts"
 import { createCommand } from "../command/create.ts"
-import { parseFunctions } from "../function/parse.ts"
+import { parseModules } from "../module/parse.ts"
 import { searchModules } from "../module/search.ts"
 
 /**
@@ -16,10 +16,8 @@ export function createProgram(config: Config) {
     .configureHelp(helpConfiguration)
 
   const modules = searchModules(config.pattern)
-  for (const mod of modules) {
-    for (const func of parseFunctions(mod)) {
-      program.addCommand(createCommand(func))
-    }
+  for (const func of parseModules(modules)) {
+    program.addCommand(createCommand(func))
   }
 
   if (config.setupProgram) {

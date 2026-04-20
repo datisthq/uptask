@@ -1,8 +1,18 @@
 import { join } from "node:path"
-import { describe, expect, it } from "vite-plus/test"
+import type { Project } from "ts-morph"
+import { beforeAll, describe, expect, it } from "vite-plus/test"
+import { createProject } from "../project/create.ts"
 import { parseFunctions } from "./parse.ts"
 
 const fixturesDir = join(import.meta.dirname, "../../fixtures")
+
+let project: Project
+
+beforeAll(() => {
+  project = createProject()
+})
+
+const parse = (mod: { path: string }) => parseFunctions(mod, project)
 
 function findByName<T extends { name: string }>(items: T[], name: string): T {
   const item = items.find(i => i.name === name)
@@ -12,7 +22,7 @@ function findByName<T extends { name: string }>(items: T[], name: string): T {
 
 describe("parseFunctions", () => {
   it("should extract exported functions from a module", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "sample.ts"),
     })
     expect(funcs[0]?.path).toContain("sample.ts")
@@ -20,7 +30,7 @@ describe("parseFunctions", () => {
   })
 
   it("should extract function names", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "sample.ts"),
     })
     const names = funcs.map(f => f.name)
@@ -28,7 +38,7 @@ describe("parseFunctions", () => {
   })
 
   it("should not include non-exported functions", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "sample.ts"),
     })
     const names = funcs.map(f => f.name)
@@ -36,7 +46,7 @@ describe("parseFunctions", () => {
   })
 
   it("should extract JSDoc descriptions", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "sample.ts"),
     })
     const deploy = findByName(funcs, "deploy")
@@ -44,7 +54,7 @@ describe("parseFunctions", () => {
   })
 
   it("should extract parameter metadata", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "sample.ts"),
     })
     const deploy = findByName(funcs, "deploy")
@@ -66,7 +76,7 @@ describe("parseFunctions", () => {
   })
 
   it("should extract number defaults", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "sample.ts"),
     })
     const build = findByName(funcs, "build")
@@ -77,7 +87,7 @@ describe("parseFunctions", () => {
   })
 
   it("should extract array parameter types", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "arrays.ts"),
     })
     const run = findByName(funcs, "run")
@@ -95,7 +105,7 @@ describe("parseFunctions", () => {
   })
 
   it("should extract object parameter types", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "object-param.ts"),
     })
     const configure = findByName(funcs, "configure")
@@ -108,7 +118,7 @@ describe("parseFunctions", () => {
   })
 
   it("should extract inline object properties", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "inline-object.ts"),
     })
     const compile = findByName(funcs, "compile")
@@ -129,14 +139,14 @@ describe("parseFunctions", () => {
   })
 
   it("should return empty array for module with no exports", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "no-exports.ts"),
     })
     expect(funcs).toEqual([])
   })
 
   it("should return empty description when no JSDoc present", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "no-jsdoc.ts"),
     })
     const noDesc = findByName(funcs, "noDescription")
@@ -144,7 +154,7 @@ describe("parseFunctions", () => {
   })
 
   it("should mark optional params as not required", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "optional-params.ts"),
     })
     const greet = findByName(funcs, "greet")
@@ -153,7 +163,7 @@ describe("parseFunctions", () => {
   })
 
   it("should extract string default values (double-quoted)", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "string-defaults.ts"),
     })
     const format = findByName(funcs, "format")
@@ -162,7 +172,7 @@ describe("parseFunctions", () => {
   })
 
   it("should extract string default values (single-quoted)", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "string-defaults.ts"),
     })
     const format = findByName(funcs, "format")
@@ -171,7 +181,7 @@ describe("parseFunctions", () => {
   })
 
   it("should handle undefined default value", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "optional-params.ts"),
     })
     const greet = findByName(funcs, "greet")
@@ -181,7 +191,7 @@ describe("parseFunctions", () => {
   })
 
   it("should extract nested inline object properties", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "nested-object.ts"),
     })
     const setup = findByName(funcs, "setup")
@@ -201,7 +211,7 @@ describe("parseFunctions", () => {
   })
 
   it("should resolve unknown types as object", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "optional-params.ts"),
     })
     const withAlias = findByName(funcs, "withAlias")
@@ -209,7 +219,7 @@ describe("parseFunctions", () => {
   })
 
   it("should handle function with no parameters", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "no-jsdoc.ts"),
     })
     const zeroArgs = findByName(funcs, "zeroArgs")
@@ -217,7 +227,7 @@ describe("parseFunctions", () => {
   })
 
   it("should handle async functions", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "async-func.ts"),
     })
     const fetchData = findByName(funcs, "fetchData")
@@ -230,7 +240,7 @@ describe("parseFunctions", () => {
   })
 
   it("should default boolean properties in nested objects to false", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "nested-object.ts"),
     })
     const setup = findByName(funcs, "setup")
@@ -241,7 +251,7 @@ describe("parseFunctions", () => {
   })
 
   it("should handle multiple required params", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "multiple-args.ts"),
     })
     const copy = findByName(funcs, "copy")
@@ -255,7 +265,7 @@ describe("parseFunctions", () => {
   })
 
   it("should set required=false for params with defaults", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "string-defaults.ts"),
     })
     const format = findByName(funcs, "format")
@@ -264,7 +274,7 @@ describe("parseFunctions", () => {
   })
 
   it("should use first JSDoc block for description", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "sample.ts"),
     })
     const deploy = findByName(funcs, "deploy")
@@ -272,7 +282,7 @@ describe("parseFunctions", () => {
   })
 
   it("should extract param descriptions from JSDoc tags", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "inline-object.ts"),
     })
     const compile = findByName(funcs, "compile")
@@ -280,7 +290,7 @@ describe("parseFunctions", () => {
   })
 
   it("should handle nested @param doc syntax", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "nested-object.ts"),
     })
     const setup = findByName(funcs, "setup")
@@ -291,7 +301,7 @@ describe("parseFunctions", () => {
   })
 
   it("should not extract properties from index-signature objects", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "object-param.ts"),
     })
     const configure = findByName(funcs, "configure")
@@ -299,7 +309,7 @@ describe("parseFunctions", () => {
   })
 
   it("should handle optional inline object properties", () => {
-    const funcs = parseFunctions({
+    const funcs = parse({
       path: join(fixturesDir, "nested-object.ts"),
     })
     const setup = findByName(funcs, "setup")

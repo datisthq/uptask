@@ -1,14 +1,18 @@
-import { Project, SyntaxKind, type Type } from "ts-morph"
+import { type Project, SyntaxKind, type Type } from "ts-morph"
 import type { Function } from "../../models/function.ts"
 import type { Module } from "../../models/module.ts"
 import type { Parameter, ParameterType } from "../../models/parameter.ts"
+import { createProject } from "../project/create.ts"
 
 /**
- * Extract exported functions with signatures from a module.
+ * Extract exported functions with signatures from a module. Pass a shared
+ * project to amortize the ts-morph bootstrap cost across multiple calls.
  */
-export function parseFunctions(module: Module): Function[] {
-  const project = new Project({ compilerOptions: { strict: true } })
-  const sourceFile = project.addSourceFileAtPath(module.path)
+export function parseFunctions(module: Module, project?: Project): Function[] {
+  project ??= createProject()
+  const sourceFile =
+    project.getSourceFile(module.path) ??
+    project.addSourceFileAtPath(module.path)
   const functions: Function[] = []
 
   for (const funcDecl of sourceFile.getFunctions()) {
