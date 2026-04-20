@@ -1,7 +1,9 @@
 import { Command } from "commander"
+import { z } from "zod"
 import { helpConfiguration } from "../../helpers/program.ts"
 import type { Function } from "../../models/function.ts"
 import type { Parameter } from "../../models/parameter.ts"
+import { buildSchema } from "../parameter/build.ts"
 
 /**
  * Create a Commander command from a Function, wiring options to dynamic import and execution.
@@ -35,6 +37,8 @@ export function createCommand(func: Function): Command {
     }
   }
 
+  const schemas = func.parameters.map(buildSchema)
+
   cmd.action(async (...actionArgs: unknown[]) => {
     const options = actionArgs.at(-2) as Record<string, unknown>
     const positionalValues = actionArgs.slice(0, argumentParams.length)
@@ -52,16 +56,37 @@ export function createCommand(func: Function): Command {
       }
       return options[param.name] ?? param.default
     })
+    const validated = args.map((value, i) => {
+      const schema = schemas[i]
+      if (!schema) return value
+      try {
+        return schema.parse(value)
+      } catch (error) {
+        if (error instanceof z.ZodError) {
+          throw new Error(formatIssues(func.parameters[i], error))
+        }
+        throw error
+      }
+    })
     const mod = (await import(func.path)) as Record<
       string,
       (...args: unknown[]) => unknown
     >
     const fn = mod[func.name]
     if (!fn) throw new Error(`Function ${func.name} not found in ${func.path}`)
-    await fn(...args)
+    await fn(...validated)
   })
 
   return cmd
+}
+
+function formatIssues(parameter: Parameter | undefined, error: z.ZodError) {
+  const label = parameter?.name ?? "argument"
+  const parts = error.issues.map(issue => {
+    const path = [label, ...issue.path.map(String)].filter(Boolean).join(".")
+    return `${path}: ${issue.message.toLowerCase()}`
+  })
+  return `Invalid ${label}: ${parts.join("; ")}`
 }
 
 function buildObject(
