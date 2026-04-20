@@ -46,6 +46,7 @@ function collectGitignoreRules(cwd: string): GitignoreRule[] {
       rules.push({ ig: ignore().add(content), base: dir })
       seen.add(dir)
     }
+    if (fs.existsSync(path.join(dir, ".git"))) break
     const parent = path.dirname(dir)
     if (parent === dir) break
     dir = parent
