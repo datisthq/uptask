@@ -1,25 +1,48 @@
 {
-  "name": "project",
+  "name": "uptask",
   "version": "0.0.0-dev",
-  "private": true,
+  "description": "Uptask runs TypeScript functions from the command line with no setup.",
+  "keywords": [
+    "uptask"
+  ],
+  "license": "MIT",
+  "author": "Evgeny Karev",
+  "repository": "https://github.com/datisthq/uptask",
+  "bin": {
+    "uptask": "./entrypoints/main.ts"
+  },
+  "files": [
+    "build"
+  ],
   "type": "module",
+  "sideEffects": false,
+  "exports": "./build/index.js",
   "scripts": {
-    "build": "pnpm -F !website build",
-    "bump": "ncu -ws -u",
-    "clean": "rm -rf pnpm-local.yaml node_modules **/node_modules **/build",
+    "build": "tsgo",
+    "bump": "ncu -u",
+    "clean": "rm -rf node_modules build",
     "format": "vp fmt",
     "lint": "vp fmt --check && vp lint",
     "prepare": "is-ci || lefthook install",
-    "release": "pnpm -r publish --access public --ignore-scripts --no-git-checks",
-    "setversion": "pnpm -r exec pnpm version --no-git-tag-version",
-    "unit": "vp test",
-    "start": "pnpm -F website start",
+    "release": "pnpm publish --access public --ignore-scripts --no-git-checks",
+    "setversion": "pnpm version --no-git-tag-version",
     "test": "pnpm lint && pnpm type && pnpm unit",
-    "type": "pnpm -r type"
+    "type": "tsgo --noEmit",
+    "unit": "vp test"
+  },
+  "dependencies": {
+    "commander": "^14.0.3",
+    "fdir": "^6.5.0",
+    "ignore": "^7.0.5",
+    "picocolors": "^1.1.1",
+    "picomatch": "^4.0.3",
+    "ts-morph": "^27.0.2",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@semantic-release/exec": "7.1.0",
     "@types/node": "24.2.0",
+    "@types/picomatch": "^4.0.2",
     "@typescript/native-preview": "7.0.0-dev.20260316.1",
     "@vitest/coverage-v8": "4.0.16",
     "conventional-changelog-conventionalcommits": "9.1.0",
