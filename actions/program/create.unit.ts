@@ -1,6 +1,7 @@
 import { describe, expect, it, vi } from "vite-plus/test"
 import type { Function } from "../../models/function.ts"
 import type { Module } from "../../models/module.ts"
+import { MAX_MODULES } from "../../settings.ts"
 import { defineConfig } from "../config/define.ts"
 import { parseModules } from "../module/parse.ts"
 import { searchModules } from "../module/search.ts"
@@ -91,6 +92,25 @@ describe("createProgram", () => {
     })
     const program = createProgram(config)
     expect(program.commands.map(c => c.name())).not.toContain("db")
+  })
+
+  it("should throw when discovery exceeds MAX_MODULES", () => {
+    const overLimit = Array.from({ length: MAX_MODULES + 1 }, (_, i) => ({
+      path: `/tasks/@f${i}.ts`,
+    }))
+    vi.mocked(searchModules).mockReturnValueOnce(overLimit)
+    expect(() => createProgram(defineConfig({}))).toThrow(
+      `Discovered ${MAX_MODULES + 1} task modules`,
+    )
+  })
+
+  it("should accept exactly MAX_MODULES modules", () => {
+    const atLimit = Array.from({ length: MAX_MODULES }, (_, i) => ({
+      path: `/tasks/@f${i}.ts`,
+    }))
+    vi.mocked(searchModules).mockReturnValueOnce(atLimit)
+    vi.mocked(parseModules).mockReturnValueOnce([])
+    expect(() => createProgram(defineConfig({}))).not.toThrow()
   })
 
   it("should preserve declaration order for group subcommands", () => {

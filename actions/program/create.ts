@@ -1,6 +1,7 @@
 import { Command } from "commander"
 import { helpConfiguration } from "../../helpers/program.ts"
 import type { Config } from "../../models/config.ts"
+import { MAX_MODULES } from "../../settings.ts"
 import { createCommand } from "../command/create.ts"
 import { groupModules } from "../module/group.ts"
 import { parseModules } from "../module/parse.ts"
@@ -17,6 +18,11 @@ export function createProgram(config: Config) {
     .configureHelp(helpConfiguration)
 
   const modules = searchModules(config.pattern)
+  if (modules.length > MAX_MODULES) {
+    throw new Error(
+      `Discovered ${modules.length} task modules, which exceeds the limit of ${MAX_MODULES}. Narrow config.pattern to reduce the set.`,
+    )
+  }
   const { groups, ungrouped } = groupModules(modules, config.groups)
 
   for (const func of parseModules(ungrouped)) {
