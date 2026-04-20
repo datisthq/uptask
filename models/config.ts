@@ -1,6 +1,7 @@
 import type { Command } from "commander"
 import { z } from "zod"
 import packageJson from "../package.json" with { type: "json" }
+import { Group } from "./group.ts"
 
 /**
  * A project configuration mapping file patterns to task modules.
@@ -11,6 +12,7 @@ export const Config = z.object({
   version: z.string().default(packageJson.version),
   description: z.string().default(packageJson.description),
   pattern: z.string().default("@*.ts"),
+  groups: z.array(Group.omit({ modules: true })).default([]),
   setupProgram: z
     .custom<(program: Command) => void>(
       val => typeof val === "function" || val === undefined,
