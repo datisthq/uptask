@@ -2,28 +2,26 @@
   "name": "uptask",
   "version": "0.0.0-dev",
   "description": "Uptask runs TypeScript functions from the command line with no setup.",
-  "keywords": [
-    "uptask"
-  ],
+  "keywords": ["uptask"],
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/uptask",
   "bin": {
-    "uptask": "./entrypoints/main.ts"
+    "uptask": "./build/entrypoints/main.js"
   },
-  "files": [
-    "build"
-  ],
+  "files": ["build"],
   "type": "module",
   "sideEffects": false,
   "exports": "./build/index.js",
   "scripts": {
     "build": "tsgo",
     "bump": "ncu -u",
-    "clean": "rm -rf node_modules build",
+    "clean": "rm -rf pnpm-lock.yaml node_modules build",
+    "docs:build": "livemark build",
+    "docs:start": "livemark start",
     "format": "vp fmt",
     "lint": "vp fmt --check && vp lint",
-    "prepare": "is-ci || lefthook install",
+    "prepare": "is-ci || lefthook install --force",
     "release": "pnpm publish --access public --ignore-scripts --no-git-checks",
     "setversion": "pnpm version --no-git-tag-version",
     "test": "pnpm lint && pnpm type && pnpm unit",
@@ -44,16 +42,17 @@
     "@types/node": "24.2.0",
     "@types/picomatch": "^4.0.2",
     "@typescript/native-preview": "7.0.0-dev.20260316.1",
-    "@vitest/coverage-v8": "4.0.16",
+    "@vitest/coverage-v8": "4.1.5",
     "conventional-changelog-conventionalcommits": "9.1.0",
     "husky": "9.1.7",
     "is-ci": "4.1.0",
     "lefthook": "2.1.1",
+    "livemark": "0.7.2",
     "npm-check-updates": "18.0.1",
     "semantic-release": "24.2.9",
     "tempy": "3.2.0",
-    "vite-plus": "0.1.12",
-    "vitest-polly": "1.4.0"
+    "vite-plus": "0.1.19",
+    "vitest-polly": "2.1.0"
   },
   "engines": {
     "node": "^24.0.0",
