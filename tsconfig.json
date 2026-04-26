@@ -7,7 +7,9 @@
     "${configDir}/**/build/",
     "${configDir}/**/compile/",
     "${configDir}/**/fixtures/",
-    "${configDir}/**/examples/"
+    "${configDir}/**/examples/",
+    "${configDir}/.livemark/",
+    "${configDir}/docs/"
   ],
 
   "compilerOptions": {
