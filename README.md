@@ -1,8 +1,9 @@
 # Uptask
 
-Uptask scans your project for files matching a glob, parses each exported
-function's signature with the TypeScript compiler, and registers a Commander
-command for each one. No decorators, no boilerplate — just write functions.
+Point uptask at a glob. Every function exported from a matching file becomes
+a CLI command — argument names, types, defaults, optional flags, and `--help`
+descriptions are all derived from the function's signature and JSDoc. No
+decorators, no boilerplate, no config required — just write functions.
 
 ## Install
 
