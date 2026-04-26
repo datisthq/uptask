@@ -95,7 +95,7 @@ function BackgroundGrid() {
       />
       <div
         aria-hidden
-        className="absolute -bottom-40 -left-40 h-[36rem] w-[36rem] rounded-full bg-blue-400/30 dark:bg-blue-500/25 blur-[110px] pointer-events-none"
+        className="absolute -bottom-40 -left-40 h-[36rem] w-[36rem] rounded-full bg-primary/30 dark:bg-primary/25 blur-[110px] pointer-events-none"
       />
       <div
         aria-hidden
