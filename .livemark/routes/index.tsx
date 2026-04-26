@@ -75,7 +75,7 @@ function Hero() {
           </a>
         </div>
 
-        <div className="mt-10 inline-flex items-center gap-3 rounded-lg border border-border bg-card/50 backdrop-blur px-4 py-2.5 font-mono text-sm text-muted-foreground">
+        <div className="mt-10 hidden sm:inline-flex items-center gap-3 rounded-lg border border-border bg-card/50 backdrop-blur px-4 py-2.5 font-mono text-sm text-muted-foreground">
           <span className="text-primary select-none">$</span>
           <span>
             <span className="text-foreground">npm install</span> uptask
