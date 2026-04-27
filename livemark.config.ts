@@ -5,6 +5,7 @@ export default defineConfig({
   title: "Uptask",
   description: "Run TS functions from the CLI",
   logo: "/logo.svg",
+  favicon: "/logo.png",
   include: ["docs/**/*.md", "README.md"],
   sections: [
     { title: "Docs", prefix: "/" },
