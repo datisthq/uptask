@@ -33,10 +33,7 @@ describe("loadConfig", () => {
   it("should merge loaded config with defaults", () =>
     temporaryDirectoryTask(async tmpDir => {
       const configPath = join(tmpDir, "uptask.config.ts")
-      fs.writeFileSync(
-        configPath,
-        'export default { pattern: "tasks/**/*.ts" }\n',
-      )
+      fs.writeFileSync(configPath, 'export default { pattern: "tasks/**/*.ts" }\n')
       const config = await loadConfig(configPath)
       expect(config.pattern).toBe("tasks/**/*.ts")
       expect(config.name).toBe("uptask")

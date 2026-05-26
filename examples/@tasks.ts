@@ -5,11 +5,7 @@
  * @param amount Number of iterations
  * @param dryRun Run without making changes
  */
-export function test1(
-  target: string,
-  amount: number = 3,
-  dryRun: boolean = false,
-) {
+export function test1(target: string, amount: number = 3, dryRun: boolean = false) {
   console.log(target, amount, dryRun)
 }
 

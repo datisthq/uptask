@@ -25,11 +25,7 @@ The default scan pattern is `@*.ts`. Create one anywhere in your project:
  * @param watch Enable watch mode
  * @param concurrency Number of parallel builds
  */
-export function build(
-  target: string,
-  watch: boolean = false,
-  concurrency: number = 4,
-) {
+export function build(target: string, watch: boolean = false, concurrency: number = 4) {
   console.log({ target, watch, concurrency })
 }
 ```

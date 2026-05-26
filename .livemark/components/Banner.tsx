@@ -22,8 +22,7 @@ export function Banner() {
             rel="noopener noreferrer"
             className="font-semibold hover:underline underline-offset-2"
           >
-            <MessageCircle className="inline size-3.5 align-[-0.125em]" /> share
-            feedback!
+            <MessageCircle className="inline size-3.5 align-[-0.125em]" /> share feedback!
           </a>
         </span>
       </div>

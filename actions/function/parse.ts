@@ -11,8 +11,7 @@ import { createProject } from "../project/create.ts"
 export function parseFunctions(module: Module, project?: Project): Function[] {
   project ??= createProject()
   const sourceFile =
-    project.getSourceFile(module.path) ??
-    project.addSourceFileAtPath(module.path)
+    project.getSourceFile(module.path) ?? project.addSourceFileAtPath(module.path)
   const functions: Function[] = []
 
   for (const funcDecl of sourceFile.getFunctions()) {
@@ -103,9 +102,7 @@ function extractObjectProperties(
         name: propName,
         type: resolvedType,
         required: !isOptional,
-        ...(resolvedType === "boolean" && !isOptional
-          ? { default: false }
-          : {}),
+        ...(resolvedType === "boolean" && !isOptional ? { default: false } : {}),
         description: paramTags.get(`${prefix}.${propName}`) ?? "",
         ...(nestedProperties && nestedProperties.length > 0
           ? { properties: nestedProperties }

@@ -119,9 +119,7 @@ describe("createProgram", () => {
       { path: "/tasks/@build.ts" },
     ])
     vi.mocked(parseModules).mockImplementation((modules: Module[]) =>
-      modules.map(m =>
-        fn(m.path, m.path.endsWith("@db.ts") ? "migrate" : "run"),
-      ),
+      modules.map(m => fn(m.path, m.path.endsWith("@db.ts") ? "migrate" : "run")),
     )
     const config = defineConfig({
       groups: [

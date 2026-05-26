@@ -140,11 +140,7 @@
   }
   [data-slot="sidebar-content"]:hover,
   [data-slot="sidebar-content"]:focus-within {
-    scrollbar-color: color-mix(
-        in oklch,
-        var(--sidebar-foreground) 20%,
-        transparent
-      )
+    scrollbar-color: color-mix(in oklch, var(--sidebar-foreground) 20%, transparent)
       transparent;
   }
 

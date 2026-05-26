@@ -160,9 +160,7 @@ describe("createCommand", () => {
       path: join(fixturesDir, "no-jsdoc.ts"),
       name: "noDescription",
       description: "",
-      parameters: [
-        { name: "name", type: "string", required: true, description: "" },
-      ],
+      parameters: [{ name: "name", type: "string", required: true, description: "" }],
     }
     const cmd = createCommand(func)
     expect(cmd.description()).toBe("")

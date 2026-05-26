@@ -46,8 +46,8 @@ function Hero() {
         </h1>
 
         <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Point uptask at a glob. Every function exported from a matching file
-          becomes a CLI command.
+          Point uptask at a glob. Every function exported from a matching file becomes a
+          CLI command.
         </p>
 
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -160,8 +160,7 @@ function Features() {
               Everything a task runner needs
             </h2>
             <p className="mt-4 text-muted-foreground text-lg">
-              Sensible defaults, no setup to start, fully customizable when you
-              need it.
+              Sensible defaults, no setup to start, fully customizable when you need it.
             </p>
           </div>
         </Reveal>
@@ -184,9 +183,7 @@ function FeatureCard({ icon: Icon, title, description }: Feature) {
         <Icon className="size-5" />
       </div>
       <h3 className="text-lg font-semibold text-foreground">{title}</h3>
-      <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
-        {description}
-      </p>
+      <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{description}</p>
     </div>
   )
 }
@@ -216,13 +213,9 @@ function SourceSample() {
         {"\n"}
         <span className={tk.comment}>{" *"}</span>
         {"\n"}
-        <span className={tk.comment}>
-          {" * @param target Build target name"}
-        </span>
+        <span className={tk.comment}>{" * @param target Build target name"}</span>
         {"\n"}
-        <span className={tk.comment}>
-          {" * @param watch Enable watch mode"}
-        </span>
+        <span className={tk.comment}>{" * @param watch Enable watch mode"}</span>
         {"\n"}
         <span className={tk.comment}>{" */"}</span>
         {"\n"}
@@ -230,14 +223,11 @@ function SourceSample() {
         <span className={tk.func}>build</span>
         <span className={tk.punct}>{"("}</span>
         {"\n  "}
-        target<span className={tk.punct}>:</span>{" "}
-        <span className={tk.type}>string</span>
+        target<span className={tk.punct}>:</span> <span className={tk.type}>string</span>
         <span className={tk.punct}>,</span>
         {"\n  "}
-        watch<span className={tk.punct}>:</span>{" "}
-        <span className={tk.type}>boolean</span>{" "}
-        <span className={tk.punct}>=</span>{" "}
-        <span className={tk.keyword}>false</span>
+        watch<span className={tk.punct}>:</span> <span className={tk.type}>boolean</span>{" "}
+        <span className={tk.punct}>=</span> <span className={tk.keyword}>false</span>
         <span className={tk.punct}>,</span>
         {"\n"}
         <span className={tk.punct}>{") {"}</span>
@@ -258,8 +248,7 @@ function HelpSample() {
   return (
     <pre className="p-5 text-sm leading-relaxed font-mono overflow-x-auto">
       <code className={tk.body}>
-        <span className={tk.prompt}>$</span>{" "}
-        <span className={tk.func}>uptask</span> build{" "}
+        <span className={tk.prompt}>$</span> <span className={tk.func}>uptask</span> build{" "}
         <span className={tk.flag}>--help</span>
         {"\n"}
         <span className={tk.dim}>USAGE</span> uptask build{" "}
@@ -294,8 +283,8 @@ function Showcase() {
               Write a function. Get a command.
             </h2>
             <p className="mt-4 text-muted-foreground text-lg">
-              Your <code className="font-mono">.ts</code> files stay as they are
-              — uptask does the rest.
+              Your <code className="font-mono">.ts</code> files stay as they are — uptask
+              does the rest.
             </p>
           </div>
         </Reveal>

@@ -20,9 +20,7 @@ export function createCommand(func: Function): Command {
     if (i === 0 && (param.type === "string[]" || param.type === "number[]")) {
       hasVariadic = true
       argumentParams.push(param)
-      const bracket = param.required
-        ? `<${param.name}...>`
-        : `[${param.name}...]`
+      const bracket = param.required ? `<${param.name}...>` : `[${param.name}...]`
       cmd.argument(bracket, param.description || "")
     } else if (
       !hasVariadic &&
@@ -48,8 +46,7 @@ export function createCommand(func: Function): Command {
       if (argIndex !== -1) {
         const val = positionalValues[argIndex]
         if (param.type === "number") return Number(val)
-        if (param.type === "number[]")
-          return (val as unknown[]).map(v => Number(v))
+        if (param.type === "number[]") return (val as unknown[]).map(v => Number(v))
         return val
       }
       if (param.type === "object" && param.properties?.length) {
@@ -86,9 +83,7 @@ function formatIssues(parameter: Parameter | undefined, error: z.ZodError) {
   const parts = error.issues.map(issue => {
     const nested = issue.path.map(String).filter(Boolean).join(".")
     const target = nested ? `${label}.${nested}` : label
-    const reason = issue.message
-      .replace(/^Invalid input:\s*/i, "")
-      .toLowerCase()
+    const reason = issue.message.replace(/^Invalid input:\s*/i, "").toLowerCase()
     return `invalid argument '${target}': ${reason}`
   })
   return parts.join("; ")
@@ -133,12 +128,7 @@ function registerOption(cmd: Command, param: Parameter) {
     if (param.required) {
       cmd.requiredOption(`--${flag} <value>`, description, Number)
     } else {
-      cmd.option(
-        `--${flag} <value>`,
-        description,
-        Number,
-        param.default as number,
-      )
+      cmd.option(`--${flag} <value>`, description, Number, param.default as number)
     }
   } else if (param.type === "boolean") {
     cmd.option(`--${flag}`, description, param.default as boolean | undefined)

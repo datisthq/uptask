@@ -29,8 +29,7 @@ export default defineConfig({
       file: "README.md",
       article: {
         title: "Introduction",
-        description:
-          "Install uptask and turn your first TypeScript file into a CLI.",
+        description: "Install uptask and turn your first TypeScript file into a CLI.",
         icon: "rocket",
         order: 1,
         path: "/introduction/",
@@ -40,8 +39,7 @@ export default defineConfig({
       file: "CONTRIBUTING.md",
       article: {
         title: "Contributing",
-        description:
-          "How to set up uptask locally, propose changes, and ship a release.",
+        description: "How to set up uptask locally, propose changes, and ship a release.",
         icon: "heart-handshake",
         order: -1,
         path: "/contributing/",

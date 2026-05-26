@@ -41,10 +41,7 @@ describe("groupModules", () => {
   })
 
   it("should handle empty modules input", () => {
-    const { groups, ungrouped } = groupModules(
-      [],
-      [{ name: "db", pattern: "@db*.ts" }],
-    )
+    const { groups, ungrouped } = groupModules([], [{ name: "db", pattern: "@db*.ts" }])
     expect(groups[0]?.modules).toEqual([])
     expect(ungrouped).toEqual([])
   })

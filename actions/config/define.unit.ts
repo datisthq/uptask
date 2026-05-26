@@ -22,9 +22,7 @@ describe("defineConfig", () => {
   })
 
   it("should reject invalid field types", () => {
-    expect(() =>
-      defineConfig({ name: 123 } as unknown as { name: string }),
-    ).toThrow()
+    expect(() => defineConfig({ name: 123 } as unknown as { name: string })).toThrow()
   })
 
   it("should preserve all defaults when only pattern provided", () => {
