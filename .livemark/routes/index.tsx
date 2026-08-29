@@ -25,6 +25,7 @@ function Landing() {
       <Features />
       <Showcase />
       <FinalCta />
+      <Datist />
     </div>
   )
 }
@@ -351,6 +352,30 @@ function FinalCta() {
             >
               See the config
             </Link>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  )
+}
+
+function Datist() {
+  return (
+    <section className="border-t border-border">
+      <div className="mx-auto max-w-5xl px-6 py-10">
+        <Reveal>
+          <div className="flex flex-col items-center gap-3 text-center">
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+              Built by
+            </p>
+            <a
+              href="https://datist.io"
+              target="_blank"
+              rel="noopener"
+              className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors no-underline"
+            >
+              Datist — Software development, end to end.
+            </a>
           </div>
         </Reveal>
       </div>
