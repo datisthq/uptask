@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: Uptask
+abstract: CLI runner that turns exported TypeScript functions into commands with arguments derived from their signatures.
+authors:
+  - family-names: Karev
+    given-names: Evgeny
+    email: evgeny.karev@datist.io
+url: "https://uptask.dev"
+repository-code: "https://github.com/datisthq/uptask"
+license: MIT
+keywords:
+  - cli
+  - tasks
+  - typescript
+  - uptask
