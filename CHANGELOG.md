@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/datisthq/uptask/compare/v0.7.0...v0.7.1) (2026-09-11)
+
+
+### Bug Fixes
+
+* **release:** keep the v-prefixed tag format ([62ffc60](https://github.com/datisthq/uptask/commit/62ffc6058990760f8ea48fa75ec35b331f1804d0))
+
 ## [0.7.0](https://github.com/datisthq/uptask/compare/v0.6.0...v0.7.0) (2026-08-29)
 
 ### Features
