@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.1](https://github.com/datisthq/uptask/compare/v0.7.0...v0.7.1) (2026-10-06)
+
+
+### Bug Fixes
+
+* **ci:** look up the release PR instead of reading the action output ([f2de00b](https://github.com/datisthq/uptask/commit/f2de00b3004b3170c3fafe5dfc83a48a529ccd9d))
+
 ## [0.7.0](https://github.com/datisthq/uptask/compare/v0.6.0...v0.7.0) (2026-08-29)
 
 ### Features
