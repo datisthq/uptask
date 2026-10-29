@@ -1,8 +1,35 @@
 # Contributing
 
-Uptask is an open-source project and we'd love your help — whether that's fixing a bug, polishing the docs, or proposing a new feature. This guide walks through everything you need to get a change from your editor into a release.
+> [!WARNING]
+> **We don't accept pull requests from outside contributors.** Pull requests opened by anyone outside the team are closed without review. If you've found a bug or have an idea, open an issue or start a discussion instead, as described below.
 
-## Quick start
+Uptask is an open-source project developed by the [Datist](https://datist.io) team. Everyone is welcome to help shape it with bug reports, ideas and questions; code changes come from team members.
+
+## Contributors
+
+### Report a bug
+
+Open an issue on [GitHub Issues](https://github.com/datisthq/uptask/issues). A good report includes:
+
+- the Uptask version and how you use it
+- the smallest input that reproduces the problem
+- the output you got and the output you expected
+
+### Share an idea or ask a question
+
+Use [GitHub Discussions](https://github.com/datisthq/uptask/discussions) for anything that isn't a bug:
+
+- [Ideas](https://github.com/datisthq/uptask/discussions/new?category=ideas): features and improvements you'd like to see
+- [Q&A](https://github.com/datisthq/uptask/discussions/new?category=q-a): questions about using Uptask
+- [Show and tell](https://github.com/datisthq/uptask/discussions/new?category=show-and-tell): projects built with Uptask
+
+Ideas the team picks up turn into issues.
+
+## Members
+
+The rest of this guide is for Datist team members working on Uptask.
+
+### Quick start
 
 You'll need [Node.js](https://nodejs.org/) 24+ and [pnpm](https://pnpm.io/) 10+. Then:
 
@@ -20,7 +47,7 @@ pnpm build
 node build/entrypoints/main.js --help
 ```
 
-## Repository layout
+### Repository layout
 
 ```
 uptask/
@@ -49,7 +76,7 @@ uptask/
 
 The package ships only `build/` (compiled by `tsgo`). Everything else is for development.
 
-## Local commands
+### Local commands
 
 | Command           | What it does                                                |
 | ----------------- | ----------------------------------------------------------- |
@@ -65,7 +92,7 @@ The package ships only `build/` (compiled by `tsgo`). Everything else is for dev
 
 A change is ready to push when `pnpm test` is green.
 
-## Code conventions
+### Code conventions
 
 - **TypeScript**: strict mode is on. Don't use `any`, `as`-casts, or non-null `!` without permission — flag it in the PR.
 - **Imports**: use full ESM paths with the `.ts(x)` extension (`from "./foo.ts"`). `tsgo` rewrites them to `.js` on emit via `rewriteRelativeImportExtensions`.
@@ -74,7 +101,7 @@ A change is ready to push when `pnpm test` is green.
 - **Tests**: unit tests live next to the code as `<module>.unit.ts`. No "Arrange/Act/Assert" comments — the structure should be obvious.
 - **Formatting**: Biome via `pnpm format`. 2-space indent, no semicolons, double quotes (LF, UTF-8).
 
-## Proposing a change
+### Proposing a change
 
 1. **Open an issue first** for anything bigger than a typo or a small bug. It's easier to align on direction before code.
 2. **Branch from `main`** with a short descriptive name (e.g. `fix-glob-walk-up`, `feat-validation-coercion`).
@@ -86,16 +113,8 @@ A change is ready to push when `pnpm test` is green.
 4. **Run `pnpm test`** before pushing.
 5. **Open a PR** against `main`. Describe the _why_ (link the issue), include CLI output for any UX-visible change, and call out anything reviewers should pay extra attention to.
 
-## Releases
+### Releases
 
 Releases are driven by [semantic-release](https://semantic-release.gitbook.io/) on every push to `main`. Conventional commit messages decide the next version automatically. Maintainers don't need to bump versions manually.
 
 For a local version bump (e.g. preparing a non-semantic-release branch), use `pnpm setversion <new-version>` — it sets the version without creating a git tag.
-
-## Where to find help
-
-- **Bugs and feature requests**: [GitHub Issues](https://github.com/datisthq/uptask/issues)
-- **Discussion / ideas**: [GitHub Discussions](https://github.com/datisthq/uptask/discussions)
-- **Source**: [github.com/datisthq/uptask](https://github.com/datisthq/uptask)
-
-Thanks for helping make Uptask better.

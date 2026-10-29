@@ -39,7 +39,8 @@ export default defineConfig({
       file: "CONTRIBUTING.md",
       article: {
         title: "Contributing",
-        description: "How to set up uptask locally, propose changes, and ship a release.",
+        description:
+          "How to report bugs and share ideas, and how team members work on uptask.",
         icon: "heart-handshake",
         order: -1,
         path: "/contributing/",
