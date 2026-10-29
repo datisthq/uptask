@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.7.2](https://github.com/datisthq/uptask/compare/v0.7.1...v0.7.2) (2026-10-29)
+
+
+### Bug Fixes
+
+* import config and task files by file URL so Windows absolute paths load ([62ae9af](https://github.com/datisthq/uptask/commit/62ae9af018af9db4af752947af0074c17cbd823b))
+
 ## [0.7.1](https://github.com/datisthq/uptask/compare/v0.7.0...v0.7.1) (2026-10-06)
 
 
