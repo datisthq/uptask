@@ -6,6 +6,7 @@ import { defineConfig } from "../config/define.ts"
 import { parseModules } from "../module/parse.ts"
 import { searchModules } from "../module/search.ts"
 import { createProgram } from "./create.ts"
+import packageJson from "../../package.json" with { type: "json" }
 
 vi.mock("../module/search.ts", () => ({
   searchModules: vi.fn(() => []),
@@ -24,7 +25,7 @@ describe("createProgram", () => {
     const config = defineConfig({})
     const program = createProgram(config)
     expect(program.name()).toBe("uptask")
-    expect(program.version()).toBe("0.0.0-dev")
+    expect(program.version()).toBe(packageJson.version)
   })
 
   it("should call setupProgram hook", () => {

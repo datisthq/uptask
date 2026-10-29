@@ -1,11 +1,12 @@
 import { describe, expect, it } from "vite-plus/test"
 import { defineConfig } from "./define.ts"
+import packageJson from "../../package.json" with { type: "json" }
 
 describe("defineConfig", () => {
   it("should return defaults for empty object", () => {
     const config = defineConfig({})
     expect(config.name).toBe("uptask")
-    expect(config.version).toBe("0.0.0-dev")
+    expect(config.version).toBe(packageJson.version)
     expect(config.pattern).toBe("@*.ts")
   })
 
@@ -28,7 +29,7 @@ describe("defineConfig", () => {
   it("should preserve all defaults when only pattern provided", () => {
     const config = defineConfig({ pattern: "*.ts" })
     expect(config.name).toBe("uptask")
-    expect(config.version).toBe("0.0.0-dev")
+    expect(config.version).toBe(packageJson.version)
     expect(config.pattern).toBe("*.ts")
   })
 })
