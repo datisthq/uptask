@@ -16,7 +16,6 @@
     "target": "ES2022",
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
-    "outDir": "${configDir}/build",
 
     "lib": ["ESNext"],
     "types": ["node"],
@@ -35,7 +34,6 @@
     "inlineSources": true,
     "skipLibCheck": true,
 
-    "declaration": true,
     "rewriteRelativeImportExtensions": true
   }
 }

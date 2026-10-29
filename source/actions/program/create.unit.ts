@@ -6,7 +6,7 @@ import { defineConfig } from "../config/define.ts"
 import { parseModules } from "../module/parse.ts"
 import { searchModules } from "../module/search.ts"
 import { createProgram } from "./create.ts"
-import packageJson from "../../package.json" with { type: "json" }
+import packageJson from "../../../package.json" with { type: "json" }
 
 vi.mock("../module/search.ts", () => ({
   searchModules: vi.fn(() => []),

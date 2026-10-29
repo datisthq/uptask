@@ -5,7 +5,6 @@
 node_modules/
 jspm_packages/
 .lock-wscript
-build/Release
 .node_repl_history
 *.tgz
 .npm
@@ -59,12 +58,15 @@ build/
 compile/
 dist/
 .astro/
-.cursor/
 .serena/
 .env.local
 messages.js
 .private/
 tmuxp.yaml
 /.claude/
+/.cursor/
+.content-collections/
 .tanstack/
+/.playwright-mcp/
 .vitest/
+.worktrees/

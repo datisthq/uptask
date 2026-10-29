@@ -6,44 +6,34 @@ export default defineConfig({
   description: "Run TS functions from the CLI",
   logo: "/logo.svg",
   favicon: "/logo.png",
-  include: ["docs/**/*.md", "README.md", "CONTRIBUTING.md"],
+  include: ["docs/**/*.md", "CONTRIBUTING.md"],
   sections: [
-    { title: "Docs", prefix: "/" },
+    { title: "Docs", prefix: "/", icon: "book-open" },
     {
       title: "Changelog",
       prefix: "/changelog/",
       type: "changelog",
       source: "CHANGELOG.md",
       version: true,
+      icon: "history",
     },
-  ],
-  links: [
     {
-      url: "https://github.com/datisthq/uptask",
       title: "GitHub",
+      type: "custom",
+      url: "https://github.com/datisthq/uptask",
       icon: "github",
     },
   ],
   patches: [
     {
-      file: "README.md",
-      article: {
-        title: "Introduction",
-        description: "Install uptask and turn your first TypeScript file into a CLI.",
-        icon: "rocket",
-        order: 1,
-        path: "/introduction/",
-      },
-    },
-    {
       file: "CONTRIBUTING.md",
       article: {
         title: "Contributing",
         description:
-          "How to report bugs and share ideas, and how team members work on uptask.",
+          "How to report bugs and share ideas, and how team members work on Uptask.",
         icon: "heart-handshake",
-        order: -1,
         path: "/contributing/",
+        order: -1,
       },
     },
   ],

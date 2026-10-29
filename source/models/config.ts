@@ -1,6 +1,6 @@
 import type { Command } from "commander"
 import { z } from "zod"
-import packageJson from "../package.json" with { type: "json" }
+import packageJson from "../../package.json" with { type: "json" }
 import { Group } from "./group.ts"
 
 /**

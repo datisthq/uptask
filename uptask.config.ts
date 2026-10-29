@@ -1,4 +1,4 @@
-import { defineConfig } from "./index.ts"
+import { defineConfig } from "./source/index.ts"
 
 export default defineConfig({
   description: "Custom description",

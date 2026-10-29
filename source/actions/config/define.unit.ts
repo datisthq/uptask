@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test"
 import { defineConfig } from "./define.ts"
-import packageJson from "../../package.json" with { type: "json" }
+import packageJson from "../../../package.json" with { type: "json" }
 
 describe("defineConfig", () => {
   it("should return defaults for empty object", () => {
