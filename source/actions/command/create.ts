@@ -1,3 +1,4 @@
+import { pathToFileURL } from "node:url"
 import { Command } from "commander"
 import { z } from "zod"
 import { ValidationError } from "../../helpers/error.ts"
@@ -66,7 +67,7 @@ export function createCommand(func: Function): Command {
         throw error
       }
     })
-    const mod = (await import(func.path)) as Record<
+    const mod = (await import(pathToFileURL(func.path).href)) as Record<
       string,
       (...args: unknown[]) => unknown
     >

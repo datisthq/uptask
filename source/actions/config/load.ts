@@ -1,4 +1,5 @@
 import { resolve } from "node:path"
+import { pathToFileURL } from "node:url"
 import type { z } from "zod"
 import { Config } from "../../models/config.ts"
 import { defineConfig } from "./define.ts"
@@ -9,7 +10,7 @@ import { defineConfig } from "./define.ts"
 export async function loadConfig(path?: string) {
   const resolved = resolve(path ?? "uptask.config.ts")
   try {
-    const module: Record<string, unknown> = await import(resolved)
+    const module: Record<string, unknown> = await import(pathToFileURL(resolved).href)
     return defineConfig(module.default as z.input<typeof Config>)
   } catch (error) {
     if (
