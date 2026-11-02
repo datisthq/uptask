@@ -8,7 +8,7 @@ TypeScript package and CLI that turns every function exported from files matchin
 - **project** — a consumer's repo that uses the package, configured by its optional `uptask.config.ts`
 - **task file** — a module matching the project's pattern (`@*.ts` by default); each exported function becomes a command
 - **group** — a `config.groups[]` entry that nests matching task files under a named subcommand
-- **docs site** — this repo's own `docs/`, built by `pnpm build:docs` and deployed to uptask.dev
+- **docs site** — this repo's own `docs/`, built by `pnpm build:docs` and deployed to GitHub Pages at datisthq.github.io/uptask
 
 ## Rules
 

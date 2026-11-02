@@ -8,6 +8,6 @@ derived from its signature and JSDoc.
 | ------- | ------------------------------------------------ | -------------------- |
 | npm     | [`uptask`](https://www.npmjs.com/package/uptask) | `npm install uptask` |
 
-The docs live at [uptask.dev](https://uptask.dev), built with livemark from `docs/`. This
+The docs live at [datisthq.github.io/uptask](https://datisthq.github.io/uptask), built with livemark from `docs/`. This
 repository holds the package in `source/`; see [Contributing](CONTRIBUTING.md) for the layout
 and the commands.

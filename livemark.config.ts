@@ -1,7 +1,11 @@
 import { defineConfig } from "livemark"
+import packageJson from "./package.json" with { type: "json" }
+
+const { origin, pathname } = new URL(packageJson.homepage)
 
 export default defineConfig({
-  site: "https://uptask.dev",
+  site: origin,
+  base: command => (command === "build" ? pathname : "/"),
   title: "Uptask",
   description: "Run TS functions from the CLI",
   logo: "/logo.svg",
