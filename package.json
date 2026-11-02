@@ -63,8 +63,7 @@
     "tempy": "3.2.0",
     "vite": "catalog:",
     "vite-plus": "catalog:",
-    "vitest": "catalog:",
-    "wrangler": "4.85.0"
+    "vitest": "catalog:"
   },
   "engines": {
     "node": "^24.11.0",
