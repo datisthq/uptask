@@ -7,7 +7,7 @@ authors:
   - family-names: Karev
     given-names: Evgeny
     email: evgeny.karev@datist.io
-url: "https://datisthq.github.io/uptask"
+url: "https://uptask.dev"
 repository-code: "https://github.com/datisthq/uptask"
 license: MIT
 keywords:

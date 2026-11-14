@@ -53,6 +53,7 @@ pids
 .cache/
 .clinic/
 .vscode/
+.wrangler/
 build/
 compile/
 dist/

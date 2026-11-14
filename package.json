@@ -5,7 +5,6 @@
   "keywords": [
     "uptask"
   ],
-  "homepage": "https://datisthq.github.io/uptask",
   "license": "MIT",
   "author": "Evgeny Karev",
   "repository": "https://github.com/datisthq/uptask",
@@ -63,7 +62,8 @@
     "tempy": "3.2.0",
     "vite": "catalog:",
     "vite-plus": "catalog:",
-    "vitest": "catalog:"
+    "vitest": "catalog:",
+    "wrangler": "4.85.0"
   },
   "engines": {
     "node": "^24.11.0",
